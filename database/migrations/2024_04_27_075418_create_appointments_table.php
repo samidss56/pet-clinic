@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId("pet_id")->constrained("pets")->onDelete("cascade");
-            $table->foreignId("handled_by")->constrained("users")->onDelete("cascade");
+            $table->foreignId("doctor_id")->constrained("users")->onDelete("cascade")->nullable();
             $table->longText("description");
             $table->enum("status", ["pending", "handled", "finished"])->default("pending");
             $table->timestamps();

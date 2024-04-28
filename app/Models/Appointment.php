@@ -7,8 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    public function appointment()
+    protected $fillable = [
+        'pet_id',
+        'description',
+        'status',
+        'doctor_id',
+    ];
+
+    public function pet()
     {
-        return $this->belongsTo(Appointment::class, "appointment_id");
+        return $this->belongsTo(Pet::class, 'pet_id');
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
+    }
+
+    public function medicalRecords()
+    {
+        return $this->hasMany(MedicalRecord::class, 'appointment_id');
     }
 }

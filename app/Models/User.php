@@ -45,11 +45,11 @@ class User extends Authenticatable
 
     public function owner()
     {
-        return $this->belongsTo(Owner::class);
+        return $this->hasOne(Owner::class, 'owner_id', 'id');
     }
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->hasOne(Doctor::class, 'doctor_id', 'id');
     }
 }
