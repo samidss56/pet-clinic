@@ -1,63 +1,69 @@
-import { Link } from "@inertiajs/react"
-import NavLink from "./NavLink"
+import { Link } from "@inertiajs/react";
+import NavLink from "./NavLink";
 
-const Navbar = ({user}) => {
-  return (
-    <div
-    className={`navbar bg-white dark:bg-dark-gray sticky top-0 py-3 z-50 shadow-lg flex justify-between px-4`}
->
-    <div className="flex-none">
-        <a
-            href={route("home")}
-            className="btn btn-ghost text-xl text-gray-800 dark:text-white"
+const Navbar = ({ user }) => {
+    return (
+        <div
+            className={`navbar bg-white dark:bg-dark-gray sticky top-0 py-3 z-50 shadow-lg flex justify-between px-4`}
         >
-            Pet Clinic
-        </a>
-    </div>
-    <div className="flex-none gap-5 xs:hidden md:flex lg:gap-10">
-        {!user ? (
-            <>
-                <NavLink href={route("login")}>Login</NavLink>
-                <NavLink href={route("register")}>Register</NavLink>
-            </>
-        ) : (
-            <>
-                <NavLink
-                    href={route("owner.dashboard")}
-                    active={route().current("owner.dashboard")}
+            <div className="flex-none">
+                <a
+                    href={route("home")}
+                    className="btn btn-ghost text-xl text-gray-800 dark:text-white"
                 >
-                    Dashboard
-                </NavLink>
-                {/* <NavLink
-                    href={route("user.cars")}
-                    active={route().current("user.cars")}
-                >
-                    Cars
-                </NavLink>
-                <NavLink
-                    href={route("user.orders")}
-                    active={route().current("user.orders")}
-                >
-                    Orders
-                </NavLink> */}
-                <NavLink
-                    href={route("profile.edit")}
-                    active={route().current("profile.edit")}
-                >
-                    Profile
-                </NavLink>
-                <NavLink
-                    href={route("logout")}
-                    method="post"
-                    as="button"
-                >
-                    Logout
-                </NavLink>
-            </>
-        )}
-    </div>
-    <div className="flex-none gap-2 justify-center">
-        {/* <label className="swap swap-rotate ms-2">
+                    Pet Clinic
+                </a>
+            </div>
+            <div className="flex-none gap-5 xs:hidden md:flex lg:gap-10">
+                {!user ? (
+                    <>
+                        <NavLink href={route("login")}>Login</NavLink>
+                        <NavLink href={route("register")}>Register</NavLink>
+                    </>
+                ) : (
+                    <>
+                        <NavLink
+                            href={route("owner.dashboard")}
+                            active={route().current("owner.dashboard")}
+                        >
+                            Dashboard
+                        </NavLink>
+                        <NavLink
+                        // href={route("user.cars")}
+                        // active={route().current("user.cars")}
+                        >
+                            Pets
+                        </NavLink>
+                        <NavLink
+                        // href={route("user.orders")}
+                        // active={route().current("user.orders")}
+                        >
+                            Appointments
+                        </NavLink>
+                        <NavLink
+                        // href={route("user.orders")}
+                        // active={route().current("user.orders")}
+                        >
+                            Medical Records
+                        </NavLink>
+                        <NavLink
+                            href={route("profile.edit")}
+                            active={route().current("profile.edit")}
+                        >
+                            Profile
+                        </NavLink>
+                        <NavLink
+                            href={route("logout")}
+                            method="post"
+                            as="button"
+                        >
+                            Logout
+                        </NavLink>
+                    </>
+                )}
+            </div>
+            <div className="flex-none gap-2 justify-center">
+                {/* <label className="swap swap-rotate ms-2">
             <button
                 className="theme-controller"
                 // onClick={toggleDarkMode}
@@ -103,111 +109,120 @@ const Navbar = ({user}) => {
             )}
         </label> */}
 
-        <div className="dropdown dropdown-end">
-            <button
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost"
-            >
-                {user ? (
-                    <h1 className="text-gray-800 dark:text-white">
-                        {user?.name}
-                    </h1>
-                ) : (
-                    <h1 className="text-gray-800 dark:text-white">
-                        Guest
-                    </h1>
-                )}
-                <svg
-                    className="ms-2 -me-0.5 h-4 w-4 md:hidden"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                    />
-                </svg>
-            </button>
-            <ul
-                tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content rounded-box w-52 bg-white text-gray-800 dark:bg-base-100 dark:text-white md:hidden"
-            >
-                <Link
-                    as="button"
-                    href="/"
-                    className="btn btn-ghost text-xl text-gray-800 dark:text-white xs:flex md:hidden justify-start px-2"
-                >
-                    Car Rental
-                </Link>
-                {!user ? (
-                    <>
-                        <li>
-                            <Link href={route("login")} as="button">
-                                Login
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={route("register")} as="button">
-                                Register
-                            </Link>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li>
-                            <Link
-                                href={route("owner.dashboard")}
-                                as="button"
-                                className="justify-between"
-                            >
-                                Dashboard
-                            </Link>
-                        </li>
-                        {/* <li>
-                            <Link
-                                href={route("user.cars")}
-                                as="button"
-                                className="justify-between"
-                            >
-                                Cars
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={route("user.orders")}
-                                as="button"
-                                className="justify-between"
-                            >
-                                Orders
-                            </Link>
-                        </li> */}
-                        <li>
-                            <Link
-                                href={route("profile.edit")}
-                                as="button"
-                            >
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={route("logout")}
-                                method="post"
-                                as="button"
-                            >
-                                Logout
-                            </Link>
-                        </li>
-                    </>
-                )}
-            </ul>
+                <div className="dropdown dropdown-end">
+                    <button
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-ghost"
+                    >
+                        {user ? (
+                            <h1 className="text-gray-800 dark:text-white">
+                                {user?.name}
+                            </h1>
+                        ) : (
+                            <h1 className="text-gray-800 dark:text-white">
+                                Guest
+                            </h1>
+                        )}
+                        <svg
+                            className="ms-2 -me-0.5 h-4 w-4 md:hidden"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                    </button>
+                    <ul
+                        tabIndex={0}
+                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content rounded-box w-52 bg-white text-gray-800 dark:bg-base-100 dark:text-white md:hidden"
+                    >
+                        <Link
+                            as="button"
+                            href="/"
+                            className="btn btn-ghost text-xl text-gray-800 dark:text-white xs:flex md:hidden justify-start px-2"
+                        >
+                            Pet Clinic
+                        </Link>
+                        {!user ? (
+                            <>
+                                <li>
+                                    <Link href={route("login")} as="button">
+                                        Login
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={route("register")} as="button">
+                                        Register
+                                    </Link>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link
+                                        href={route("owner.dashboard")}
+                                        as="button"
+                                        className="justify-between"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        // href={route("user.cars")}
+                                        as="button"
+                                        className="justify-between"
+                                    >
+                                        Pets
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        // href={route("user.cars")}
+                                        as="button"
+                                        className="justify-between"
+                                    >
+                                        Appointment
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        // href={route("user.orders")}
+                                        as="button"
+                                        className="justify-between"
+                                    >
+                                        Medical Record
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={route("profile.edit")}
+                                        as="button"
+                                    >
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href={route("logout")}
+                                        method="post"
+                                        as="button"
+                                    >
+                                        Logout
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-  )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
