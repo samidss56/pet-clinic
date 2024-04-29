@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('owners', function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id')->constrained("users")->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 

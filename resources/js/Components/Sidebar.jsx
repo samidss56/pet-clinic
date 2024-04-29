@@ -57,7 +57,7 @@ const Sidebar = ({ user }) => {
                                 <>
                                     <li>
                                         <Link
-                                            // href={route("admin.cars")}
+                                            href={route("admin.users")}
                                             as="button"
                                         >
                                             <svg

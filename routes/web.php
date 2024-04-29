@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\DoctorDashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OwnerDashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
+use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,11 @@ Route::middleware(['auth', 'verified', 'doctor'])->group(function () {
 
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+
+    Route::get('/admin/users/create-user', [UserController::class, 'createUserPage'])->name('admin.users.create');
+    Route::post('/admin/users/create', [UserController::class, 'store'])->name('admin.users.store');
 });
 
 
@@ -41,4 +46,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

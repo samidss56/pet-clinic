@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
             $table->foreignId("doctor_id")->constrained("users")->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 
