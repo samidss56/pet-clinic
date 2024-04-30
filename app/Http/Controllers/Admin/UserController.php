@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = new UserCollection(User::orderByDesc('created_at')->paginate(10));
-        return Inertia::render('Admin/Users', [
+        return Inertia::render('Admin/Users/Users', [
             'title' => 'Users Management',
             'users' => $users
         ]);
@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function createUserPage()
     {
-        return Inertia::render('Admin/CreateUser', [
+        return Inertia::render('Admin/Users/CreateUser', [
             'title' => 'Create User'
         ]);
     }
@@ -56,6 +56,48 @@ class UserController extends Controller
         }
 
         event(new Registered($user));
+        return redirect()->route('admin.users');
+    }
+
+    public function updateUserPage(User $user)
+    {
+        $userData = $user->find($user->id);
+        return Inertia::render('Admin/Users/UpdateUser', [
+            'title' => 'Update User',
+            'user' => $userData
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'role' => 'required|in:admin,doctor,owner',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role
+        ]);
+
+        if ($request->role === 'owner' && $user->doctor) {
+            $owner = new Owner(['owner_id' => $user->id]);
+            $user->owner()->save($owner);
+            $user->doctor()->delete();
+        } elseif ($request->role === 'doctor' && $user->owner) {
+            $doctor = new Doctor(['doctor_id' => $user->id]);
+            $user->doctor()->save($doctor);
+            $user->owner()->delete();
+        }
+
+        return redirect()->route('admin.users');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
         return redirect()->route('admin.users');
     }
 }

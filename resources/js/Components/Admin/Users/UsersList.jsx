@@ -1,7 +1,23 @@
 import DangerButton from "@/Components/DangerButton";
 import PrimaryButton from "@/Components/PrimaryButton";
+import { Link } from "@inertiajs/react";
+import { useState } from "react";
+import ModalDeleteUser from "./ModalDeleteUser";
 
 const isUsers = (users) => {
+    const [showModalDeletUser, setShowModalDeleteUser] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const handleShowModalDeleteUser = (user) => {
+        setSelectedUser(user);
+        setShowModalDeleteUser(true);
+    };
+
+    const closeModalDeleteUser = () => {
+        setSelectedUser(null);
+        setShowModalDeleteUser(false);
+    };
+
     return (
         <div className="overflow-x-auto">
             <table className="table bg-white dark:bg-dark-gray border-dark-gray rounded-md">
@@ -42,23 +58,35 @@ const isUsers = (users) => {
                                 </th>
 
                                 <th className="flex gap-3">
-                                    <PrimaryButton>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            width="22"
-                                            height="22"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                        >
-                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                        </svg>
-                                    </PrimaryButton>
-                                    <DangerButton>
+                                    <Link
+                                        href={route(
+                                            "admin.users.edit",
+                                            user.id
+                                        )}
+                                        method="get"
+                                    >
+                                        <PrimaryButton>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                width="22"
+                                                height="22"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                            >
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                            </svg>
+                                        </PrimaryButton>
+                                    </Link>
+                                    <DangerButton
+                                        onClick={() =>
+                                            handleShowModalDeleteUser(user)
+                                        }
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24"
@@ -86,6 +114,14 @@ const isUsers = (users) => {
                                             />
                                         </svg>
                                     </DangerButton>
+                                    <ModalDeleteUser
+                                        show={
+                                            showModalDeletUser &&
+                                            selectedUser === user
+                                        }
+                                        onClose={closeModalDeleteUser}
+                                        user={selectedUser}
+                                    />
                                 </th>
                             </tr>
                         ))}
