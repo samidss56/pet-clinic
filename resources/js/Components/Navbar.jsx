@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import NavLink from "./NavLink";
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, darkMode, toggleDarkMode }) => {
     return (
         <div
             className={`navbar bg-white dark:bg-dark-gray sticky top-0 py-3 z-50 shadow-lg flex justify-between px-4`}
@@ -63,10 +63,10 @@ const Navbar = ({ user }) => {
                 )}
             </div>
             <div className="flex-none gap-2 justify-center">
-                {/* <label className="swap swap-rotate ms-2">
+                <label className="swap swap-rotate ms-2">
             <button
                 className="theme-controller"
-                // onClick={toggleDarkMode}
+                onClick={toggleDarkMode}
             />
             {darkMode ? (
                 <svg
@@ -107,7 +107,7 @@ const Navbar = ({ user }) => {
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
             )}
-        </label> */}
+        </label>
 
                 <div className="dropdown dropdown-end">
                     <button

@@ -1,19 +1,19 @@
-import Sidebar from '@/Components/Sidebar';
-import Navbar from '@/Components/Navbar';
+import Sidebar from "@/Components/Sidebar";
+import Navbar from "@/Components/Navbar";
+import { useDarkMode } from "@/Contexts/DarkMode";
 
 export default function Authenticated({ user, header, children }) {
-    // const { darkMode, toggleDarkMode } = useDarkMode();
+    const { darkMode, toggleDarkMode } = useDarkMode();
 
     return (
-        // <div className={`${darkMode && "dark"}`}>
+        <div className={`${darkMode && "dark"}`}>
             <div className="min-h-screen bg-gray-100 dark:bg-light-gray">
-                {user &&
-                (user.role === "doctor" || user.role === "admin") ? (
+                {user && (user.role === "doctor" || user.role === "admin") ? (
                     <div className="flex">
                         <Sidebar
                             user={user}
-                            // darkMode={darkMode}
-                            // toggleDarkMode={toggleDarkMode}
+                            darkMode={darkMode}
+                            toggleDarkMode={toggleDarkMode}
                         />
                         <div className="w-full bg-gray-100 dark:bg-light-gray">
                             {header && (
@@ -30,8 +30,8 @@ export default function Authenticated({ user, header, children }) {
                     <>
                         <Navbar
                             user={user}
-                            // darkMode={darkMode}
-                            // toggleDarkMode={toggleDarkMode}
+                            darkMode={darkMode}
+                            toggleDarkMode={toggleDarkMode}
                         />
                         {header && (
                             <header className="bg-white shadow dark:bg-light-gray">
@@ -44,6 +44,6 @@ export default function Authenticated({ user, header, children }) {
                     </>
                 )}
             </div>
-        // </div>
+        </div>
     );
 }

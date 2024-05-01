@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\PetTypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
@@ -38,6 +39,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/admin/users/update-user/{user}', [UserController::class, 'updateUserPage'])->name('admin.users.edit');
     Route::patch('/admin/users/update/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    Route::get('admin/pet-types', [PetTypeController::class, 'index'])->name('admin.pet-types');
 });
 
 

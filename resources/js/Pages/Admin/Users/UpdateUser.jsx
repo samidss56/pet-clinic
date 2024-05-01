@@ -32,7 +32,7 @@ const UpdateUser = ({ auth, title, user }) => {
                 <div className="w-full mx-auto sm:px-2 lg:px-4">
                     <form
                         onSubmit={handleSubmit}
-                        className="p-6 shadow-lg rounded-lg bg-white"
+                        className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
                     >
                         <InputLabel htmlFor="name" value="Name" />
                         <TextInput
@@ -59,7 +59,7 @@ const UpdateUser = ({ auth, title, user }) => {
                         <InputError className="mt-2" message={errors.email} />
                         <InputLabel htmlFor="role" value="Role" />
                         <select
-                            className="select select-bordered w-full border-gray-300 bg-gray-100"
+                            className="select select-bordered w-full border-gray-300 mb-2 bg-gray-100 dark:bg-light-gray dark:text-gray-50 dark:border-gray-600 placeholder:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                             name="role"
                             value={data.role}
                             onChange={(e) => setData("role", e.target.value)}
