@@ -40,7 +40,10 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::patch('/admin/users/update/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
-    Route::get('admin/pet-types', [PetTypeController::class, 'index'])->name('admin.pet-types');
+    Route::get('/admin/pet-types', [PetTypeController::class, 'index'])->name('admin.pet-types');
+    Route::post('/admin/pet-types/create', [PetTypeController::class, 'store'])->name('admin.pet-types.store');
+    Route::patch('/admin/pet-types/update/{petType}', [PetTypeController::class, 'update'])->name('admin.pet-types.update');
+    Route::delete('/admin/pet-types/delete/{petType}', [PetTypeController::class, 'destroy'])->name('admin.pet-types.destroy');
 });
 
 

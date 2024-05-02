@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pet_types', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['cat', 'dog', 'tiger', 'rabbit']);
+            $table->string('type');
             $table->timestamps();
         });
     }

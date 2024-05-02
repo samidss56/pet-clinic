@@ -132,7 +132,13 @@ const isUsers = (users) => {
 };
 
 const noUsers = () => {
-    return <div></div>;
+    return (
+        <div className="flex justify-center items-center min-h-screen">
+            <h1 className="text-3xl font-bold text-dark-gray">
+                There is no users data to Show.
+            </h1>
+        </div>
+    );
 };
 
 const UsersList = ({ users }) => {

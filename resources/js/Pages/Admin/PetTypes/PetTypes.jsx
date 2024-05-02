@@ -1,10 +1,22 @@
+import ModalAddPetType from "@/Components/Admin/PetTypes/ModalAddPetType";
 import PetTypesList from "@/Components/Admin/PetTypes/PetTypesList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
+import { useState } from "react";
 
-const PetTypes = ({ auth, title }) => {
+const PetTypes = ({ auth, title, petTypes }) => {
+    const [showModalAddPetType, setShowModalAddPetType] = useState(false);
+
+    const handleShowModalAddPetType = () => {
+        setShowModalAddPetType(true);
+    };
+
+    const closeModalShowModalAddPetType = () => {
+        setShowModalAddPetType(false);
+    };
+
     return (
         <Authenticated
             user={auth.user}
@@ -17,8 +29,10 @@ const PetTypes = ({ auth, title }) => {
             <Head title={title} />
             <div className="py-12 px-4">
                 <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    {/* <Link href={route("admin.users.create")}> */}
-                    <PrimaryButton className="mb-4 flex gap-2">
+                    <PrimaryButton
+                        className="mb-4 flex gap-2"
+                        onClick={handleShowModalAddPetType}
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 22 22"
@@ -35,9 +49,12 @@ const PetTypes = ({ auth, title }) => {
                         </svg>
                         Add Pet Type
                     </PrimaryButton>
-                    {/* </Link> */}
-                    <PetTypesList />
-                    {/* <Paginator/> */}
+                    <ModalAddPetType
+                        show={showModalAddPetType}
+                        onClose={closeModalShowModalAddPetType}
+                    />
+                    <PetTypesList petTypes={petTypes.data} />
+                    <Paginator meta={petTypes.meta} />
                 </div>
             </div>
         </Authenticated>
