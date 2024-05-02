@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PetTypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
+use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'verified', 'owner'])->group(function () {
     Route::get('/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
+
+    Route::get('/owner/pets', [PetController::class, 'index'])->name('owner.pets');
+    Route::get('/owner/pets/create-pet', [PetController::class, 'createPetPage'])->name('owner.pets.create');
 });
 
 Route::middleware(['auth', 'verified', 'doctor'])->group(function () {
