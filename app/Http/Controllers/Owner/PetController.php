@@ -9,7 +9,6 @@ use App\Models\PetType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PetController extends Controller
@@ -72,12 +71,18 @@ class PetController extends Controller
         return redirect()->route('owner.pets');
     }
 
-    public function show(string $id)
+    public function updatePetPage(Pet $pet)
     {
-        $pet = Pet::with(['petType', 'owner'])->findOrFail($id);
-        return Inertia::render('Owner/Pets/DetailPet', [
-            'title' => 'Detail Pet',
-            'pet' => $pet
+        $petData = Pet::with(['petType'])->find($pet->id);
+        return Inertia::render('Owner/Pets/UpdatePet', [
+            'title' => 'Update Pet',
+            'pet' => $petData
         ]);
+    }
+
+    public function destroy(Pet $pet)
+    {
+        $pet->delete();
+        return redirect()->route('owner.pets');
     }
 }

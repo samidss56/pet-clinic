@@ -5,7 +5,6 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 const Pets = ({ auth, title, myPets }) => {
-    console.log(myPets);
     return (
         <Authenticated
             user={auth.user}
