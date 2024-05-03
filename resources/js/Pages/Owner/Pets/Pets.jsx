@@ -1,9 +1,11 @@
 import PetsList from "@/Components/Owner/Pets/PetsList";
+import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Pets = ({ auth, title }) => {
+const Pets = ({ auth, title, myPets }) => {
+    console.log(myPets);
     return (
         <Authenticated
             user={auth.user}
@@ -37,8 +39,9 @@ const Pets = ({ auth, title }) => {
                         </PrimaryButton>
                     </Link>
                     <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 my-4">
-                        <PetsList />
+                        <PetsList myPets={myPets.data} />
                     </div>
+                    <Paginator meta={myPets.meta} />
                 </div>
             </div>
         </Authenticated>

@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pet extends Model
 {
+    use HasFactory;
+
+    protected $fillable = [
+        'pet_type_id',
+        'owner_id',
+        'name',
+        'image',
+        'age',
+        'gender',
+        'color',
+    ];
     public function owner()
     {
         return $this->belongsTo(Owner::class, 'owner_id');

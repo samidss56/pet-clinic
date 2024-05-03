@@ -28,6 +28,8 @@ Route::middleware(['auth', 'verified', 'owner'])->group(function () {
 
     Route::get('/owner/pets', [PetController::class, 'index'])->name('owner.pets');
     Route::get('/owner/pets/create-pet', [PetController::class, 'createPetPage'])->name('owner.pets.create');
+    Route::post('/owner/pets/create', [PetController::class, 'store'])->name('owner.pets.store');
+    Route::get('/owner/detail-pet/{pet}', [PetController::class, 'show'])->name('owner.pets.show');
 });
 
 Route::middleware(['auth', 'verified', 'doctor'])->group(function () {
