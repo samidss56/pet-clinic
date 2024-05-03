@@ -24,7 +24,6 @@ const ModalAddPetType = ({ show, onClose }) => {
         const payload = {
             ...values,
         };
-        // console.log(payload);
         router.post("/admin/pet-types/create", payload);
         setValues({
             type: "",
