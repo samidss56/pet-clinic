@@ -3,10 +3,10 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 
 const UpdatePet = ({ auth, title, pet, petTypes }) => {
-    const { data, setData, patch, errors } = useForm({
+    const { data, setData, errors } = useForm({
         name: pet.name,
         image: null,
         age: pet.age,
@@ -18,20 +18,21 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formattedData = {
-            ...data,
-            age: parseInt(data.age),
-            pet_type_id: parseInt(data.pet_type_id),
-        };
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("image", data.image);
+        formData.append("age", parseInt(data.age));
+        formData.append("gender", data.gender);
+        formData.append("color", data.color);
+        formData.append("pet_type_id", parseInt(data.pet_type_id));
 
-        patch(route("owner.pets.update", pet.id), formattedData);
+        router.post(`/owner/pets/update/${pet.id}`, formData, {
+            _method: "put",
+        });
     };
 
     const appUrl = import.meta.env.VITE_APP_URL;
 
-    // console.log(data);
-    // console.log(pet);
-    // console.log(petTypes);
     return (
         <Authenticated
             user={auth.user}
@@ -51,6 +52,7 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
                     >
                         <InputLabel htmlFor="name" value="Pet Name" />
                         <TextInput
+                            type="text"
                             id="name"
                             name="name"
                             className="block w-full"
@@ -132,6 +134,7 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
                             <div>
                                 <InputLabel htmlFor="color" value="Pet Color" />
                                 <TextInput
+                                    type="text"
                                     id="color"
                                     name="color"
                                     className="block w-full"
@@ -178,11 +181,7 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
                             </div>
                         </div>
                         <div>
-                            <PrimaryButton
-                                className="mt-4"
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
+                            <PrimaryButton className="mt-4" type="submit">
                                 Update Pet
                             </PrimaryButton>
                         </div>

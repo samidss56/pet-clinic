@@ -85,39 +85,30 @@ class PetController extends Controller
 
     public function update(Request $request, Pet $pet)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'age' => 'required|integer',
-            'gender' => 'required|string|in:male,female',
-            'color' => 'required|string',
-            'pet_type_id' => 'required|exists:pet_types,id',
-        ]);
+        if ($request->hasFile('image')) {
+            $imageName = uniqid('pet_') . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = $request->file('image')->storeAs('images/pets', $imageName, 'public');
+            if (!$path) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+            Storage::disk('public')->delete($pet->image);
+            $pet->image = $path;
+        }
 
         $pet->update([
             'name' => $request->name,
-            'image' => $request->image,
             'age' => $request->age,
             'gender' => $request->gender,
             'color' => $request->color,
             'pet_type_id' => $request->pet_type_id,
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = uniqid('pet_') . '.' . $request->image->getClientOriginalExtension();
-            $path = $request->image->storeAs('images/pets', $imageName, 'public');
-            if (!$path) {
-                return response()->json(['error' => 'Failed to upload image'], 500);
-            }
-            $pet->image = $path;
-        }
-
         return redirect()->route('owner.pets');
     }
 
-
     public function destroy(Pet $pet)
     {
+        Storage::disk('public')->delete($pet->image);
         $pet->delete();
         return redirect()->route('owner.pets');
     }

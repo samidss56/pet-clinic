@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified', 'owner'])->group(function () {
     Route::get('/owner/pets/create-pet', [PetController::class, 'createPetPage'])->name('owner.pets.create');
     Route::post('/owner/pets/create', [PetController::class, 'store'])->name('owner.pets.store');
     Route::get('/owner/pets/update-pet/{pet}', [PetController::class, 'updatePetPage'])->name('owner.pets.edit');
-    Route::patch('/owner/pets/update/{pet}', [PetController::class, 'update'])->name('owner.pets.update');
+    Route::post('/owner/pets/update/{pet}', [PetController::class, 'update'])->name('owner.pets.update');
     Route::delete('/owner/pets/delete/{pet}', [PetController::class, 'destroy'])->name('owner.pets.destroy');
 });
 

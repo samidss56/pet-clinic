@@ -46,12 +46,14 @@ const isPets = (myPets) => {
                                     </div>
                                 </div>
                             </h2>
-                            <p className="text-gray-800 dark:text-gray-100 flex justify-between items-center">
-                                {pet.color}
-                                <div className="badge badge-outline p-4 text-gray-800 dark:text-gray-100 opacity-70">
-                                    {pet.gender}
-                                </div>
-                            </p>
+                            <div>
+                                <p className="text-gray-800 dark:text-gray-100 flex justify-between items-center">
+                                    {pet.color}
+                                    <span className="badge badge-outline p-4 text-gray-800 dark:text-gray-100 opacity-70">
+                                        {pet.gender}
+                                    </span>
+                                </p>
+                            </div>
                             <div className="card-actions justify-between"></div>
                             <div className="flex justify-between gap-4">
                                 <DangerButton
@@ -84,7 +86,10 @@ const isPets = (myPets) => {
                                     onClose={closeModalDeletePet}
                                     pet={selectedPet}
                                 />
-                                <Link className="w-full flex justify-center" href={`/owner/pets/update-pet/${pet.id}`}>
+                                <Link
+                                    className="w-full flex justify-center"
+                                    href={`/owner/pets/update-pet/${pet.id}`}
+                                >
                                     <SecondaryButton className="w-full flex justify-center">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
