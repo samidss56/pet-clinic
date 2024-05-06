@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\PetController as AdminPetController;
 use App\Http\Controllers\Admin\PetTypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
@@ -52,6 +53,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/admin/pet-types/create', [PetTypeController::class, 'store'])->name('admin.pet-types.store');
     Route::patch('/admin/pet-types/update/{petType}', [PetTypeController::class, 'update'])->name('admin.pet-types.update');
     Route::delete('/admin/pet-types/delete/{petType}', [PetTypeController::class, 'destroy'])->name('admin.pet-types.destroy');
+
+    Route::get('/admin/pets', [AdminPetController::class, 'index'])->name('admin.pets');
 });
 
 

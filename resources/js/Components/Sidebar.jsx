@@ -100,7 +100,7 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                     </li>
                                     <li>
                                         <Link
-                                            // href={route("admin.cars")}
+                                            href={route("admin.pets")}
                                             as="button"
                                         >
                                             <svg
