@@ -57,8 +57,6 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/admin/pets', [AdminPetController::class, 'index'])->name('admin.pets');
 });
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
