@@ -47,13 +47,13 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if ($request->role === 'doctor') {
-            $doctor = new Doctor(['doctor_id' => $user->id]);
-            $user->doctor()->save($doctor);
-        } elseif ($request->role === 'owner') {
-            $owner = new Owner(['owner_id' => $user->id]);
-            $user->owner()->save($owner);
-        }
+        // if ($request->role === 'doctor') {
+        //     $doctor = new Doctor(['doctor_id' => $user->id]);
+        //     $user->doctor()->save($doctor);
+        // } elseif ($request->role === 'owner') {
+        //     $owner = new Owner(['owner_id' => $user->id]);
+        //     $user->owner()->save($owner);
+        // }
 
         event(new Registered($user));
         return redirect()->route('admin.users');
@@ -82,15 +82,15 @@ class UserController extends Controller
             'role' => $request->role
         ]);
 
-        if ($request->role === 'owner' && $user->doctor) {
-            $owner = new Owner(['owner_id' => $user->id]);
-            $user->owner()->save($owner);
-            $user->doctor()->delete();
-        } elseif ($request->role === 'doctor' && $user->owner) {
-            $doctor = new Doctor(['doctor_id' => $user->id]);
-            $user->doctor()->save($doctor);
-            $user->owner()->delete();
-        }
+        // if ($request->role === 'owner' && $user->doctor) {
+        //     $owner = new Owner(['owner_id' => $user->id]);
+        //     $user->owner()->save($owner);
+        //     $user->doctor()->delete();
+        // } elseif ($request->role === 'doctor' && $user->owner) {
+        //     $doctor = new Doctor(['doctor_id' => $user->id]);
+        //     $user->doctor()->save($doctor);
+        //     $user->owner()->delete();
+        // }
 
         return redirect()->route('admin.users');
     }

@@ -26,3 +26,4 @@ class Doctor
         return $next($request);
     }
 }
+
