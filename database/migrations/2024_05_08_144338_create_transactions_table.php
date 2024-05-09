@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('invoice')->unique();
-            $table->foreignId('user_id');
-            $table->foreignId('appointmen_id');
+            $table->string('user_id');
+            $table->string('appointmen_id');
             $table->string('status_payment');
             $table->date('date_transaction');
             $table->string('subtotal');
             $table->timestamps();
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('appointmen_id')->references('appointmen_id')->on('appointmens')->onDelete('cascade');
         });
     }
 

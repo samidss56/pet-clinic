@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('appointmens', function (Blueprint $table) {
             $table->string('appointmen_id')->primary();
             $table->foreignId('pets_id');
-            $table->foreignId('docter_id');
+            $table->string('docter_id');
             $table->string('status')->default('pending');
             $table->longText('description')->nullable();
             $table->date('date_appointmens');
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('temperature')->nullable();
             $table->text('advice')->nullable();
             $table->timestamps();
+            $table->foreign('docter_id')->references('docter_id')->on('docters')->onDelete('cascade');
         });
     }
 
