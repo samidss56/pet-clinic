@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Doctor;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,8 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Doctor/Dashboard', [
-            'title' => 'Doctor Dashboard',
+        return Inertia::render('SuperAdmin/Dashboard', [
+            'title' => 'Super Admin Dashboard',
         ]);
     }
 }
