@@ -17,12 +17,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'role',
-        'password',
-    ];
+
+    protected $primaryKey = 'user_id';
+    // protected $fillable = [
+    //     'user_id',
+    //     'name',
+    //     'email',
+    //     'role',
+    //     'password',
+    // ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,13 +48,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function owner()
-    {
-        return $this->hasOne(Owner::class, 'owner_id', 'id');
+    public function roles() {
+        return $this->belongsToMany(Role::class);
     }
 
-    public function doctor()
-    {
-        return $this->hasOne(Doctor::class, 'doctor_id', 'id');
-    }
+    // public function owner()
+    // {
+    //     return $this->hasOne(Owner::class, 'owner_id', 'id');
+    // }
+
+    // public function doctor()
+    // {
+    //     return $this->hasOne(Doctor::class, 'doctor_id', 'id');
+    // }
 }
