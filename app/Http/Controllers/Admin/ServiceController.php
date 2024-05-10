@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class ServiceController extends Controller
 {
+    // Tampil Halaman Manage Service
     public function index()
     {
         $services = new ServiceCollection(Service::orderByDesc('created_at')->paginate(10));

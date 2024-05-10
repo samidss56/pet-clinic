@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class DocterController extends Controller
 {
+    // Tampil Halaman Manage Docter
     public function index()
     {
         return Inertia::render('SuperAdmin/Docters', [

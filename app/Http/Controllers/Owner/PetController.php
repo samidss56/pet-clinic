@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PetController extends Controller
 {
+    // Tampil Halaman Manage Pet
     public function index()
     {
         $myPets = Pet::with(['petType', 'owner'])->where('owner_id', Auth::user()->owner->owner_id)->paginate(10);
@@ -25,6 +26,7 @@ class PetController extends Controller
         ]);
     }
 
+    // Tampil Halaman Create Pet
     public function createPetPage()
     {
         return Inertia::render('Owner/Pets/CreatePet', [
@@ -32,6 +34,7 @@ class PetController extends Controller
         ]);
     }
 
+    // Create Pet
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -70,6 +73,7 @@ class PetController extends Controller
         return redirect()->route('owner.pets');
     }
 
+    // Tampil Halaman Update Pet
     public function updatePetPage(Pet $pet)
     {
         $petData = Pet::with(['petType'])->find($pet->id);
@@ -79,6 +83,7 @@ class PetController extends Controller
         ]);
     }
 
+    // Update Pet
     public function update(Request $request, Pet $pet)
     {
         if ($request->hasFile('image')) {
@@ -102,6 +107,7 @@ class PetController extends Controller
         return redirect()->route('owner.pets');
     }
 
+    // Delete Pet
     public function destroy(Pet $pet)
     {
         Storage::disk('public')->delete($pet->image);

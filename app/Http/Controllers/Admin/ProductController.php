@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    // Tampil Halaman Manage Product
     public function index()
     {
         $products = new ProductCollection(Product::orderByDesc('created_at')->paginate(10));
