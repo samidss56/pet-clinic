@@ -27,10 +27,8 @@ class PetController extends Controller
 
     public function createPetPage()
     {
-        $petTypes = PetType::all();
         return Inertia::render('Owner/Pets/CreatePet', [
             'title' => 'Create Pet',
-            'petTypes' => $petTypes
         ]);
     }
 
@@ -55,7 +53,7 @@ class PetController extends Controller
         $pet->age = $request->age;
         $pet->gender = $request->gender;
         $pet->color = $request->color;
-        $pet->pet_type_id = $request->pet_type_id;
+        $pet->jenis = $request->jenis_pet;
         $pet->owner_id = $request->owner_id;
 
         if ($request->hasFile('image')) {
@@ -75,11 +73,9 @@ class PetController extends Controller
     public function updatePetPage(Pet $pet)
     {
         $petData = Pet::with(['petType'])->find($pet->id);
-        $petTypes = PetType::all();
         return Inertia::render('Owner/Pets/UpdatePet', [
             'title' => 'Update Pet',
             'pet' => $petData,
-            'petTypes' => $petTypes,
         ]);
     }
 

@@ -35,9 +35,9 @@ Route::middleware(['auth', 'verified', 'owner'])->group(function () {
     Route::delete('/owner/pets/delete/{pet}', [PetController::class, 'destroy'])->name('owner.pets.destroy');
 });
 
-Route::middleware(['auth', 'verified', 'doctor'])->group(function () {
-    Route::get('/doctor/dashboard', [DoctorDashboardController::class, 'index'])->name('doctor.dashboard');
-});
+// Route::middleware(['auth', 'verified', 'doctor'])->group(function () {
+//     Route::get('/doctor/dashboard', [DoctorDashboardController::class, 'index'])->name('doctor.dashboard');
+// });
 
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
@@ -49,10 +49,10 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::patch('/admin/users/update/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
-    Route::get('/admin/pet-types', [PetTypeController::class, 'index'])->name('admin.pet-types');
-    Route::post('/admin/pet-types/create', [PetTypeController::class, 'store'])->name('admin.pet-types.store');
-    Route::patch('/admin/pet-types/update/{petType}', [PetTypeController::class, 'update'])->name('admin.pet-types.update');
-    Route::delete('/admin/pet-types/delete/{petType}', [PetTypeController::class, 'destroy'])->name('admin.pet-types.destroy');
+    // Route::get('/admin/pet-types', [PetTypeController::class, 'index'])->name('admin.pet-types');
+    // Route::post('/admin/pet-types/create', [PetTypeController::class, 'store'])->name('admin.pet-types.store');
+    // Route::patch('/admin/pet-types/update/{petType}', [PetTypeController::class, 'update'])->name('admin.pet-types.update');
+    // Route::delete('/admin/pet-types/delete/{petType}', [PetTypeController::class, 'destroy'])->name('admin.pet-types.destroy');
 
     Route::get('/admin/pets', [AdminPetController::class, 'index'])->name('admin.pets');
 });
