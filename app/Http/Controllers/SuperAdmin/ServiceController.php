@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class ServiceController extends Controller
 {
+    // Tampil Halaman Manage Service
     public function index()
     {
         return Inertia::render('SuperAdmin/Services', [

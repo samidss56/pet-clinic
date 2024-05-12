@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class JadwalController extends Controller
 {
+    // Tampil Halaman Manage Jadwal
     public function index()
     {
         return Inertia::render('SuperAdmin/Jadwals', [

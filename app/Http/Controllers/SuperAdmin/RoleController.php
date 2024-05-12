@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class RoleController extends Controller
 {
+    // Tampil Halaman Manage Role
     public function index()
     {
         return Inertia::render('SuperAdmin/Roles', [

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('docter_id');
+            $table->string('docter_id');
             $table->dateTime('schedule');
             $table->timestamps();
+            $table->foreign('docter_id')->references('docter_id')->on('docters')->onDelete('cascade');
         });
     }
 

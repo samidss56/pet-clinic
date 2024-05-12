@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    // Tampil Halaman Manage Product
     public function index()
     {
         return Inertia::render('SuperAdmin/Products', [

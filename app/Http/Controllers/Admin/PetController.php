@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class PetController extends Controller
 {
+    // Tampil Halaman Manage Pets
     public function index()
     {
         $pets = Pet::with(['petType', 'owner'])->paginate(10);
