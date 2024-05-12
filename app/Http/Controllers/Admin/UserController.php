@@ -15,6 +15,7 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    // Tampil Halaman Manage User
     public function index()
     {
         $users = new UserCollection(User::orderByDesc('created_at')->paginate(10));
@@ -24,6 +25,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Tampil Halaman Create User
     public function createUserPage()
     {
         return Inertia::render('Admin/Users/CreateUser', [
@@ -31,6 +33,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Create User
     public function store(Request $request)
     {
         $request->validate([
@@ -59,6 +62,7 @@ class UserController extends Controller
         return redirect()->route('admin.users');
     }
 
+    // Halaman Update User
     public function updateUserPage(User $user)
     {
         $userData = $user->find($user->id);
@@ -68,6 +72,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Update User
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -95,6 +100,7 @@ class UserController extends Controller
         return redirect()->route('admin.users');
     }
 
+    // Delete User
     public function destroy(User $user)
     {
         $user->delete();

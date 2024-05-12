@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class AppointmenController extends Controller
 {
+    // Tampil Halaman Manage Appoinmen
     public function index()
     {
         return Inertia::render('Owner/Appoinmens', [

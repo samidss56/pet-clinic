@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->string('user_id');
             $table->string('name');
             $table->string('type');
             $table->string('jenis_pet');
             $table->string('gender');
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

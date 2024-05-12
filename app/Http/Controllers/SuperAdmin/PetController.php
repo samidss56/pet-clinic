@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class PetController extends Controller
 {
+    // Tampil Halaman Manage Pet
     public function index()
     {
         return Inertia::render('SuperAdmin/Pets', [

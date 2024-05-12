@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
+    // Tampil Halaman Dashboard Admin
     public function index()
     {
         return Inertia::render('Admin/Dashboard', [

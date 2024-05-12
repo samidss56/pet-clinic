@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 class TransactionController extends Controller
 {
+    // Tampil Halaman Manage Transaction
     public function index()
     {
         return Inertia::render('Owner/Transaction', [
