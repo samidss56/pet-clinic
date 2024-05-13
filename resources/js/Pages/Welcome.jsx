@@ -2,8 +2,9 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, Head } from "@inertiajs/react";
 
 export default function Welcome({ auth }) {
+    const user = auth?.user?.name;
     return (
-        <Authenticated user={auth.user}>
+        <Authenticated user={user}>
             <Head title="Welcome" />
             {/* <div className={`${darkMode && "dark"}`}> */}
             <div className="py-12 px-4 bg-gray-100 dark:bg-light-gray ">

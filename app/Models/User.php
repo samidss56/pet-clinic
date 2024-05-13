@@ -49,7 +49,24 @@ class User extends Authenticatable
     ];
 
     public function roles() {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+    }
+    
+
+    public function hasRoles()
+    {
+        return $this->roles()->count() >= 1 ? true : false;
+    }
+
+    public function hasAnyRoles(...$roles)
+    {
+        foreach ($roles as $role) {
+            if (str($this->roles->pluck('name'))->containsAll($role)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // public function owner()

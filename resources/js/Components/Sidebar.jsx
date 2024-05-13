@@ -1,6 +1,10 @@
 import { Link } from "@inertiajs/react";
+import { usePage } from '@inertiajs/react';
 
 const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
+    const {auth} = usePage().props
+
+    // console.log('okee', auth.isSuperAdmin);
     return (
         <div className="drawer lg:drawer-open w-72">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -15,8 +19,8 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                         <div className="flex items-center justify-between mb-2">
                             <a
                                 href={
-                                    user.role === "doctor"
-                                        ? route("doctor.dashboard")
+                                    auth.isSuperAdmin
+                                        ? route("superadmin.dashboard")
                                         : route("admin.dashboard")
                                 }
                                 className="btn btn-ghost text-xl text-gray-800 dark:text-white"
@@ -27,15 +31,15 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                 href={route("doctor.dashboard")}
                                 className="btn bg-gray-100 dark:bg-gray-300 hover:bg-gray-200 border-none text-md font-medium text-gray-800 dark:black"
                             >
-                                {user.name}
+                                {auth.user.name}
                             </a>
                         </div>
                         <div className="flex flex-col gap-3">
                             <li>
                                 <Link
                                     href={
-                                        user.role === "doctor"
-                                            ? route("doctor.dashboard")
+                                        auth.isSuperAdmin
+                                            ? route("superadmin.dashboard")
                                             : route("admin.dashboard")
                                     }
                                     as="button"
@@ -53,7 +57,7 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                 </Link>
                             </li>
 
-                            {user.role === "admin" ? (
+                            {auth && (auth.isAdmin || auth.isSuperAdmin) ? (
                                 <>
                                     <li>
                                         <Link
@@ -82,7 +86,7 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                     </li>
                                     <li>
                                         <Link
-                                            href={route("admin.pet-types")}
+                                            href={''}
                                             as="button"
                                         >
                                             <svg

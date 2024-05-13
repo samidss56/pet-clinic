@@ -11,7 +11,7 @@ class DashboardController extends Controller
     // Tampil Halaman Dashboard Super Admin
     public function index()
     {
-        return Inertia::render('SuperAdmin/Dashboard', [
+        return Inertia::render('Superadmin/Dashboard', [
             'title' => 'Super Admin Dashboard',
         ]);
     }
