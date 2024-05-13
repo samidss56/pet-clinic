@@ -23,7 +23,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
+        Inertia::share([
+            'auth' => null,
+        ]);
+
         return Inertia::render('Auth/Register');
+        // return Inertia::render('Auth/Register');
     }
 
     /**

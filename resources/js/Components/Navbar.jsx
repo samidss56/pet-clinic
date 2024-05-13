@@ -6,6 +6,8 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
 
     const {auth} = usePage().props
 
+    // console.log(auth);
+
     return (
         <div
             className={`navbar bg-white dark:bg-dark-gray sticky top-0 py-3 z-50 shadow-lg flex justify-between px-4`}
@@ -121,7 +123,7 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                     >
                         {auth ? (
                             <h1 className="text-gray-800 dark:text-white">
-                                {auth.user?.name}
+                                {auth.name}
                             </h1>
                         ) : (
                             <h1 className="text-gray-800 dark:text-white">

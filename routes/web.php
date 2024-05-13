@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// auth()->loginUsingId(2);
+// auth()->loginUsingId('USR-240513023346');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
