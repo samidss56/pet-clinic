@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/react";
 import NavLink from "./NavLink";
 
 const Navbar = ({ user, darkMode, toggleDarkMode }) => {
+
     return (
         <div
             className={`navbar bg-white dark:bg-dark-gray sticky top-0 py-3 z-50 shadow-lg flex justify-between px-4`}
@@ -117,7 +118,7 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                     >
                         {user ? (
                             <h1 className="text-gray-800 dark:text-white">
-                                {user?.name}
+                                {user.user.name}
                             </h1>
                         ) : (
                             <h1 className="text-gray-800 dark:text-white">
