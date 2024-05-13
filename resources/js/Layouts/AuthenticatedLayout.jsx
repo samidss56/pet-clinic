@@ -1,19 +1,15 @@
 import Sidebar from "@/Components/Sidebar";
 import Navbar from "@/Components/Navbar";
 import { useDarkMode } from "@/Contexts/DarkMode";
-import { usePage } from '@inertiajs/react';
+// import { usePage } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children }) {
     const { darkMode, toggleDarkMode } = useDarkMode();
 
-    const {auth} = usePage().props
-
-    // console.log('console :',auth.isAdmin)
-
     return (
         <div className={`${darkMode && "dark"}`}>
             <div className="min-h-screen bg-gray-100 dark:bg-light-gray">
-                {auth && (auth.isAdmin || auth.isSuperAdmin)  ? (
+                {user && (user.isAdmin || user.isSuperAdmin)  ? (
                     <div className="flex">
                         <Sidebar
                             user={user}

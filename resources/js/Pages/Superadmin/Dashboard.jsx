@@ -4,7 +4,7 @@ import { Head } from "@inertiajs/react";
 const Dashboard = ({ auth, title }) => {
     return (
         <Authenticated
-            // user={auth.user.name}
+            user={auth}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
                     {title}

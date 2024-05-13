@@ -1,12 +1,7 @@
 import { Link } from "@inertiajs/react";
 import NavLink from "./NavLink";
-import { usePage } from '@inertiajs/react';
 
 const Navbar = ({ user, darkMode, toggleDarkMode }) => {
-
-    const {auth} = usePage().props
-
-    // console.log(auth);
 
     return (
         <div
@@ -21,7 +16,7 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                 </a>
             </div>
             <div className="flex-none gap-5 xs:hidden md:flex lg:gap-10">
-                {!auth ? (
+                {!user ? (
                     <>
                         <NavLink href={route("login")}>Login</NavLink>
                         <NavLink href={route("register")}>Register</NavLink>
@@ -121,9 +116,9 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                         role="button"
                         className="btn btn-ghost"
                     >
-                        {auth ? (
+                        {user ? (
                             <h1 className="text-gray-800 dark:text-white">
-                                {auth.name}
+                                {user.user.name}
                             </h1>
                         ) : (
                             <h1 className="text-gray-800 dark:text-white">
@@ -154,7 +149,7 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                         >
                             Pet Clinic
                         </Link>
-                        {!auth ? (
+                        {!user ? (
                             <>
                                 <li>
                                     <Link href={route("login")} as="button">
