@@ -92,7 +92,10 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                             </li>
 
                             <li>
-                                <Link href={""} as="button">
+                                <Link
+                                    href={route("admin.products")}
+                                    as="button"
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -107,7 +110,10 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route("admin.pets")} as="button">
+                                <Link
+                                    href={route("admin.services")}
+                                    as="button"
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
