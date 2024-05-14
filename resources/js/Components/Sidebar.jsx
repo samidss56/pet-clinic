@@ -53,23 +53,22 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route("admin.users")} as="button">
+                                <Link
+                                    href={
+                                        user.isSuperAdmin &&
+                                        route("superadmin.appointments")
+                                        // : route("admin.appointments")
+                                    }
+                                    as="button"
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
                                         width="24"
                                         height="24"
-                                        className="main-grid-item-icon stroke-dark-gray dark:stroke-white"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
+                                        viewBox="0 0 24 24"
+                                        className="main-grid-item-icon fill-dark-gray dark:fill-white"
                                     >
-                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                        <circle cx="9" cy="7" r="4" />
-                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                        <path d="m12 22 1-2v-3h5a1 1 0 0 0 1-1v-1.586c0-.526-.214-1.042-.586-1.414L17 11.586V8a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2H8c-1.103 0-2 .897-2 2v3a1 1 0 0 0 1 1v3.586L5.586 13A2.01 2.01 0 0 0 5 14.414V16a1 1 0 0 0 1 1h5v3l1 2zM8 4h8v2H8V4zM7 14.414l1.707-1.707A.996.996 0 0 0 9 12V8h6v4c0 .266.105.52.293.707L17 14.414V15H7v-.586z"></path>
                                     </svg>
                                     Appointment Management
                                 </Link>
@@ -172,27 +171,6 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                     </li>
                                 </>
                             )}
-                            <li>
-                                <Link
-                                    // href={
-                                    //     user.role === "doctor"
-                                    //         ? route("doctor.dashboard")
-                                    //         : route("admin.dashboard")
-                                    // }
-                                    as="button"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        className="main-grid-item-icon fill-dark-gray dark:fill-white"
-                                    >
-                                        <path d="m12 22 1-2v-3h5a1 1 0 0 0 1-1v-1.586c0-.526-.214-1.042-.586-1.414L17 11.586V8a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2H8c-1.103 0-2 .897-2 2v3a1 1 0 0 0 1 1v3.586L5.586 13A2.01 2.01 0 0 0 5 14.414V16a1 1 0 0 0 1 1h5v3l1 2zM8 4h8v2H8V4zM7 14.414l1.707-1.707A.996.996 0 0 0 9 12V8h6v4c0 .266.105.52.293.707L17 14.414V15H7v-.586z"></path>
-                                    </svg>
-                                    Appointments Management
-                                </Link>
-                            </li>
                         </div>
                     </div>
                     <div className="flex flex-col gap-3">

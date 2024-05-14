@@ -10,6 +10,7 @@ use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
 
+    Route::get('/appointments', [AppointmenController::class, 'index'])->name('superadmin.appointments');
+    Route::get('/appointments/detail', [AppointmenController::class, 'detail'])->name('superadmin.appointments.detail');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -45,7 +48,6 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::patch('/users/update/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     Route::get('/pets', [AdminPetController::class, 'index'])->name('admin.pets');
-
 });
 
 Route::prefix('owner')->namespace('Owner')->group(function () {
