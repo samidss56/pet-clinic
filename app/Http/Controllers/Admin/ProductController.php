@@ -45,7 +45,7 @@ class ProductController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        $product_id = 'PRO-' . date('ymdhis');
+        $product_id = 'PRD-' . date('ymdhis');
 
         $product = new Product;
         $product->product_id = $product_id;

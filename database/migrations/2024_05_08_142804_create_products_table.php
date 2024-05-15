@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('product_id')->primary();
             $table->string('name_product');
             $table->text('deskripsi_product');
-            $table->string('price_product');
+            $table->double('price_product');
             $table->text('image_product');
             $table->integer('stock_product');
             $table->timestamps();
