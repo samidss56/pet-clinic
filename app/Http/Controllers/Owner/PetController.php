@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MyPetCollection;
 use App\Models\Pet;
-use App\Models\PetType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,14 +16,11 @@ class PetController extends Controller
     // Tampil Halaman Manage Pet
     public function index()
     {
-        // $myPets = Pet::with(['petType', 'owner'])->where('owner_id', Auth::user()->owner->owner_id)->paginate(10);
-
-        // $myPetCollection = new MyPetCollection($myPets);
-
-        $myPets = new MyPetCollection(Pet::orderByDesc('created_at')->paginate(10));
+        $myPets = Pet::where('user_id', Auth::user()->user_id)->paginate(10);
+        $myPetCollection = new MyPetCollection($myPets);
         return Inertia::render('Owner/Pets/Pets', [
             'title' => 'My Pets',
-            'myPets' => $myPets
+            'myPets' => $myPetCollection
         ]);
     }
 

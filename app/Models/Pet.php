@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pet extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'pet_id';
+    public $incrementing = false;
+    protected $guarded = [];
 }

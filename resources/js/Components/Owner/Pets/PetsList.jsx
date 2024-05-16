@@ -27,7 +27,7 @@ const isPets = (myPets) => {
                 myPets.map((pet) => (
                     <div
                         className="card w-full h-full bg-gray-100 dark:bg-dark-gray shadow-xl hover:scale-[1.05] transition-all duration-300 cursor-pointer"
-                        key={pet.id}
+                        key={pet.pet_id}
                     >
                         <figure className="p-5">
                             <img
@@ -41,18 +41,15 @@ const isPets = (myPets) => {
                                 {pet.name}
                                 <div className="flex justify-between items-center gap-3">
                                     <div className="badge badge-secondary p-4">{`${pet.age} years`}</div>
-                                    <div className="badge badge-outline p-4 text-gray-800 dark:text-gray-100 opacity-70">
-                                        {pet.pet_type.type}
-                                    </div>
                                 </div>
                             </h2>
-                            <div>
-                                <p className="text-gray-800 dark:text-gray-100 flex justify-between items-center">
-                                    {pet.color}
-                                    <span className="badge badge-outline p-4 text-gray-800 dark:text-gray-100 opacity-70">
-                                        {pet.gender}
-                                    </span>
-                                </p>
+                            <div className="flex gap-3">
+                                <div className="badge badge-outline p-4 text-gray-800 dark:text-gray-100 opacity-70">
+                                    {pet.type}
+                                </div>
+                                <div className="badge badge-outline p-4 text-gray-800 dark:text-gray-100 opacity-70">
+                                    {pet.gender}
+                                </div>
                             </div>
                             <div className="card-actions justify-between"></div>
                             <div className="flex justify-between gap-4">
@@ -88,7 +85,7 @@ const isPets = (myPets) => {
                                 />
                                 <Link
                                     className="w-full flex justify-center"
-                                    href={`/owner/pets/update-pet/${pet.id}`}
+                                    href={route("owner.pets.edit", pet.pet_id)}
                                 >
                                     <SecondaryButton className="w-full flex justify-center">
                                         <svg

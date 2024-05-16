@@ -5,7 +5,7 @@ import { router } from "@inertiajs/react";
 
 const ModalDeletePet = ({ show, onClose, pet }) => {
     const handleDelete = () => {
-        router.delete(`/owner/pets/delete/${pet.id}`);
+        router.delete(`/owner/pets/delete/${pet.pet_id}`);
         onClose();
     };
     return (
@@ -15,8 +15,8 @@ const ModalDeletePet = ({ show, onClose, pet }) => {
                     Are you sure you want to delete pet{" "}
                     <span className="font-bold">
                         "
-                        {`${pet && pet.id} - ${pet && pet.name} - ${
-                            pet && pet.pet_type.type
+                        {`${pet && pet.pet_id} - ${pet && pet.name} - ${
+                            pet && pet.type
                         }`}
                         "
                     </span>{" "}
