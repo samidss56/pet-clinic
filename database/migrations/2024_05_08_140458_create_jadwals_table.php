@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('docter_id');
             $table->dateTime('schedule');
             $table->timestamps();
-            $table->foreign('docter_id')->references('docter_id')->on('docters')->onDelete('cascade');
+            $table->foreign('docter_id')->references('docter_id')->on('docters');
         });
     }
 

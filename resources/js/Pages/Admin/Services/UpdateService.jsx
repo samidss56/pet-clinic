@@ -14,7 +14,7 @@ const UpdateService = ({ auth, title, service }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("admin.services.update", service.id));
+        put(route("admin.services.update", service.service_id));
     };
 
     return (
@@ -55,14 +55,14 @@ const UpdateService = ({ auth, title, service }) => {
                             value="Service Price"
                         />
                         <TextInput
-                            type="text"
+                            type="number"
                             id="price_service"
                             name="price_service"
                             className="block w-full"
                             placeholder="Service Price"
                             value={data.price_service}
                             onChange={(e) =>
-                                setData("price_service", e.target.value)
+                                setData("price_service", parseInt(e.target.value))
                             }
                             required
                         />
@@ -91,10 +91,7 @@ const UpdateService = ({ auth, title, service }) => {
                                     Back To Services
                                 </SecondaryButton>
                             </Link>
-                            <PrimaryButton
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
+                            <PrimaryButton type="submit" onClick={handleSubmit}>
                                 Update Services
                             </PrimaryButton>
                         </div>

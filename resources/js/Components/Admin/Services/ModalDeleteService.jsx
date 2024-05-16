@@ -5,9 +5,9 @@ import { router } from "@inertiajs/react";
 
 const ModalDeleteService = ({ show, onClose, service }) => {
     const handleDelete = () => {
-        router.delete(`/admin/services/delete/${service.id}`);
+        router.delete(`/admin/services/delete/${service.service_id}`);
         onClose();
-    }
+    };
     return (
         <Modal show={show} onClose={onClose}>
             <div className="flex flex-col p-6 gap-6">
@@ -15,7 +15,7 @@ const ModalDeleteService = ({ show, onClose, service }) => {
                     Are you sure you want to delete service{" "}
                     <span className="font-bold">
                         "
-                        {`${service && service.id} - ${
+                        {`${service && service.service_id} - ${
                             service && service.name_service
                         }`}
                         "

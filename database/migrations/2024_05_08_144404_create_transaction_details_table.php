@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('harga_product');
             $table->string('harga_service');
             $table->timestamps();
-            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
     }
 

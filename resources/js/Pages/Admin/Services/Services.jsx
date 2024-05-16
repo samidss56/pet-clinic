@@ -5,7 +5,6 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 const Services = ({ auth, title, services }) => {
-    console.log(services);
     return (
         <Authenticated
             user={auth}

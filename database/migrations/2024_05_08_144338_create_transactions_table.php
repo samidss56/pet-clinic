@@ -20,8 +20,8 @@ return new class extends Migration
             $table->date('date_transaction');
             $table->string('subtotal');
             $table->timestamps();
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
-            $table->foreign('appointmen_id')->references('appointmen_id')->on('appointmens')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('appointmen_id')->references('appointmen_id')->on('appointmens');
         });
     }
 

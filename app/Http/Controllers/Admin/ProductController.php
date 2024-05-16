@@ -36,7 +36,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'name_product' => 'required|string|max:255',
             'deskripsi_product' => 'required|string|',
-            'price_product' => 'required|string|max:255',
+            'price_product' => 'required|integer',
             'image_product' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'stock_product' => 'required|integer',
         ]);
@@ -45,7 +45,7 @@ class ProductController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        $product_id = 'PRO-' . date('ymdhis');
+        $product_id = 'PRD-' . date('ymdhis');
 
         $product = new Product;
         $product->product_id = $product_id;

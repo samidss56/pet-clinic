@@ -127,14 +127,17 @@ const UpdateProduct = ({ auth, title, product }) => {
                                     value="Product Price"
                                 />
                                 <TextInput
-                                    type="text"
+                                    type="number"
                                     id="price_product"
                                     name="price_product"
                                     className="block w-full"
                                     placeholder="Product Price"
                                     value={data.price_product}
                                     onChange={(e) =>
-                                        setData("price_product", e.target.value)
+                                        setData(
+                                            "price_product",
+                                            parseInt(e.target.value)
+                                        )
                                     }
                                     required
                                 />
@@ -156,7 +159,10 @@ const UpdateProduct = ({ auth, title, product }) => {
                                     placeholder="Product Stock"
                                     value={data.stock_product}
                                     onChange={(e) =>
-                                        setData("stock_product", e.target.value)
+                                        setData(
+                                            "stock_product",
+                                            parseInt(e.target.value)
+                                        )
                                     }
                                     required
                                 />
@@ -187,10 +193,7 @@ const UpdateProduct = ({ auth, title, product }) => {
                                     Back To Products
                                 </SecondaryButton>
                             </Link>
-                            <PrimaryButton
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
+                            <PrimaryButton type="submit" onClick={handleSubmit}>
                                 Update Product
                             </PrimaryButton>
                         </div>

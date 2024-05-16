@@ -7,7 +7,7 @@ import { Head, Link } from "@inertiajs/react";
 const Pets = ({ auth, title, myPets }) => {
     return (
         <Authenticated
-            user={auth.user}
+            user={auth}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
                     {title}

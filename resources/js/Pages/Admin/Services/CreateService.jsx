@@ -9,7 +9,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 const CreateService = ({ auth, title }) => {
     const { data, setData, errors, post } = useForm({
         name_service: "",
-        price_service: "",
+        price_service: 0,
     });
 
     const handleSubmit = (e) => {
@@ -55,14 +55,14 @@ const CreateService = ({ auth, title }) => {
                             value="Service Price"
                         />
                         <TextInput
-                            type="text"
+                            type="number"
                             id="price_service"
                             name="price_service"
                             className="block w-full"
                             placeholder="Service Price"
                             value={data.price_service}
                             onChange={(e) =>
-                                setData("price_service", e.target.value)
+                                setData("price_service", parseInt(e.target.value))
                             }
                             required
                         />
@@ -91,10 +91,7 @@ const CreateService = ({ auth, title }) => {
                                     Back To Services
                                 </SecondaryButton>
                             </Link>
-                            <PrimaryButton
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
+                            <PrimaryButton type="submit" onClick={handleSubmit}>
                                 Create Services
                             </PrimaryButton>
                         </div>

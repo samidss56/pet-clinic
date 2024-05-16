@@ -5,14 +5,13 @@ import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, router, useForm } from "@inertiajs/react";
 
-const UpdatePet = ({ auth, title, pet, petTypes }) => {
+const UpdatePet = ({ auth, title, pet }) => {
     const { data, setData, errors } = useForm({
         name: pet.name,
-        image: null,
+        image: pet.image,
+        type: pet.type,
         age: pet.age,
         gender: pet.gender,
-        color: pet.color,
-        pet_type_id: pet.pet_type_id,
     });
 
     const handleSubmit = (e) => {
@@ -21,12 +20,11 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("image", data.image);
-        formData.append("age", parseInt(data.age));
+        formData.append("type", data.type);
+        formData.append("age", data.age);
         formData.append("gender", data.gender);
-        formData.append("color", data.color);
-        formData.append("pet_type_id", parseInt(data.pet_type_id));
 
-        router.post(`/owner/pets/update/${pet.id}`, formData, {
+        router.post(`/owner/pets/update/${pet.pet_id}`, formData, {
             _method: "put",
         });
     };
@@ -35,7 +33,7 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
 
     return (
         <Authenticated
-            user={auth.user}
+            user={auth}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
                     {title}
@@ -88,12 +86,56 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
                                 />
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 py-1">
+                            <div>
+                                <InputLabel htmlFor="type" value="Pet Type" />
+                                <TextInput
+                                    type="text"
+                                    id="type"
+                                    name="type"
+                                    className="block w-full"
+                                    placeholder="Pet Type"
+                                    value={data.type}
+                                    onChange={(e) =>
+                                        setData(
+                                            "type",
+                                            e.target.value.toLowerCase()
+                                        )
+                                    }
+                                    required
+                                />
+                                <InputError
+                                    message={errors.type}
+                                    className="mb-2"
+                                />
+                            </div>
+                            <div>
+                                <InputLabel htmlFor="gender" value="Gender" />
+                                <TextInput
+                                    type="text"
+                                    id="gender"
+                                    name="gender"
+                                    className="block w-full"
+                                    placeholder="Gender"
+                                    value={data.gender}
+                                    onChange={(e) =>
+                                        setData(
+                                            "gender",
+                                            e.target.value.toLowerCase()
+                                        )
+                                    }
+                                    required
+                                />
+                                <InputError
+                                    message={errors.gender}
+                                    className="mb-2"
+                                />
+                            </div>
                             <div>
                                 <InputLabel htmlFor="age" value="Pet Age" />
                                 <TextInput
+                                    type="Number"
                                     id="age"
-                                    type="number"
                                     name="age"
                                     className="block w-full"
                                     placeholder="Pet Age"
@@ -105,77 +147,6 @@ const UpdatePet = ({ auth, title, pet, petTypes }) => {
                                 />
                                 <InputError
                                     message={errors.age}
-                                    className="mb-2"
-                                />
-                            </div>
-                            <div>
-                                <InputLabel
-                                    htmlFor="gender"
-                                    value="Pet Gender"
-                                />
-                                <select
-                                    className="select-bordered w-full border-gray-300 mb-2 bg-gray-100 dark:bg-light-gray dark:text-gray-50 dark:border-gray-600 placeholder:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    name="gender"
-                                    value={data.gender}
-                                    onChange={(e) =>
-                                        setData("gender", e.target.value)
-                                    }
-                                    required
-                                >
-                                    <option disabled>Select a Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                                <InputError
-                                    message={errors.gender}
-                                    className="mb-2"
-                                />
-                            </div>
-                            <div>
-                                <InputLabel htmlFor="color" value="Pet Color" />
-                                <TextInput
-                                    type="text"
-                                    id="color"
-                                    name="color"
-                                    className="block w-full"
-                                    placeholder="Pet Color"
-                                    value={data.color}
-                                    onChange={(e) =>
-                                        setData("color", e.target.value)
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.color}
-                                    className="mb-2"
-                                />
-                            </div>
-                            <div>
-                                <InputLabel
-                                    htmlFor="pet_type_id"
-                                    value="Pet Type"
-                                />
-                                <select
-                                    className="select-bordered w-full border-gray-300 mb-2 bg-gray-100 dark:bg-light-gray dark:text-gray-50 dark:border-gray-600 placeholder:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    name="pet_type_id"
-                                    value={data.pet_type_id}
-                                    onChange={(e) =>
-                                        setData("pet_type_id", e.target.value)
-                                    }
-                                    required
-                                >
-                                    <option disabled>Select a Pet Type</option>
-                                    {petTypes.map((petType) => (
-                                        <option
-                                            key={petType.id}
-                                            value={petType.id}
-                                        >
-                                            {petType.type}
-                                        </option>
-                                    ))}
-                                </select>
-                                <InputError
-                                    message={errors.pet_type_id}
                                     className="mb-2"
                                 />
                             </div>

@@ -34,14 +34,17 @@ class ServiceController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name_service' => 'required|string|max:255',
-            'price_service' => 'required|string|max:255',
+            'price_service' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
 
+        $service_id = 'SRV-' . date('ymdhis');
+
         $service = new Service;
+        $service->service_id = $service_id;
         $service->name_service = $request->name_service;
         $service->price_service = $request->price_service;
 
@@ -53,7 +56,7 @@ class ServiceController extends Controller
     // Tampil Halaman Update Service
     public function updateServicePage(Service $service)
     {
-        $serviceData = Service::find($service->id);
+        $serviceData = Service::find($service->service_id);
         return Inertia::render('Admin/Services/UpdateService', [
             'title' => 'Update Service',
             'service' => $serviceData

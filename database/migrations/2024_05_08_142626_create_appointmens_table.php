@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('temperature')->nullable();
             $table->text('advice')->nullable();
             $table->timestamps();
-            $table->foreign('docter_id')->references('docter_id')->on('docters')->onDelete('cascade');
+            $table->foreign('docter_id')->references('docter_id')->on('docters');
         });
     }
 

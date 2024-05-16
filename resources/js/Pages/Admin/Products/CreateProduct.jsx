@@ -10,9 +10,9 @@ const CreateProduct = ({ auth, title }) => {
     const { data, setData, errors, post } = useForm({
         name_product: "",
         deskripsi_product: "",
-        price_product: "",
+        price_product: 0,
         image_product: "",
-        stock_product: "",
+        stock_product: 0,
     });
 
     const handleSubmit = (e) => {
@@ -111,14 +111,17 @@ const CreateProduct = ({ auth, title }) => {
                                     value="Product Price"
                                 />
                                 <TextInput
-                                    type="text"
+                                    type="number"
                                     id="price_product"
                                     name="price_product"
                                     className="block w-full"
                                     placeholder="Product Price"
-                                    value={data.price_product}
+                                    value={parseInt(data.price_product)}
                                     onChange={(e) =>
-                                        setData("price_product", e.target.value)
+                                        setData(
+                                            "price_product",
+                                            parseInt(e.target.value)
+                                        )
                                     }
                                     required
                                 />
@@ -138,9 +141,12 @@ const CreateProduct = ({ auth, title }) => {
                                     name="stock_product"
                                     className="block w-full"
                                     placeholder="Product Stock"
-                                    value={data.stock_product}
+                                    value={parseInt(data.stock_product)}
                                     onChange={(e) =>
-                                        setData("stock_product", e.target.value)
+                                        setData(
+                                            "stock_product",
+                                            parseInt(e.target.value)
+                                        )
                                     }
                                     required
                                 />
