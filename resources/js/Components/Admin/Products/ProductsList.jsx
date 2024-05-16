@@ -3,6 +3,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import ModalDeleteProduct from "./ModalDeleteProduct";
+import { formatCurr } from "@/Utils/FormatPrice";
 
 const isProducts = (products) => {
     const [showModalDeleteProduct, setShowModalDeleteProduct] = useState(false);
@@ -68,7 +69,7 @@ const isProducts = (products) => {
                                     {product.deskripsi_product}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
-                                    {product.price_product}
+                                    {formatCurr(product.price_product)}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {product.stock_product}

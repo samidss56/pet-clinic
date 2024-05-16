@@ -3,6 +3,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import ModalDeleteService from "./ModalDeleteService";
+import { formatCurr } from "@/Utils/FormatPrice";
 
 const isServices = (services) => {
     const [showModalDeleteService, setShowModalDeleteService] = useState(false);
@@ -38,15 +39,15 @@ const isServices = (services) => {
                 <tbody>
                     {services.length > 0 &&
                         services.map((service) => (
-                            <tr key={service.id}>
+                            <tr key={service.service_id}>
                                 <th className="text-black dark:text-white font-medium">
-                                    {service.id}
+                                    {service.service_id}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {service.name_service}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
-                                    {service.price_service}
+                                    {formatCurr(service.price_service)}
                                 </th>
 
                                 <th className="text-black dark:text-white font-medium">
@@ -54,7 +55,7 @@ const isServices = (services) => {
                                         <Link
                                             href={route(
                                                 "admin.services.edit",
-                                                service.id
+                                                service.service_id
                                             )}
                                         >
                                             <PrimaryButton>
