@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('role_id');
             $table->string('user_id');
             $table->primary(['role_id', 'user_id']);
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users');
         });
     }
 
