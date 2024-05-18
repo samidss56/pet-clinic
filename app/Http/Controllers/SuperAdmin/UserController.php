@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = new UserCollection(User::orderByDesc('created_at')->paginate(10));
-        return Inertia::render('SuperAdmin/Users/Users', [
+        return Inertia::render('Superadmin/Users/Users', [
             'title' => 'Users Management',
             'users' => $users
         ]);
@@ -27,7 +27,7 @@ class UserController extends Controller
     // Tampil Halaman Create User
     public function createUserPage()
     {
-        return Inertia::render('SuperAdmin/Users/CreateUser', [
+        return Inertia::render('Superadmin/Users/CreateUser', [
             'title' => 'Create User'
         ]);
     }
@@ -84,10 +84,10 @@ class UserController extends Controller
     // Halaman Update User
     public function updateUserPage(User $user)
     {
-        $userData = User::find($user->user_id);
-        return Inertia::render('SuperAdmin/Users/UpdateUser', [
+        $user = RoleUser::with(['user', 'role'])->find($user->user_id);
+        return Inertia::render('Superadmin/Users/UpdateUser', [
             'title' => 'Update User',
-            'user' => $userData
+            'user' => $user
         ]);
     }
 
@@ -96,15 +96,13 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->user_id,
+            // 'email' => 'required|string|email|max:255|unique:users,email,' . $user->user_id,
             'role' => 'required|in:superadmin,admin,owner',
-            'password' => ['required', Password::defaults()],
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
         ]);
 
         if ($request->role === 'superadmin')

@@ -131,7 +131,7 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                 <>
                                     <li>
                                         <Link
-                                            // href={route("profile.edit")}
+                                            href={route("superadmin.users")}
                                             as="button"
                                         >
                                             <svg
