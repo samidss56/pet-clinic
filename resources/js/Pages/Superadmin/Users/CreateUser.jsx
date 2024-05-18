@@ -69,7 +69,9 @@ const CreateUser = ({ auth, title }) => {
                                     }
                                     required
                                 >
-                                    <option disabled>Select a Role</option>
+                                    <option disabled selected>
+                                        Select a Role
+                                    </option>
                                     <option value="owner">Owner</option>
                                     <option value="admin">Admin</option>
                                     <option value="superadmin">
