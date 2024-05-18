@@ -14,6 +14,7 @@ use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\Superadmin\UserController as SuperadminUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,12 +36,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
 
-    Route::get('/users', [UserController::class, 'index'])->name('superadmin.users');
-    Route::get('/users/create-user', [UserController::class, 'createUserPage'])->name('superadmin.users.create');
-    Route::post('/users/create', [UserController::class, 'store'])->name('superadmin.users.store');
-    Route::get('/users/update-user/{user}', [UserController::class, 'updateUserPage'])->name('superadmin.users.edit');
-    Route::patch('/users/update/{user}', [UserController::class, 'update'])->name('superadmin.users.update');
-    Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('superadmin.users.destroy');
+    Route::get('/users', [SuperadminUserController::class, 'index'])->name('superadmin.users');
+    Route::get('/users/create-user', [SuperadminUserController::class, 'createUserPage'])->name('superadmin.users.create');
+    Route::post('/users/create', [SuperadminUserController::class, 'store'])->name('superadmin.users.store');
+    Route::get('/users/update-user/{user}', [SuperadminUserController::class, 'updateUserPage'])->name('superadmin.users.edit');
+    Route::patch('/users/update/{user}', [SuperadminUserController::class, 'update'])->name('superadmin.users.update');
+    Route::delete('/users/delete/{user}', [SuperadminUserController::class, 'destroy'])->name('superadmin.users.destroy');
 
     Route::get('/appointments', [AppointmenController::class, 'index'])->name('superadmin.appointments');
     Route::get('/appointments/detail', [AppointmenController::class, 'detail'])->name('superadmin.appointments.detail');
