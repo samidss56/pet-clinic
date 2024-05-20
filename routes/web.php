@@ -9,11 +9,15 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Owner\AppointmenController as OwnerAppointmenController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\SuperAdmin\DocterController;
+use App\Http\Controllers\SuperAdmin\JadwalController;
 use App\Http\Controllers\Superadmin\UserController as SuperadminUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,9 +33,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// auth()->loginUsingId('USR-240513023346');
+// auth()->loginUsingId(3);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/logindocter',[LoginController::class, 'login']);
+Route::post('/logindocter',[LoginController::class, 'login_post'])->name('logindocter');
+Route::post('/logoutdocter',[LoginController::class, 'logout'])->name('logoutdocter');
+
+Route::get('/doctor-schedule/{docter_id}', [OwnerAppointmenController::class, 'getJadwal']);
 
 Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
@@ -42,6 +52,17 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::get('/users/update-user/{user}', [SuperadminUserController::class, 'updateUserPage'])->name('superadmin.users.edit');
     Route::patch('/users/update/{user}', [SuperadminUserController::class, 'update'])->name('superadmin.users.update');
     Route::delete('/users/delete/{user}', [SuperadminUserController::class, 'destroy'])->name('superadmin.users.destroy');
+
+    Route::get('docters', [DocterController::class, 'index'])->name('superadmin.docters');
+    Route::get('docters/create', [DocterController::class, 'create'])->name('superadmin.docters.create');
+    Route::post('docters/store', [DocterController::class, 'store']);
+    Route::get('docters/edit/{docter:docter_id}', [DocterController::class, 'edit'])->name('superadmin.docters.edit');
+    Route::post('docters/update/{docter:docter_id}', [DocterController::class, 'update']);
+    Route::post('docters/delete/{docter:docter_id}', [DocterController::class, 'delete'])->name('superadmin.docters.delete');
+
+    Route::get('jadwal', [JadwalController::class, 'index'])->name('superadmin.jadwal');
+    Route::get('jadwal/edit/{jadwal:docter_id}', [JadwalController::class, 'edit'])->name('superadmin.jadwal.edit');
+    Route::post('jadwal/update/{jadwal:docter_id}', [JadwalController::class, 'update']);
 
     Route::get('/appointments', [AppointmenController::class, 'index'])->name('superadmin.appointments');
     Route::get('/appointments/detail', [AppointmenController::class, 'detail'])->name('superadmin.appointments.detail');
@@ -77,7 +98,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::delete('/services/delete/{service}', [AdminServiceController::class, 'destroy'])->name('admin.services.destroy');
 });
 
-Route::prefix('owner')->namespace('Owner')->group(function () {
+Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(function () {
     Route::get('/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
 
     Route::get('/pets', [PetController::class, 'index'])->name('owner.pets');
@@ -86,10 +107,16 @@ Route::prefix('owner')->namespace('Owner')->group(function () {
     Route::get('/pets/update-pet/{pet}', [PetController::class, 'updatePetPage'])->name('owner.pets.edit');
     Route::post('/pets/update/{pet}', [PetController::class, 'update'])->name('owner.pets.update');
     Route::delete('/pets/delete/{pet}', [PetController::class, 'destroy'])->name('owner.pets.destroy');
+
+    Route::get('/appointmen', [OwnerAppointmenController::class, 'index'])->name('owner.appointmen');
+    Route::get('/appointmen/create', [OwnerAppointmenController::class, 'create'])->name('owner.appointmen.create');
+    Route::post('/appointmen/store', [OwnerAppointmenController::class, 'store'])->name('owner.appointmen.store');
 });
 
-Route::prefix('doctor')->namespace('Doctor')->group(function () {
+Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(function () {
     Route::get('/dashboard', [DocterDashboardController::class, 'index'])->name('doctor.dashboard');
+
+    Route::get('/jadwal',[\App\Http\Controllers\Docter\JadwalController::class, 'index'])->name('docter.jadwal');
 });
 
 Route::middleware('auth')->group(function () {

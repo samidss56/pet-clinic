@@ -15,7 +15,7 @@ class HasRolesSuperadminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && $request->user()->hasAnyRoles(['superadmin'])) {
+        if ($request->user() && $request->user()->hasRole(['superadmin'])) {
             return $next($request);
         }
         abort(404);

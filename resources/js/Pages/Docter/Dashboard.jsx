@@ -1,10 +1,10 @@
-import Authenticated from "@/Layouts/AuthenticatedLayout";
+import AppDocter from "@/Layouts/AppDocter";
 import { Head } from "@inertiajs/react";
 
-const Dashboard = ({ auth, title }) => {
+const Dashboard = ({ docter, title }) => {
     return (
-        <Authenticated
-            user={auth.user}
+        <AppDocter
+            user={docter}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
                     {title}
@@ -18,7 +18,7 @@ const Dashboard = ({ auth, title }) => {
                     <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"></div>
                 </div>
             </div>
-        </Authenticated>
+        </AppDocter>
     );
 };
 

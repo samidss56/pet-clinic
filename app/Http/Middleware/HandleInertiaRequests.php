@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
+use App\Models\Docter;
 use Inertia\Middleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -22,13 +24,10 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
-    /**
-     * Define the props that are shared by default.
-     *
-     * @return array<string, mixed>
-     */
     public function share(Request $request): array
     {
+        $docter = Auth::guard('docter');
+
         return [
             ...parent::share($request),
             'auth' => $request->user() ? [
@@ -40,6 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'isOwner' => $request->user()?->hasAnyRoles(['owner']),
                 'isSuperAdmin' => $request->user()?->hasAnyRoles(['superadmin']),
             ] : null,
+            'docter' => $docter,
         ];
     }
 }

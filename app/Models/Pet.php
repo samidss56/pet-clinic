@@ -12,4 +12,9 @@ class Pet extends Model
     protected $primaryKey = 'pet_id';
     public $incrementing = false;
     protected $guarded = [];
+
+    public function appoitmen()
+    {
+        return $this->belongsToMany(Appointmen::class, 'pet_id', 'pet_id');
+    }
 }

@@ -39,7 +39,7 @@ class PetController extends Controller
             'user_id' => 'required|exists:users,user_id',
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'gender' => 'required|string|in:male,female',
+            'gender' => 'required|string',
             'age' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
