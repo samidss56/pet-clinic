@@ -15,7 +15,11 @@ class HasRolesMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->hasRoles()){
+        // if($request->user()->hasRoles()){
+        //     return $next($request);
+        // }
+        // abort(404);
+        if ($request->user() && $request->user()->hasRole(['owner'])) {
             return $next($request);
         }
         abort(404);

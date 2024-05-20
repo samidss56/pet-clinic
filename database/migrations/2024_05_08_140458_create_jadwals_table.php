@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
             $table->string('docter_id');
-            $table->dateTime('schedule');
+            $table->time('schedule')->nullable();
+            $table->enum('day', ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'])->nullable();
+            $table->string('is_aktif')->default('1');
             $table->timestamps();
-            $table->foreign('docter_id')->references('docter_id')->on('docters');
+            $table->foreign('docter_id')->references('docter_id')->on('docters')->onDelete('cascade');;
         });
     }
 

@@ -15,7 +15,7 @@ class HasRolesAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user() && $request->user()->hasAnyRoles(['admin'])){
+        if($request->user() && $request->user()->hasRole(['admin'])){
             return $next($request);
         }
         abort(404);

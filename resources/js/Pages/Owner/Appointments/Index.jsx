@@ -1,10 +1,11 @@
 import PetsList from "@/Components/Owner/Pets/PetsList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
+import AppointmentsList from "@/Components/Superadmin/Appointments/AppointmentsList";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Pets = ({ auth, title, myPets }) => {
+const Index = ({ auth, title, apooitmen }) => {
     return (
         <Authenticated
             user={auth}
@@ -18,7 +19,7 @@ const Pets = ({ auth, title, myPets }) => {
 
             <div className="py-12 px-4">
                 <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <Link href={route("owner.pets.create")}>
+                    <Link href={route("owner.appointmen.create")}>
                         <PrimaryButton className="mb-4 flex gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -34,17 +35,17 @@ const Pets = ({ auth, title, myPets }) => {
                                 <line x1="12" x2="12" y1="5" y2="19" />
                                 <line x1="5" x2="19" y1="12" y2="12" />
                             </svg>
-                            Add Pet
+                            Add Appoitment
                         </PrimaryButton>
                     </Link>
                     <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 my-4">
-                        <PetsList myPets={myPets.data} />
+                        {/* <AppointmentsList apooitmen={apooitmen.data} /> */}
                     </div>
-                    <Paginator meta={myPets.meta} />
+                    <Paginator meta={apooitmen.meta} />
                 </div>
             </div>
         </Authenticated>
     );
 };
 
-export default Pets;
+export default Index;

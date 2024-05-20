@@ -35,8 +35,8 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                             Pets
                         </NavLink>
                         <NavLink
-                        // href={route("user.orders")}
-                        // active={route().current("user.orders")}
+                        href={route("owner.appointmen")}
+                        active={route().current("owner.appointmen")}
                         >
                             Appointments
                         </NavLink>
