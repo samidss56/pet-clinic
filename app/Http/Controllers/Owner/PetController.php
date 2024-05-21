@@ -18,16 +18,16 @@ class PetController extends Controller
     {
         $myPets = Pet::where('user_id', Auth::user()->user_id)->paginate(10);
         $myPetCollection = new MyPetCollection($myPets);
-        return Inertia::render('Owner/Pets/Pets', [
+        return Inertia::render('Owner/Pets/Index', [
             'title' => 'My Pets',
             'myPets' => $myPetCollection
         ]);
     }
 
     // Tampil Halaman Create Pet
-    public function createPetPage()
+    public function create()
     {
-        return Inertia::render('Owner/Pets/CreatePet', [
+        return Inertia::render('Owner/Pets/Create', [
             'title' => 'Create Pet',
         ]);
     }
@@ -73,10 +73,10 @@ class PetController extends Controller
     }
 
     // Tampil Halaman Update Pet
-    public function updatePetPage(Pet $pet)
+    public function edit(Pet $pet)
     {
         $petData = Pet::find($pet->pet_id);
-        return Inertia::render('Owner/Pets/UpdatePet', [
+        return Inertia::render('Owner/Pets/Update', [
             'title' => 'Update Pet',
             'pet' => $petData,
         ]);

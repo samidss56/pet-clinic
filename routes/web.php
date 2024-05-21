@@ -37,9 +37,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/logindocter',[LoginController::class, 'login']);
-Route::post('/logindocter',[LoginController::class, 'login_post'])->name('logindocter');
-Route::post('/logoutdocter',[LoginController::class, 'logout'])->name('logoutdocter');
+Route::get('/login/docter',[LoginController::class, 'login']);
+Route::post('/login/docter',[LoginController::class, 'login_post'])->name('login.docter');
+Route::post('/logout/docter',[LoginController::class, 'logout'])->name('logout.docter');
 
 Route::get('/doctor-schedule/{docter_id}', [OwnerAppointmenController::class, 'getJadwal']);
 
@@ -47,9 +47,9 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
 
     Route::get('/users', [SuperadminUserController::class, 'index'])->name('superadmin.users');
-    Route::get('/users/create-user', [SuperadminUserController::class, 'createUserPage'])->name('superadmin.users.create');
+    Route::get('/users/create-user', [SuperadminUserController::class, 'create'])->name('superadmin.users.create');
     Route::post('/users/create', [SuperadminUserController::class, 'store'])->name('superadmin.users.store');
-    Route::get('/users/update-user/{user}', [SuperadminUserController::class, 'updateUserPage'])->name('superadmin.users.edit');
+    Route::get('/users/update-user/{user}', [SuperadminUserController::class, 'edit'])->name('superadmin.users.edit');
     Route::patch('/users/update/{user}', [SuperadminUserController::class, 'update'])->name('superadmin.users.update');
     Route::delete('/users/delete/{user}', [SuperadminUserController::class, 'destroy'])->name('superadmin.users.destroy');
 
@@ -83,17 +83,17 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
 
     // Route untuk Halaman Admin Product
     Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products');
-    Route::get('/products/create-product', [AdminProductController::class, 'createProductPage'])->name('admin.products.create');
+    Route::get('/products/create-product', [AdminProductController::class, 'create'])->name('admin.products.create');
     Route::post('/products/create', [AdminProductController::class, 'store'])->name('admin.products.store');
-    Route::get('/products/update-product/{product}', [AdminProductController::class, 'updateProductPage'])->name('admin.products.edit');
+    Route::get('/products/update-product/{product}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
     Route::post('/products/update/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/delete/{product}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 
     // Route untuk Halaman Admin Service
     Route::get('/services', [AdminServiceController::class, 'index'])->name('admin.services');
-    Route::get('/services/create-service', [AdminServiceController::class, 'createServicePage'])->name('admin.services.create');
+    Route::get('/services/create-service', [AdminServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/services/create', [AdminServiceController::class, 'store'])->name('admin.services.store');
-    Route::get('/services/update-service/{service}', [AdminServiceController::class, 'updateServicePage'])->name('admin.services.edit');
+    Route::get('/services/update-service/{service}', [AdminServiceController::class, 'edit'])->name('admin.services.edit');
     Route::put('/services/update/{service}', [AdminServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/services/delete/{service}', [AdminServiceController::class, 'destroy'])->name('admin.services.destroy');
 });
@@ -102,9 +102,9 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::get('/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
 
     Route::get('/pets', [PetController::class, 'index'])->name('owner.pets');
-    Route::get('/pets/create-pet', [PetController::class, 'createPetPage'])->name('owner.pets.create');
+    Route::get('/pets/create-pet', [PetController::class, 'create'])->name('owner.pets.create');
     Route::post('/pets/create', [PetController::class, 'store'])->name('owner.pets.store');
-    Route::get('/pets/update-pet/{pet}', [PetController::class, 'updatePetPage'])->name('owner.pets.edit');
+    Route::get('/pets/update-pet/{pet}', [PetController::class, 'edit'])->name('owner.pets.edit');
     Route::post('/pets/update/{pet}', [PetController::class, 'update'])->name('owner.pets.update');
     Route::delete('/pets/delete/{pet}', [PetController::class, 'destroy'])->name('owner.pets.destroy');
 

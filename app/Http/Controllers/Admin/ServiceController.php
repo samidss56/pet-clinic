@@ -15,16 +15,16 @@ class ServiceController extends Controller
     public function index()
     {
         $services = new ServiceCollection(Service::orderByDesc('created_at')->paginate(10));
-        return Inertia::render('Admin/Services/Services', [
+        return Inertia::render('Admin/Services/Index', [
             'title' => 'Services Management',
             'services' => $services
         ]);
     }
 
     // Tampil Halaman Create Service
-    public function createServicePage()
+    public function create()
     {
-        return Inertia::render('Admin/Services/CreateService', [
+        return Inertia::render('Admin/Services/Create', [
             'title' => 'Create Service'
         ]);
     }
@@ -54,10 +54,10 @@ class ServiceController extends Controller
     }
 
     // Tampil Halaman Update Service
-    public function updateServicePage(Service $service)
+    public function edit(Service $service)
     {
         $serviceData = Service::find($service->service_id);
-        return Inertia::render('Admin/Services/UpdateService', [
+        return Inertia::render('Admin/Services/Edit', [
             'title' => 'Update Service',
             'service' => $serviceData
         ]);

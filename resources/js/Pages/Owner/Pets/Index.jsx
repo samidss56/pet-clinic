@@ -1,25 +1,23 @@
+import ProfileCard from "@/Components/Owner/Dashboard/ProfileCard";
 import PetsList from "@/Components/Owner/Pets/PetsList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Head, Link } from "@inertiajs/react";
 
 const Pets = ({ auth, title, myPets }) => {
     return (
-        <Authenticated
-            user={auth}
-            // header={
-            //     <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-            //         {title}
-            //     </h2>
-            // }
-        >
+        <Authenticated user={auth}>
             <Head title={title} />
 
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
+            <OwnerLayout>
+                <div className="w-full md:hidden lg:block lg:w-2/5 flex-col sm:rounded-lg">
+                    <ProfileCard user={auth} />
+                </div>
+                <div className="w-full p-4 sm:p-0 flex-col">
                     <Link href={route("owner.pets.create")}>
-                        <PrimaryButton className="mb-4 flex gap-2">
+                        <PrimaryButton className="flex gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 22 22"
@@ -37,12 +35,12 @@ const Pets = ({ auth, title, myPets }) => {
                             Add Pet
                         </PrimaryButton>
                     </Link>
-                    <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 my-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 my-4">
                         <PetsList myPets={myPets.data} />
                     </div>
                     <Paginator meta={myPets.meta} />
                 </div>
-            </div>
+            </OwnerLayout>
         </Authenticated>
     );
 };

@@ -1,24 +1,20 @@
-import PetsList from "@/Components/Owner/Pets/PetsList";
+import AppointmentsList from "@/Components/Owner/Appointments/AppointmentsList";
+import ProfileCard from "@/Components/Owner/Dashboard/ProfileCard";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
-import AppointmentsList from "@/Components/Superadmin/Appointments/AppointmentsList";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Index = ({ auth, title, apooitmen }) => {
+const Index = ({ auth, title, appointments }) => {
     return (
-        <Authenticated
-            user={auth}
-            // header={
-            //     <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-            //         {title}
-            //     </h2>
-            // }
-        >
+        <Authenticated user={auth}>
             <Head title={title} />
-
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
+            <OwnerLayout>
+                <div className="w-full md:hidden lg:block lg:w-2/5 flex-col sm:rounded-lg">
+                    <ProfileCard user={auth} />
+                </div>
+                <div className="w-full p-4 sm:p-0 flex-col">
                     <Link href={route("owner.appointmen.create")}>
                         <PrimaryButton className="mb-4 flex gap-2">
                             <svg
@@ -35,15 +31,15 @@ const Index = ({ auth, title, apooitmen }) => {
                                 <line x1="12" x2="12" y1="5" y2="19" />
                                 <line x1="5" x2="19" y1="12" y2="12" />
                             </svg>
-                            Add Appoitment
+                            Add Appointment
                         </PrimaryButton>
                     </Link>
-                    <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 my-4">
-                        {/* <AppointmentsList apooitmen={apooitmen.data} /> */}
+                    <div className="flex flex-col gap-3">
+                        <AppointmentsList appointments={appointments.data} />
                     </div>
-                    <Paginator meta={apooitmen.meta} />
+                    <Paginator meta={appointments.meta} />
                 </div>
-            </div>
+            </OwnerLayout>
         </Authenticated>
     );
 };

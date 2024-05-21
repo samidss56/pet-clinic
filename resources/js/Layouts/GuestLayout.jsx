@@ -1,20 +1,24 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import { useDarkMode } from "@/Contexts/DarkMode";
-import { Link } from "@inertiajs/react";
-
 export default function Guest({ children }) {
-    const { darkMode } = useDarkMode();
     return (
-        <div className={`${darkMode && "dark"}`}>
-            <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-light-gray">
-                <div>
-                    <Link href="/">
-                        <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                    </Link>
+        <div className="p-0 min-h-screen flex flex-col bg-primary-color">
+            <div className="flex flex-col md:flex-row md:justify-between flex-grow">
+                <div className="hidden md:block md:w-1/2">
+                    <img
+                        src="https://bluepet.com/wp-content/uploads/2021/10/veterinarian-near-studio-city-ca.jpg"
+                        alt=""
+                        className="object-cover w-full h-full"
+                    />
                 </div>
-
-                <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-dark-gray shadow-md overflow-hidden sm:rounded-lg">
-                    {children}
+                <div className="w-full p-6 md:w-1/2 flex flex-col items-center justify-center">
+                    <div className="flex flex-col gap-3 items-center w-full">
+                        <div className="flex justify-center items-center gap-3">
+                            <span className="bg-primary-red h-10 w-10 rounded-lg"></span>
+                            <p className="text-3xl font-bold text-primary-red">
+                                Pawana Jiwa
+                            </p>
+                        </div>
+                        {children}
+                    </div>
                 </div>
             </div>
         </div>

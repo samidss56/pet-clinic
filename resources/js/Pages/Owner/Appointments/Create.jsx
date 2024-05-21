@@ -99,14 +99,14 @@ const Create = ({ auth, title, pets, docters }) => {
                         {schedules.length > 0 && (
                             <div className="mt-4">
                                 <InputLabel value="Select Schedule" />
-                                <div className="flex flex-wrap">
+                                <div className="flex gap-3 mb-2">
                                     {schedules.map((schedule) => (
                                         <button
                                             type="button"
                                             key={schedule.id}
-                                            className={`p-2 m-2 border rounded ${
+                                            className={`p-2 border rounded ${
                                                 selectedSchedule === schedule.id
-                                                    ? 'bg-blue-500 text-white'
+                                                    ? 'bg-white text-primary-red border-[1.5px] border-primary-red'
                                                     : 'bg-white border-gray-300'
                                             }`}
                                             onClick={() => handleScheduleClick(schedule.id)}
