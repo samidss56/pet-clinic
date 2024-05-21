@@ -77,6 +77,7 @@ const isPets = (myPets) => {
                                         <UpdateIcon />
                                     </SecondaryButton>
                                 </Link>
+<<<<<<< HEAD
                                 <Link
                                     className="w-full flex justify-center"
                                     href={route(
@@ -88,6 +89,8 @@ const isPets = (myPets) => {
                                         <CreateIcon />
                                     </SecondaryButton>
                                 </Link>
+=======
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
                             </div>
                         </div>
                     </div>

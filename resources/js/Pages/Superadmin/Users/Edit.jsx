@@ -2,7 +2,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
+<<<<<<< HEAD
 import AdminLayout from "@/Layouts/AdminLayout";
+=======
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 
@@ -27,6 +30,7 @@ const UpdateUser = ({ auth, title, user }) => {
             }
         >
             <Head title={title} />
+<<<<<<< HEAD
             <AdminLayout>
                 <form
                     onSubmit={handleSubmit}
@@ -77,6 +81,60 @@ const UpdateUser = ({ auth, title, user }) => {
                     </div>
                 </form>
             </AdminLayout>
+=======
+            <div className="py-12 px-4">
+                <div className="w-full mx-auto sm:px-2 lg:px-4">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
+                    >
+                        <InputLabel htmlFor="name" value="User Name" />
+                        <TextInput
+                            type="text"
+                            id="name"
+                            name="name"
+                            className="block w-full"
+                            placeholder="User Name"
+                            value={data.name}
+                            onChange={(e) => setData("name", e.target.value)}
+                            required
+                        />
+                        <InputError message={errors.name} className="mb-2" />
+                        <InputLabel htmlFor="email" value="User Email" />
+                        <TextInput
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="block w-full"
+                            placeholder="User Email"
+                            value={data.email}
+                            onChange={(e) => setData("email", e.target.value)}
+                            required
+                        />
+                        <InputError message={errors.email} className="mb-2" />
+                        <InputLabel htmlFor="role" value="Role" />
+                        <select
+                            className="select select-bordered w-full border-gray-300 mb-2 bg-gray-100 dark:bg-light-gray dark:text-gray-50 dark:border-gray-600 placeholder:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                            name="role"
+                            value={data.role}
+                            onChange={(e) => setData("role", e.target.value)}
+                            required
+                        >
+                            <option disabled>Select a Role</option>
+                            <option value="owner">Owner</option>
+                            <option value="admin">Admin</option>
+                            <option value="superadmin">Super Admin</option>
+                        </select>
+                        <InputError message={errors.role} className="mb-2" />
+                        <div>
+                            <PrimaryButton className="mt-4" type="submit">
+                                Update User
+                            </PrimaryButton>
+                        </div>
+                    </form>
+                </div>
+            </div>
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
         </Authenticated>
     );
 };

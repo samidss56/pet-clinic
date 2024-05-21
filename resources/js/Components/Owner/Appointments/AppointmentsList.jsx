@@ -57,12 +57,15 @@ const isAppointment = (appointments) => {
                                             appointment.status === "accepted" &&
                                             "bg-orange-600 border-orange-600 text-white"
                                         } ${
+<<<<<<< HEAD
                                             appointment.status === "rejected" &&
                                             "bg-orange-400 border-orange-400 text-white"
                                         } ${
                                             appointment.status === "expired" &&
                                             "bg-gray-400 border-gray-400 text-white"
                                         } ${
+=======
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
                                             appointment.status === "handled" &&
                                             "bg-yellow-400 border-yellow-400 text-white"
                                         } ${

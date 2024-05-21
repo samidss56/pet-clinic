@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import { CreateIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
 import UsersList from "@/Components/Superadmin/Users/UsersList";
 import AdminLayout from "@/Layouts/AdminLayout";
+=======
+import PrimaryButton from "@/Components/PrimaryButton";
+import UsersList from "@/Components/Superadmin/Users/UsersList";
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
@@ -16,6 +21,7 @@ const Users = ({ auth, title, users }) => {
             }
         >
             <Head title={title} />
+<<<<<<< HEAD
             <AdminLayout>
                 <Link href={route("superadmin.users.create")}>
                     <PrimaryButton className="mb-4 flex gap-2">
@@ -25,6 +31,32 @@ const Users = ({ auth, title, users }) => {
                 </Link>
                 <UsersList users={users.data} />
             </AdminLayout>
+=======
+            <div className="py-12 px-4">
+                <div className="w-full mx-auto sm:px-2 lg:px-4">
+                    <Link href={route("superadmin.users.create")}>
+                        <PrimaryButton className="mb-4 flex gap-2">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 22 22"
+                                width="22"
+                                height="22"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                            >
+                                <line x1="12" x2="12" y1="5" y2="19" />
+                                <line x1="5" x2="19" y1="12" y2="12" />
+                            </svg>
+                            Add User
+                        </PrimaryButton>
+                    </Link>
+                    <UsersList users={users.data} />
+                </div>
+            </div>
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
         </Authenticated>
     );
 };

@@ -23,7 +23,11 @@ export default function Login({ status, canResetPassword }) {
     const submit = (e) => {
         e.preventDefault();
 
+<<<<<<< HEAD
         post(route("login.docter"));
+=======
+        post(route("login/docter"));
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
     };
 
     return (

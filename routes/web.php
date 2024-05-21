@@ -44,9 +44,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+<<<<<<< HEAD
 Route::get('/login/docter', [LoginController::class, 'login']);
 Route::post('/login/docter', [LoginController::class, 'login_post'])->name('login.docter');
 Route::post('/logout/docter', [LoginController::class, 'logout'])->name('logout.docter');
+=======
+Route::get('/login/docter',[LoginController::class, 'login']);
+Route::post('/login/docter',[LoginController::class, 'login_post'])->name('login.docter');
+Route::post('/logout/docter',[LoginController::class, 'logout'])->name('logout.docter');
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
 
 Route::get('/doctor-schedule/{docter_id}', [OwnerAppointmenController::class, 'getJadwal']);
 

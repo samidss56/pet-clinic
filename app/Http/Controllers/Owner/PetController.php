@@ -76,11 +76,14 @@ class PetController extends Controller
     public function edit(Pet $pet)
     {
         $petData = Pet::find($pet->pet_id);
+<<<<<<< HEAD
 
         if (!$petData || $petData->user_id !== Auth::user()->user_id) {
             return redirect()->route('owner.pets');
         }
 
+=======
+>>>>>>> a0ab76f (feat, refactor: owner layout added, controller and view files renamed, routes refactored, guest layout refactored, appointments page ui design in owner role, select input component refactored, navbar refactored, input component refactored, color pallete added to tailwind config)
         return Inertia::render('Owner/Pets/Update', [
             'title' => 'Update Pet',
             'pet' => $petData,
