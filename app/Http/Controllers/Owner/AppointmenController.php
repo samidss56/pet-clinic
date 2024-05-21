@@ -28,7 +28,7 @@ class AppointmenController extends Controller
         // return AppoitmenOwnerResource::collection($appoitment);
         return Inertia::render('Owner/Appointments/Index', [
             'title' => 'Your Appointmens',
-            'apooitmen' => AppoitmenOwnerResource::collection($appoitment),
+            'appointments' => AppoitmenOwnerResource::collection($appoitment),
         ]);
     }
 

@@ -18,16 +18,16 @@ class UserController extends Controller
     public function index()
     {
         $users = new UserCollection(User::orderByDesc('created_at')->paginate(10));
-        return Inertia::render('Superadmin/Users/Users', [
+        return Inertia::render('Superadmin/Users/Index', [
             'title' => 'Users Management',
             'users' => $users
         ]);
     }
 
     // Tampil Halaman Create User
-    public function createUserPage()
+    public function create()
     {
-        return Inertia::render('Superadmin/Users/CreateUser', [
+        return Inertia::render('Superadmin/Users/Create', [
             'title' => 'Create User'
         ]);
     }
@@ -82,10 +82,10 @@ class UserController extends Controller
     }
 
     // Halaman Update User
-    public function updateUserPage(User $user)
+    public function edit(User $user)
     {
         $user = RoleUser::with(['user', 'role'])->find($user->user_id);
-        return Inertia::render('Superadmin/Users/UpdateUser', [
+        return Inertia::render('Superadmin/Users/Edit', [
             'title' => 'Update User',
             'user' => $user
         ]);

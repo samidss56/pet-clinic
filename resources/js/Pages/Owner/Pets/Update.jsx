@@ -1,33 +1,36 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 
-const CreatePet = ({ auth, title }) => {
-    const { data, setData, errors, post } = useForm({
-        user_id: auth.user.user_id,
-        name: "",
-        type: "",
-        gender: "",
-        age: "",
-        image: "",
+const UpdatePet = ({ auth, title, pet }) => {
+    const { data, setData, errors } = useForm({
+        name: pet.name,
+        image: pet.image,
+        type: pet.type,
+        age: pet.age,
+        gender: pet.gender,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("user_id", data.user_id);
         formData.append("name", data.name);
-        formData.append("type", data.type);
-        formData.append("gender", data.gender);
-        formData.append("age", data.age);
         formData.append("image", data.image);
+        formData.append("type", data.type);
+        formData.append("age", data.age);
+        formData.append("gender", data.gender);
 
-        post(route("owner.pets.store"));
+        router.post(`/owner/pets/update/${pet.pet_id}`, formData, {
+            _method: "put",
+        });
     };
+
+    const appUrl = import.meta.env.VITE_APP_URL;
 
     return (
         <Authenticated
@@ -55,38 +58,46 @@ const CreatePet = ({ auth, title }) => {
                             placeholder="Pet Name"
                             value={data.name}
                             onChange={(e) => setData("name", e.target.value)}
-                            required
                         />
                         <InputError message={errors.name} className="mb-2" />
 
                         <InputLabel htmlFor="image" value="Pet Image" />
-                        <TextInput
-                            id="image"
-                            type="file"
-                            name="image"
-                            className="block w-full file-input file-input-bordered mb-0"
-                            placeholder="Pet Image"
-                            onChange={(e) =>
-                                setData("image", e.target.files[0])
-                            }
-                            required
-                        />
-                        <InputError message={errors.image} className="mb-2" />
-
+                        <div className="flex items center gap-4">
+                            <img
+                                className="w-20 rounded-lg"
+                                src={`${appUrl}/storage/${pet.image}`}
+                                alt=""
+                            />
+                            <div className="w-full">
+                                <TextInput
+                                    id="image"
+                                    type="file"
+                                    name="image"
+                                    className="block w-full file-input file-input-bordered mb-0"
+                                    placeholder="User Email"
+                                    onChange={(e) =>
+                                        setData("image", e.target.files[0])
+                                    }
+                                />
+                                <InputError
+                                    message={errors.image}
+                                    className="mb-2"
+                                />
+                            </div>
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 py-1">
                             <div>
                                 <InputLabel htmlFor="type" value="Pet Type" />
-                                <TextInput
+                                <SelectInput
                                     type="text"
                                     id="type"
                                     name="type"
                                     className="block w-full"
-                                    placeholder="Pet Type"
+                                    options={["Dog", "Cat", "Bird", "Other"]}
                                     value={data.type}
                                     onChange={(e) =>
-                                        setData("type", e.target.value.toLowerCase())
+                                        setData("type", e.target.value)
                                     }
-                                    required
                                 />
                                 <InputError
                                     message={errors.type}
@@ -95,20 +106,16 @@ const CreatePet = ({ auth, title }) => {
                             </div>
                             <div>
                                 <InputLabel htmlFor="gender" value="Gender" />
-                                <TextInput
+                                <SelectInput
                                     type="text"
                                     id="gender"
                                     name="gender"
                                     className="block w-full"
-                                    placeholder="Gender"
+                                    options={["Male", "Female"]}
                                     value={data.gender}
                                     onChange={(e) =>
-                                        setData(
-                                            "gender",
-                                            e.target.value.toLowerCase()
-                                        )
+                                        setData("gender", e.target.value)
                                     }
-                                    required
                                 />
                                 <InputError
                                     message={errors.gender}
@@ -127,7 +134,6 @@ const CreatePet = ({ auth, title }) => {
                                     onChange={(e) =>
                                         setData("age", e.target.value)
                                     }
-                                    required
                                 />
                                 <InputError
                                     message={errors.age}
@@ -135,14 +141,9 @@ const CreatePet = ({ auth, title }) => {
                                 />
                             </div>
                         </div>
-
                         <div>
-                            <PrimaryButton
-                                className="mt-4"
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
-                                Create Pet
+                            <PrimaryButton className="mt-4" type="submit">
+                                Update Pet
                             </PrimaryButton>
                         </div>
                     </form>
@@ -152,4 +153,4 @@ const CreatePet = ({ auth, title }) => {
     );
 };
 
-export default CreatePet;
+export default UpdatePet;
