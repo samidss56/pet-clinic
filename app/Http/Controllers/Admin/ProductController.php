@@ -16,16 +16,16 @@ class ProductController extends Controller
     public function index()
     {
         $products = new ProductCollection(Product::orderByDesc('created_at')->paginate(10));
-        return Inertia::render('Admin/Products/Products', [
+        return Inertia::render('Admin/Products/Index', [
             'title' => 'Products Management',
             'products' => $products
         ]);
     }
 
     // Tampil Halaman Create Product
-    public function createProductPage()
+    public function create()
     {
-        return Inertia::render('Admin/Products/CreateProduct', [
+        return Inertia::render('Admin/Products/Create', [
             'title' => 'Create Product'
         ]);
     }
@@ -69,10 +69,10 @@ class ProductController extends Controller
     }
 
     // Tampil Halaman Update Product
-    public function updateProductPage(Product $product)
+    public function edit(Product $product)
     {
         $productData = Product::find($product->product_id);
-        return Inertia::render('Admin/Products/UpdateProduct', [
+        return Inertia::render('Admin/Products/Edit', [
             'title' => 'Update Product',
             'product' => $productData
         ]);

@@ -93,7 +93,7 @@ const SidebarDocter = ({user, darkMode, toggleDarkMode}) => {
                     <div className="flex flex-col gap-3">
                         <li>
                             <Link
-                                href={route("logoutdocter")}
+                                href={route("logout.docter")}
                                 as="button"
                                 method="post"
                             >
