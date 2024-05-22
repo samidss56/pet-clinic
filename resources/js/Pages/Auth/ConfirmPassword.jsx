@@ -27,11 +27,16 @@ export default function ConfirmPassword() {
         <GuestLayout>
             <Head title="Confirm Password" />
 
-            <div className="mb-4 text-sm text-gray-600 dark:text-gray-200">
-                This is a secure area of the application. Please confirm your password before continuing.
+            
+            <div className="my-4 text-sm text-gray-600">
+                <p className="text-2xl text-gray-800 mb-3 font-semibold">
+                    Password Confirmation
+                </p>
+                This is a secure area of the application. Please confirm your
+                password before continuing.
             </div>
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="w-full">
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 

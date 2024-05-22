@@ -1,27 +1,19 @@
+import ProfileCard from "@/Components/Owner/Dashboard/ProfileCard";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Dashboard({ auth, title }) {
+    console.log(auth);
     return (
-        <AuthenticatedLayout
-            user={auth}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-                    {title}
-                </h2>
-            }
-        >
-            <Head title={title}/>
+        <AuthenticatedLayout user={auth}>
+            <Head title={title} />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-dark-gray overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-white">
-                            You're logged in!
-                        </div>
-                    </div>
+            <OwnerLayout>
+                <div className="w-full md:w-1/3 flex-col sm:rounded-lg">
+                    <ProfileCard user={auth}/>
                 </div>
-            </div>
+            </OwnerLayout>
         </AuthenticatedLayout>
     );
 }
