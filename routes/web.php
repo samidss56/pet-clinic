@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PetTypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\LoginController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\SuperAdmin\DashboardController;
 use App\Http\Controllers\SuperAdmin\DocterController;
 use App\Http\Controllers\SuperAdmin\JadwalController;
 use App\Http\Controllers\Superadmin\UserController as SuperadminUserController;
+use App\Http\Controllers\Superadmin\ProductController as SuperadminProductController;
+use App\Http\Controllers\Superadmin\ServiceController as SuperadminServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +69,22 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
 
     Route::get('/appointments', [AppointmenController::class, 'index'])->name('superadmin.appointments');
     Route::get('/appointments/detail', [AppointmenController::class, 'detail'])->name('superadmin.appointments.detail');
+
+    // Route untuk Halaman Super Admin Product
+    Route::get('/products', [SuperadminProductController::class, 'index'])->name('superadmin.products');
+    Route::get('/products/create-product', [SuperadminProductController::class, 'create'])->name('superadmin.products.create');
+    Route::post('/products/create', [SuperadminProductController::class, 'store'])->name('superadmin.products.store');
+    Route::get('/products/update-product/{product}', [SuperadminProductController::class, 'edit'])->name('superadmin.products.edit');
+    Route::post('/products/update/{product}', [SuperadminProductController::class, 'update'])->name('superadmin.products.update');
+    Route::delete('/products/delete/{product}', [SuperadminProductController::class, 'destroy'])->name('superadmin.products.destroy');
+
+    // Route untuk Halaman Super Admin Service
+    Route::get('/services', [SuperadminServiceController::class, 'index'])->name('superadmin.services');
+    Route::get('/services/create-service', [SuperadminServiceController::class, 'create'])->name('superadmin.services.create');
+    Route::post('/services/create', [SuperadminServiceController::class, 'store'])->name('superadmin.services.store');
+    Route::get('/services/update-service/{service}', [SuperadminServiceController::class, 'edit'])->name('superadmin.services.edit');
+    Route::put('/services/update/{service}', [SuperadminServiceController::class, 'update'])->name('superadmin.services.update');
+    Route::delete('/services/delete/{service}', [SuperadminServiceController::class, 'destroy'])->name('superadmin.services.destroy');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -96,6 +115,14 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/services/update-service/{service}', [AdminServiceController::class, 'edit'])->name('admin.services.edit');
     Route::put('/services/update/{service}', [AdminServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/services/delete/{service}', [AdminServiceController::class, 'destroy'])->name('admin.services.destroy');
+
+    // Route untuk Halaman Admin Article
+    Route::get('/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
+    Route::get('/articles/create-article', [AdminArticleController::class, 'create'])->name('admin.articles.create');
+    Route::post('/articles/create', [AdminArticleController::class, 'store'])->name('admin.articles.store');
+    Route::get('/articles/update-article/{article}', [AdminArticleController::class, 'edit'])->name('admin.articles.edit');
+    Route::post('/articles/update/{article}', [AdminArticleController::class, 'update'])->name('admin.articles.update');
+    Route::delete('/articles/delete/{article}', [AdminArticleController::class, 'destroy'])->name('admin.articles.destroy');
 });
 
 Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(function () {
