@@ -93,7 +93,11 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
 
                             <li>
                                 <Link
-                                    href={route("admin.products")}
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.products")
+                                            : route("admin.products")
+                                    }
                                     as="button"
                                 >
                                     <svg
@@ -111,7 +115,11 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                             </li>
                             <li>
                                 <Link
-                                    href={route("admin.services")}
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.services")
+                                            : route("admin.services")
+                                    }
                                     as="button"
                                 >
                                     <svg
@@ -125,6 +133,24 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                                         <path d="M11 22v-5H8v5H5V11.9a3.49 3.49 0 0 1-2.48-1.64A3.59 3.59 0 0 1 2 8.5 3.65 3.65 0 0 1 6 5a1.89 1.89 0 0 0 2-2 1 1 0 0 1 1-1 1 1 0 0 1 1 1 3.89 3.89 0 0 1-4 4C4.19 7 4 8.16 4 8.51S4.18 10 6 10h5.09A6 6 0 0 0 19 14.65V22h-3v-5h-2v5z"></path>
                                     </svg>
                                     Service Management
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={route("admin.articles")}
+                                    as="button"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="main-grid-item-icon fill-dark-gray dark:fill-white"
+                                    >
+                                        <path d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM7 6V10H11V6H7ZM7 12V14H17V12H7ZM7 16V18H17V16H7ZM13 7V9H17V7H13Z"></path>
+                                    </svg>
+                                    Article Management
                                 </Link>
                             </li>
                             {user.isSuperAdmin && (
