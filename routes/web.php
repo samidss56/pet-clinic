@@ -3,19 +3,18 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PetController as AdminPetController;
-use App\Http\Controllers\Admin\PetTypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
-use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Owner\AppointmenController as OwnerAppointmenController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
+use App\Http\Controllers\SuperAdmin\ArticleController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
 use App\Http\Controllers\SuperAdmin\DocterController;
 use App\Http\Controllers\SuperAdmin\JadwalController;
@@ -40,9 +39,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/login/docter',[LoginController::class, 'login']);
-Route::post('/login/docter',[LoginController::class, 'login_post'])->name('login.docter');
-Route::post('/logout/docter',[LoginController::class, 'logout'])->name('logout.docter');
+Route::get('/login/docter', [LoginController::class, 'login']);
+Route::post('/login/docter', [LoginController::class, 'login_post'])->name('login.docter');
+Route::post('/logout/docter', [LoginController::class, 'logout'])->name('logout.docter');
 
 Route::get('/doctor-schedule/{docter_id}', [OwnerAppointmenController::class, 'getJadwal']);
 
@@ -85,6 +84,9 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::get('/services/update-service/{service}', [SuperadminServiceController::class, 'edit'])->name('superadmin.services.edit');
     Route::put('/services/update/{service}', [SuperadminServiceController::class, 'update'])->name('superadmin.services.update');
     Route::delete('/services/delete/{service}', [SuperadminServiceController::class, 'destroy'])->name('superadmin.services.destroy');
+
+    // Route untuk Halaman Super Admin Article
+    Route::get('/articles', [ArticleController::class, 'index'])->name('superadmin.articles');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -143,7 +145,7 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
 Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(function () {
     Route::get('/dashboard', [DocterDashboardController::class, 'index'])->name('doctor.dashboard');
 
-    Route::get('/jadwal',[\App\Http\Controllers\Docter\JadwalController::class, 'index'])->name('docter.jadwal');
+    Route::get('/jadwal', [\App\Http\Controllers\Docter\JadwalController::class, 'index'])->name('docter.jadwal');
 });
 
 Route::middleware('auth')->group(function () {
