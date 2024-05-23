@@ -76,6 +76,11 @@ class PetController extends Controller
     public function edit(Pet $pet)
     {
         $petData = Pet::find($pet->pet_id);
+
+        if (!$petData || $petData->user_id !== Auth::user()->user_id) {
+            return redirect()->route('owner.pets');
+        }
+
         return Inertia::render('Owner/Pets/Update', [
             'title' => 'Update Pet',
             'pet' => $petData,
