@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JadwalResource;
+use App\Models\Docter;
 use Illuminate\Support\Facades\Auth;
 
 class JadwalController extends Controller
@@ -25,5 +26,14 @@ class JadwalController extends Controller
             'title' => 'Jadwals Management',
             'jadwals' => JadwalResource::collection($jadwals),
         ]);
+    }
+
+    public function update(Request $request, Jadwal $jadwal)
+    {
+        $jadwal->update([
+            'is_aktif' => $request->is_aktif,
+        ]);
+    
+        return response()->json();
     }
 }

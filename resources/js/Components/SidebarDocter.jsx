@@ -71,7 +71,7 @@ const SidebarDocter = ({user, darkMode, toggleDarkMode}) => {
                             </li>
                             <li>
                                 <Link
-                                    href={route("admin.services")}
+                                    href={route("docter.appointmen")}
                                     as="button"
                                 >
                                     <svg
