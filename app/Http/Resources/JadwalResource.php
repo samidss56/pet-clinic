@@ -21,9 +21,10 @@ class JadwalResource extends JsonResource
         ];
 
         return [
+            'id' => $this->id,
             'schedule' => $this->schedule,
             'day' => isset($days[$this->day]) ? $days[$this->day] : '',
-            'is_aktif' => $this->is_aktif == '1' ? 'Aktif' : 'Tidak Aktif',
+            'is_aktif' => $this->is_aktif,
             'docter' => [
                 'docter_id' => $this->docter->docter_id,
                 'name' => $this->docter->name,

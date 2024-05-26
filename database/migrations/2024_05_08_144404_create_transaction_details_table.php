@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaction_id');
-            $table->string('product_id');
-            $table->foreignId('service_id');
-            $table->integer('quantity');
-            $table->string('harga_product');
-            $table->string('harga_service');
+            $table->string('product_id')->nullable();
+            $table->string('service_id')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->double('harga_product')->nullable();
+            $table->double('harga_service')->nullable();
             $table->timestamps();
             $table->foreign('product_id')->references('product_id')->on('products');
+            $table->foreign('service_id')->references('service_id')->on('services');
         });
     }
 

@@ -15,7 +15,7 @@ const Index = ({ auth, title, appointments }) => {
                     <ProfileCard user={auth} />
                 </div>
                 <div className="w-full p-4 sm:p-0 flex-col">
-                    <Link href={route("owner.appointmen.create")}>
+                    {/* <Link href={route("owner.appointmen.create")}>
                         <PrimaryButton className="mb-4 flex gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -33,10 +33,11 @@ const Index = ({ auth, title, appointments }) => {
                             </svg>
                             Add Appointment
                         </PrimaryButton>
-                    </Link>
-                    <div className="flex flex-col gap-3">
-                        <AppointmentsList appointments={appointments.data} />
-                    </div>
+                    </Link> */}
+                    <AppointmentsList appointments={appointments.data} />
+                    {/* <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 my-4">
+                        
+                    </div> */}
                     <Paginator meta={appointments.meta} />
                 </div>
             </OwnerLayout>

@@ -75,7 +75,7 @@ const DropdownLink = ({ className = '', children, ...props }) => {
         <Link
             {...props}
             className={
-                'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out ' +
+                'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-300 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out ' +
                 className
             }
         >
@@ -84,8 +84,13 @@ const DropdownLink = ({ className = '', children, ...props }) => {
     );
 };
 
+const Divider = () => {
+    return <div className='h-px ml-2 my-2 bg-gray-700'></div>
+};
+
 Dropdown.Trigger = Trigger;
 Dropdown.Content = Content;
 Dropdown.Link = DropdownLink;
+Dropdown.Divider = Divider;
 
 export default Dropdown;

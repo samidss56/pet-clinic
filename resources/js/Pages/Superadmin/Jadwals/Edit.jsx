@@ -44,7 +44,7 @@ const Edit = ({ auth, title, jadwals, doctorSchedule }) => {
         data.schedules.forEach((schedule, index) => {
             formData.append(`schedules[${index}][schedule]`, schedule.schedule || "");
             formData.append(`schedules[${index}][day]`, schedule.day || "");
-            formData.append(`schedules[${index}][is_aktif]`, schedule.is_aktif || "0"); // Set default to "0"
+            formData.append(`schedules[${index}][is_aktif]`, schedule.is_aktif || "0");
         });
 
         router.post(`/superadmin/jadwal/update/${jadwals.data.docter.docter_id}`, formData, {
