@@ -17,4 +17,9 @@ class Pet extends Model
     {
         return $this->belongsToMany(Appointmen::class, 'pet_id', 'pet_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 }

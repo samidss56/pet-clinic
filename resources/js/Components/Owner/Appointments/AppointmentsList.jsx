@@ -57,6 +57,12 @@ const isAppointment = (appointments) => {
                                             appointment.status === "accepted" &&
                                             "bg-orange-600 border-orange-600 text-white"
                                         } ${
+                                            appointment.status === "rejected" &&
+                                            "bg-orange-400 border-orange-400 text-white"
+                                        } ${
+                                            appointment.status === "expired" &&
+                                            "bg-gray-400 border-gray-400 text-white"
+                                        } ${
                                             appointment.status === "handled" &&
                                             "bg-yellow-400 border-yellow-400 text-white"
                                         } ${

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AppoitmenOwnerResource extends JsonResource
+class AppoitmenAdminResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -28,6 +28,7 @@ class AppoitmenOwnerResource extends JsonResource
             'pet' => [
                 'pet_id' => $this->pet->pet_id,
                 'name' => $this->pet->name,
+                'user' => $this->pet->user,
             ],
             'docter' => [
                 'docter_id' => $this->docter->docter_id,

@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('invoice')->unique();
-            $table->string('user_id');
+            $table->string('user_id')->nullable();
             $table->string('appointmen_id');
             $table->string('status_payment');
             $table->date('date_transaction');
-            $table->string('subtotal');
+            $table->double('subtotal');
+            $table->json('payment_info')->nullable();
+            $table->json('payment_type')->nullable();
+            $table->dateTime('succeeded_at')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->foreign('appointmen_id')->references('appointmen_id')->on('appointmens');

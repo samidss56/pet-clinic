@@ -79,9 +79,9 @@ const Sidebar = ({ user }) => {
                             <li>
                                 <Link
                                     href={
-                                        user.isSuperAdmin &&
-                                        route("superadmin.appointments")
-                                        // : route("admin.appointments")
+                                        user.isSuperAdmin ?
+                                        route("superadmin.appointments") :
+                                        route("admin.appoitments")
                                     }
                                     as="button"
                                     className="bg-white hover:bg-light-red border-none text-md font-medium "
@@ -94,7 +94,7 @@ const Sidebar = ({ user }) => {
                             </li>
                             <li>
                                 <Link
-                                    // href={route("admin.cars")}
+                                    href={route("admin.transaction")}
                                     as="button"
                                     className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 >

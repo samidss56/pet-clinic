@@ -37,7 +37,7 @@ const ProfileCard = ({ user }) => {
             </div>
             <div className="w-full p-2 bg-primary-red hover:bg-secondary-red transition-color duration-300 sm:rounded-b-lg flex justify-center">
                 <Link
-                    href={route("owner.appointmen.create")}
+                    href={route("owner.pets")}
                     className="text-center text-white text-sm flex gap-1 items-center"
                 >
                     Make Appointment
