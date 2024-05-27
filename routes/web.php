@@ -15,7 +15,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Owner\AppointmenController as OwnerAppointmenController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\PetController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Owner\ProfileController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\ArticleController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
@@ -134,12 +134,11 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/transaction/edit/{transaction:invoice}', [TransactionController::class, 'edit'])->name('admin.transaction.edit');
     Route::post('/transaction/updatetrans/{transaction:invoice}', [TransactionController::class, 'update'])->name('admin.transaction.update');
     Route::get('/transaction', [TransactionController::class, 'index'])->name('admin.transaction');
-    Route::get('transaction/{transaction:invoice}',[TransactionController::class, 'show'])->name('transaction.show');
+    Route::get('transaction/{transaction:invoice}', [TransactionController::class, 'show'])->name('transaction.show');
 
     //Appoitment
     Route::get('/appoitments', [AdminAppointmenController::class, 'index'])->name('admin.appoitments');
     Route::get('/appoitments/detail/{appointmen:appointmen_id}', [AdminAppointmenController::class, 'detail'])->name('admin.appoitments.detail');
-
 });
 
 Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(function () {
@@ -156,6 +155,10 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::get('/appointmen/create/{pet_id}', [OwnerAppointmenController::class, 'create'])->name('owner.appointmen.create');
     Route::post('/appointmen/store', [OwnerAppointmenController::class, 'store'])->name('owner.appointmen.store');
     Route::post('/appointmen/update/{appointmen:appointmen_id}', [OwnerAppointmenController::class, 'update'])->name('owner.appointmen.update');
+
+    Route::get('/settings', [ProfileController::class, 'edit'])->name('owner.profile.edit');
+    Route::patch('/settings', [ProfileController::class, 'update'])->name('owner.profile.update');
+    Route::delete('/settings', [ProfileController::class, 'destroy'])->name('owner.profile.destroy');
 });
 
 Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(function () {
@@ -164,20 +167,16 @@ Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(functi
 
     Route::get('/jadwal', [\App\Http\Controllers\Docter\JadwalController::class, 'index'])->name('docter.jadwal');
 
-    Route::get('/jadwal',[\App\Http\Controllers\Docter\JadwalController::class, 'index'])->name('docter.jadwal');
+    Route::get('/jadwal', [\App\Http\Controllers\Docter\JadwalController::class, 'index'])->name('docter.jadwal');
     Route::post('/jadwal/update/{jadwal}', [\App\Http\Controllers\Docter\JadwalController::class, 'update'])->name('docter.jadwal.update');
 
     Route::get('/appointmen', [AppoinmenController::class, 'index'])->name('docter.appointmen');
     Route::get('/appointmen/edit/{appointmen:appointmen_id}', [AppoinmenController::class, 'edit'])->name('docter.appointmen.edit');
     Route::post('/appointmen/update/{appointmen:appointmen_id}', [AppoinmenController::class, 'updatestatus'])->name('docter.appointmen.updatestatus');
     Route::post('/appointmen/updatetrans/{appointmen:appointmen_id}', [AppoinmenController::class, 'updatetrans'])->name('docter.appointmen.updatetrans');
-
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+// });
 
 require __DIR__ . '/auth.php';

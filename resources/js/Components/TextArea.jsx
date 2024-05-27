@@ -13,11 +13,11 @@ export default forwardRef(function TextInput(
     }, []);
 
     return (
-        <input
+        <textarea
             {...props}
             type={type}
             className={
-                "border-gray-300 mb-2 h-[48px] bg-gray-100 placeholder:text-gray-300 focus:border-primary-red focus:ring-primary-red rounded-md shadow-sm" +
+                "border-gray-300 bg-gray-100 mb-2 focus:border-primary-red focus:ring-primary-red rounded-md shadow-sm " +
                 className
             }
             ref={input}

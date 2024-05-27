@@ -12,7 +12,7 @@ const Pets = ({ auth, title, myPets }) => {
             <Head title={title} />
 
             <OwnerLayout>
-                <div className="w-full md:hidden lg:block lg:w-2/5 flex-col sm:rounded-lg">
+                <div className="w-full hidden lg:block lg:w-2/5 flex-col sm:rounded-lg">
                     <ProfileCard user={auth} />
                 </div>
                 <div className="w-full p-4 sm:p-0 flex-col">
