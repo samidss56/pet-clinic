@@ -3,11 +3,17 @@ import TransactionsList from "@/Components/Admin/Transaction/TransactionsList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
+import { Head, Link, router } from "@inertiajs/react";
+
 
 const Show = ({transaction,auth}) => {
     // console.log(transaction);
-    // const {data: transaction, meta, links, auth } = props.transaction
+    Echo.private(`trans.paid.${auth.user.user_id}`).listen('TransactionPaid', ({trans}) => {
+        if(trans.status_payment == 'settlement'){
+            router.visit(route("admin.transaction"), { method: 'get' })
+        }
+    })
 
     return (
         <Authenticated

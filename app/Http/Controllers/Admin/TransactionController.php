@@ -8,12 +8,13 @@ use App\Models\Service;
 use App\Models\Appointmen;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Events\TransactionPaid;
 use App\Models\TransactionDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use App\Http\Resources\TransactionAdminResource;
 use App\Http\Resources\TransactionResource;
+use App\Http\Resources\TransactionAdminResource;
 
 class TransactionController extends Controller
 {
@@ -49,6 +50,7 @@ class TransactionController extends Controller
     public function update(Request $request, Transaction $transaction)
     {
         // return $request;
+        $data_product = $transaction->details()->whereNotNull('product_id')->get()->keyBy('product_id')->toArray();
 
         if($request->payment_type == 'tunai')
         {
@@ -68,7 +70,6 @@ class TransactionController extends Controller
                 'status' => 'finished'
             ]);
 
-            $oldProducts = $transaction->details()->whereNotNull('product_id')->pluck('product_id')->toArray();
             $oldServices = $transaction->details()->whereNotNull('service_id')->pluck('service_id')->toArray();
 
             if ($request->has('services')) {
@@ -83,28 +84,74 @@ class TransactionController extends Controller
                     }
                 }
             }
-            
+            $totalQuantity = 0;
             if ($request->has('products')) {
                 foreach ($request->products as $product) {
                     if ($product['product_id'] !== null && $product['price_product'] !== null && $product['qty'] !== null) {
-                        TransactionDetail::updateOrCreate([
-                            'transaction_id' => $transaction->id,
-                            'product_id' => $product['product_id'],
-                        ], [
-                            'quantity' => $product['qty'],
-                            'harga_product' => $product['price_product'],
-                        ]);
+                        $detail_trans = TransactionDetail::where('transaction_id', $transaction->id)
+                        ->where('product_id', $product['product_id'])
+                        ->first();
+                       
+                        if ($detail_trans) {
+                            $qty_value = $detail_trans->quantity - $product['qty'];
+                            // $totalQuantity += $qty_value;
+
+                            $detail_trans->update([
+                                'quantity' => $product['qty'],
+                                'harga_product' => $product['price_product'],
+                            ]);
+                        } else {
+                            $qty_value = -$product['qty'];
+                            // $totalQuantity += $qty_value;
+                            TransactionDetail::create([
+                                'transaction_id' => $transaction->id,
+                                'product_id' => $product['product_id'],
+                                'quantity' => $product['qty'],
+                                'harga_product' => $product['price_product'],
+                            ]);
+                        }
+    
+                        $productModel = Product::where('product_id', $product['product_id'])->first();
+                        if ($productModel) {
+                            $productModel->stock_product += $qty_value;
+                            $productModel->save();
+                        }
+
+                        // TransactionDetail::updateOrCreate([
+                        //     'transaction_id' => $transaction->id,
+                        //     'product_id' => $product['product_id'],
+                        // ], [
+                        //     'quantity' => $product['qty'],
+                        //     'harga_product' => $product['price_product'],
+                        // ]);
+                    }
+                }
+            }
+            // dd($totalQuantity);
+            // $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
+            $oldProducts = array_keys($data_product);
+            $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
+           
+            foreach ($removedProducts as $productId) {
+                if (isset($data_product[$productId])) {
+
+                    $productModel = Product::where('product_id', $productId)->first();
+                    if ($productModel) {
+                        $productModel->stock_product += $data_product[$productId]['quantity'];
+                        $productModel->save();
+
+                        TransactionDetail::where('transaction_id', $transaction->id)
+                            ->where('product_id', $productId)
+                            ->delete();
                     }
                 }
             }
 
-            $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
-            $removedServices = array_diff($oldServices, array_column($request->services, 'service_id'));
-        
+            // TransactionDetail::where('transaction_id', $transaction->id)
+            //                 ->whereIn('product_id', $removedProducts)
+            //                 ->delete();
 
-            TransactionDetail::where('transaction_id', $transaction->id)
-                            ->whereIn('product_id', $removedProducts)
-                            ->delete();
+            $removedServices = array_diff($oldServices, array_column($request->services, 'service_id'));
 
             TransactionDetail::where('transaction_id', $transaction->id)
                             ->whereIn('service_id', $removedServices)
@@ -122,7 +169,6 @@ class TransactionController extends Controller
                 'subtotal' => $request->subtotal,
             ]);
 
-            $oldProducts = $transaction->details()->whereNotNull('product_id')->pluck('product_id')->toArray();
             $oldServices = $transaction->details()->whereNotNull('service_id')->pluck('service_id')->toArray();
 
             if ($request->has('services')) {
@@ -141,30 +187,63 @@ class TransactionController extends Controller
             if ($request->has('products')) {
                 foreach ($request->products as $product) {
                     if ($product['product_id'] !== null && $product['price_product'] !== null && $product['qty'] !== null) {
-                        TransactionDetail::updateOrCreate([
-                            'transaction_id' => $transaction->id,
-                            'product_id' => $product['product_id'],
-                        ], [
-                            'quantity' => $product['qty'],
-                            'harga_product' => $product['price_product'],
-                        ]);
+                        
+                        $detail_trans = TransactionDetail::where('transaction_id', $transaction->id)
+                        ->where('product_id', $product['product_id'])
+                        ->first();
+
+                        if ($detail_trans) {
+                            $qty_value = $detail_trans->quantity - $product['qty'];
+                            $detail_trans->update([
+                                'quantity' => $product['qty'],
+                                'harga_product' => $product['price_product'],
+                            ]);
+                        } else {
+                            $qty_value = -$product['qty'];
+                            TransactionDetail::create([
+                                'transaction_id' => $transaction->id,
+                                'product_id' => $product['product_id'],
+                                'quantity' => $product['qty'],
+                                'harga_product' => $product['price_product'],
+                            ]);
+                        }
+    
+                        $productModel = Product::where('product_id', $product['product_id'])->first();
+                        if ($productModel) {
+                            $productModel->stock_product += $qty_value;
+                            $productModel->save();
+                        }
                     }
                 }
             }
 
+            $oldProducts = array_keys($data_product);
             $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
-            $removedServices = array_diff($oldServices, array_column($request->services, 'service_id'));
-        
+           
+            foreach ($removedProducts as $productId) {
+                if (isset($data_product[$productId])) {
 
-            TransactionDetail::where('transaction_id', $transaction->id)
-                            ->whereIn('product_id', $removedProducts)
+                    $productModel = Product::where('product_id', $productId)->first();
+                    if ($productModel) {
+                        $productModel->stock_product += $data_product[$productId]['quantity'];
+                        $productModel->save();
+
+                        TransactionDetail::where('transaction_id', $transaction->id)
+                            ->where('product_id', $productId)
                             ->delete();
+                    }
+                }
+            }
+
+            $removedServices = array_diff($oldServices, array_column($request->services, 'service_id'));
 
             TransactionDetail::where('transaction_id', $transaction->id)
                             ->whereIn('service_id', $removedServices)
                             ->delete();
 
             $transactionDetails = $transaction->details()->with(['service', 'product'])->get();
+
+            // dd($transactionDetails);
 
             $data = [
                 'payment_type' => $request->payment_type,
@@ -206,7 +285,7 @@ class TransactionController extends Controller
                 ]];
             }
                         
-            $response = Http::withBasicAuth('key' . ':', '')
+            $response = Http::withBasicAuth('SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m' . ':', '')
                         ->post('https://api.sandbox.midtrans.com/v2/charge', $data);
                         
             $body = $response->json();
@@ -233,6 +312,29 @@ class TransactionController extends Controller
         return inertia('Admin/Transaction/Show',[
             'transaction' => new TransactionResource($transaction),
         ]);
+    }
+
+    public function notif(Request $request)
+    {
+        $trans = Transaction::where('invoice',$request->order_id)->first();
+        $grossAmount = $trans->subtotal.'.00';
+        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount."SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m");
+        if($request->signature_key == $signature_key)
+        {
+            if($request->transaction_status == 'settlement')
+            {
+                $trans->update([
+                    'status_payment' => $request->transaction_status,
+                    'succeeded_at' => $request->settlement_time,
+                ]);
+    
+                Appointmen::where('appointmen_id', $trans->appointmen_id)->update([
+                    'status' => 'finished',
+                ]);
+
+                broadcast(new TransactionPaid($trans));
+            }
+        }
     }
     
 }

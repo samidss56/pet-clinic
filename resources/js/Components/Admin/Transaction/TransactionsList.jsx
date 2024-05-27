@@ -45,7 +45,7 @@ const isProducts = (transaction) => {
                                     {product.date_transaction}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
-                                    {product.status_payment === 'Settlement' && (
+                                    {product.status_payment === 'settlement' && (
                                         <span className="inline-block px-2 py-1 bg-green-500 text-white rounded">
                                             selesai
                                         </span>
@@ -64,7 +64,7 @@ const isProducts = (transaction) => {
                                         <Link
                                             href={route('admin.transaction.edit',product.invoice)} 
                                         >
-                                            <PrimaryButton disabled={product.status_payment === 'Settlement' ? true : false}>
+                                            <PrimaryButton disabled={product.status_payment === 'settlement' ? true : false}>
                                                 Bayar
     
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

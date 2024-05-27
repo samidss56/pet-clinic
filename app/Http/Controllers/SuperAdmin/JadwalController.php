@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DocterResource;
 use App\Http\Resources\JadwalResource;
 use App\Models\Docter;
 use App\Models\Jadwal;
@@ -14,10 +15,12 @@ class JadwalController extends Controller
     // Tampil Halaman Manage Jadwal
     public function index()
     {
-        $jadwals = Jadwal::query()->with('docter')->latest()->paginate(5);
+        // $jadwals = Jadwal::query()->with('docter')->latest()->paginate(50);
+        $jadwals = Docter::latest()->paginate(10);
         return Inertia::render('Superadmin/Jadwals/Index', [
             'title' => 'Jadwals Management',
-            'jadwals' => JadwalResource::collection($jadwals),
+            'jadwals' => DocterResource::collection($jadwals),
+            // 'jadwals' => $jadwals,
         ]);
     }
 
