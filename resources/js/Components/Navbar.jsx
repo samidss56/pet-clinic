@@ -9,6 +9,7 @@ import {
     SettingsIcons,
     TransactionsIcon,
 } from "./Icons/Index";
+import UserAvatar from "./UserAvatar";
 
 const Navbar = ({ user }) => {
     return (
@@ -68,11 +69,12 @@ const Navbar = ({ user }) => {
                     >
                         {user ? (
                             <div className="flex items-center gap-3 ">
-                                <img
-                                    src="https://i.pravatar.cc/300"
-                                    alt=""
-                                    className="w-10 rounded-full hidden xs:block"
-                                />
+                                <div className="hidden xs:flex">
+                                    <UserAvatar
+                                        avatar={user.user.profile}
+                                        className="w-10 rounded-full"
+                                    />
+                                </div>
                                 <h1 className="text-gray-800">
                                     {user.user.name}
                                 </h1>
@@ -142,7 +144,7 @@ const Navbar = ({ user }) => {
 
                                 <li>
                                     <Link
-                                        href={route("profile.edit")}
+                                        href={route("owner.profile.edit")}
                                         as="button"
                                     >
                                         <SettingsIcons />

@@ -1,3 +1,4 @@
+import UserAvatar from "@/Components/UserAvatar";
 import { Link } from "@inertiajs/react";
 
 const ProfileCard = ({ user }) => {
@@ -7,15 +8,14 @@ const ProfileCard = ({ user }) => {
                 <div className="absolute top-0 left-0 w-full h-1/3 bg-light-red sm:rounded-t-lg"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex flex-col items-center bg-none p-4 rounded-lg">
-                        <img
-                            src="https://i.pravatar.cc/300"
-                            alt="Profile Picture"
-                            className="rounded-full w-20"
+                        <UserAvatar
+                            avatar={user.user.profile}
+                            className="w-20 rounded-full"
                         />
                         <p className="mt-3 text-center font-semibold text-gray-700">{`Welcome, ${user.name} !`}</p>
                         <Link
                             className="text-sm text-center hover:underline"
-                            href={route("profile.edit")}
+                            href={route("owner.profile.edit")}
                         >
                             Edit Profile
                         </Link>
