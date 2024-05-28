@@ -1,4 +1,5 @@
 import AppointmentsList from "@/Components/Superadmin/Appointments/AppointmentsList";
+import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -13,11 +14,9 @@ const Appointments = ({ auth, title }) => {
             }
         >
             <Head title={title} />
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <AppointmentsList />
-                </div>
-            </div>
+            <AdminLayout>
+                <AppointmentsList />
+            </AdminLayout>
         </Authenticated>
     );
 };

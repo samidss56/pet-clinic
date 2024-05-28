@@ -2,6 +2,7 @@ import ProductsList from "@/Components/Admin/Products/ProductsList";
 import TransactionsList from "@/Components/Admin/Transaction/TransactionsList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
+import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
@@ -16,13 +17,10 @@ const Index = ({ auth, title, transaction }) => {
             }
         >
             <Head title={title} />
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    
-                    <TransactionsList transaction={transaction.data} />
-                    <Paginator meta={transaction.meta} />
-                </div>
-            </div>
+            <AdminLayout>
+                <TransactionsList transaction={transaction.data} />
+                <Paginator meta={transaction.meta} />
+            </AdminLayout>
         </Authenticated>
     );
 };

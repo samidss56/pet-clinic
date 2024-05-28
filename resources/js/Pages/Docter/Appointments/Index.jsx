@@ -2,6 +2,7 @@ import AppointmentsList from "@/Components/Docter/Appointments/AppointmentsList"
 import JadwalsList from "@/Components/Docter/Jadwals/JadwalsList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
+import AdminLayout from "@/Layouts/AdminLayout";
 import AppDocter from "@/Layouts/AppDocter";
 import { Head, Link } from "@inertiajs/react";
 
@@ -17,12 +18,10 @@ const Index = ({ docter, title, docter_app }) => {
             }
         >
             <Head title={title} />
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <AppointmentsList docter_app={docter_app.data}/>
-                    <Paginator meta={docter_app.meta} />
-                </div>
-            </div>
+            <AdminLayout>
+                <AppointmentsList docter_app={docter_app.data} />
+                <Paginator meta={docter_app.meta} />
+            </AdminLayout>
         </AppDocter>
     );
 };

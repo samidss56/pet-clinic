@@ -3,9 +3,9 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import { formatCurr } from "@/Utils/FormatPrice";
+import { CreateIcon } from "@/Components/Icons/Index";
 
 const isProducts = (transaction) => {
-
     return (
         <div className="overflow-x-auto">
             <table className="table bg-white dark:bg-dark-gray border-dark-gray rounded-md">
@@ -45,12 +45,13 @@ const isProducts = (transaction) => {
                                     {product.date_transaction}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
-                                    {product.status_payment === 'settlement' && (
+                                    {product.status_payment ===
+                                        "Settlement" && (
                                         <span className="inline-block px-2 py-1 bg-green-500 text-white rounded">
-                                            selesai
+                                            finished
                                         </span>
-                                        )}
-                                    {product.status_payment === 'pending' && (
+                                    )}
+                                    {product.status_payment === "pending" && (
                                         <span className="inline-block px-2 py-1 bg-yellow-500 text-black rounded">
                                             pending
                                         </span>
@@ -62,14 +63,22 @@ const isProducts = (transaction) => {
                                 <th>
                                     <div className="flex items-center gap-3">
                                         <Link
-                                            href={route('admin.transaction.edit',product.invoice)} 
+                                            href={route(
+                                                "admin.transaction.edit",
+                                                product.invoice
+                                            )}
                                         >
-                                            <PrimaryButton disabled={product.status_payment === 'settlement' ? true : false}>
+                                            <PrimaryButton
+                                                disabled={
+                                                    product.status_payment ===
+                                                    "Settlement"
+                                                        ? true
+                                                        : false
+                                                }
+                                                className="flex gap-2"
+                                            >
+                                                <CreateIcon />
                                                 Bayar
-    
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
                                             </PrimaryButton>
                                         </Link>
                                     </div>

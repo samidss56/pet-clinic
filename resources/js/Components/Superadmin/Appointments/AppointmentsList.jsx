@@ -1,3 +1,4 @@
+import { ShowIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { Link } from "@inertiajs/react";
 
@@ -51,21 +52,7 @@ const isAppointments = () => {
                                 href={route("superadmin.appointments.detail")}
                             >
                                 <PrimaryButton>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
+                                    <ShowIcon />
                                 </PrimaryButton>
                             </Link>
                         </th>
@@ -91,21 +78,7 @@ const isAppointments = () => {
                         <th className="text-black dark:text-white font-medium">
                             <Link>
                                 <PrimaryButton>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
+                                    <ShowIcon />
                                 </PrimaryButton>
                             </Link>
                         </th>
@@ -130,21 +103,7 @@ const isAppointments = () => {
                         <th className="text-black dark:text-white font-medium">
                             <Link>
                                 <PrimaryButton>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
+                                    <ShowIcon />
                                 </PrimaryButton>
                             </Link>
                         </th>
@@ -170,21 +129,7 @@ const isAppointments = () => {
                         <th className="text-black dark:text-white font-medium">
                             <Link>
                                 <PrimaryButton>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
+                                    <ShowIcon />
                                 </PrimaryButton>
                             </Link>
                         </th>

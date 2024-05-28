@@ -1,8 +1,10 @@
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
@@ -39,108 +41,87 @@ const Create = ({ auth, title }) => {
             }
         >
             <Head title={title} />
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <form
-                        onSubmit={handleSubmit}
-                        encType="multipart/form-data"
-                        className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
-                    >
-                        <InputLabel
-                            htmlFor="name"
-                            value="Docters Name"
-                        />
-                        <TextInput
-                            type="text"
-                            id="name"
-                            name="name"
-                            className="block w-full"
-                            placeholder="Docter Name"
-                            value={data.name}
-                            onChange={(e) =>
-                                setData("name", e.target.value)
-                            }
-                            required
-                        />
-                        <InputError
-                            message={errors.name}
-                            className="mb-2"
-                        />
+            <AdminLayout>
+                <form
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
+                >
+                    <InputLabel htmlFor="name" value="Docters Name" />
+                    <TextInput
+                        type="text"
+                        id="name"
+                        name="name"
+                        className="block w-full"
+                        placeholder="Docter Name"
+                        value={data.name}
+                        onChange={(e) => setData("name", e.target.value)}
+                        required
+                    />
+                    <InputError message={errors.name} className="mb-2" />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
-                            <div>
-                                <InputLabel
-                                    htmlFor="email"
-                                    value="email"
-                                />
-                                <TextInput
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    className="block w-full"
-                                    placeholder="Email"
-                                    value={data.email}
-                                    onChange={(e) =>
-                                        setData("email", e.target.value)
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.email}
-                                    className="mb-2"
-                                />
-                            </div>
-                            <div>
-                                <InputLabel
-                                    htmlFor="password"
-                                    value="Password"
-                                />
-                                <TextInput
-                                    type="text"
-                                    id="password"
-                                    name="password"
-                                    className="block w-full"
-                                    placeholder="Password"
-                                    value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.password}
-                                    className="mb-2"
-                                />
-                            </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
+                        <div>
+                            <InputLabel htmlFor="email" value="email" />
+                            <TextInput
+                                type="email"
+                                id="email"
+                                name="email"
+                                className="block w-full"
+                                placeholder="Email"
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.email}
+                                className="mb-2"
+                            />
                         </div>
+                        <div>
+                            <InputLabel htmlFor="password" value="Password" />
+                            <TextInput
+                                type="text"
+                                id="password"
+                                name="password"
+                                className="block w-full"
+                                placeholder="Password"
+                                value={data.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.password}
+                                className="mb-2"
+                            />
+                        </div>
+                    </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
-                            <div>
-                                <InputLabel
-                                    htmlFor="no_telp"
-                                    value="No Telp"
-                                />
-                                <TextInput
-                                    type="number"
-                                    id="no_telp"
-                                    name="no_telp"
-                                    className="block w-full"
-                                    placeholder="no_telp"
-                                    value={data.no_telp}
-                                    onChange={(e) =>
-                                        setData(
-                                            "no_telp",
-                                            parseInt(e.target.value)
-                                        )
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.no_telp}
-                                    className="mb-2"
-                                />
-                            </div>
-                            <div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
+                        <div>
+                            <InputLabel htmlFor="no_telp" value="No Telp" />
+                            <TextInput
+                                type="number"
+                                id="no_telp"
+                                name="no_telp"
+                                className="block w-full"
+                                placeholder="no_telp"
+                                value={data.no_telp}
+                                onChange={(e) =>
+                                    setData("no_telp", parseInt(e.target.value))
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.no_telp}
+                                className="mb-2"
+                            />
+                        </div>
+                        <div>
                             <InputLabel
                                 htmlFor="profile"
                                 value="Profile Image"
@@ -161,58 +142,35 @@ const Create = ({ auth, title }) => {
                                 message={errors.profile}
                                 className="mb-2"
                             />
-                            </div>
                         </div>
-                       
-                        <InputLabel
-                            htmlFor="alamat"
-                            value="Alamat"
-                        />
-                        <TextInput
-                            type="text"
-                            id="alamat"
-                            name="alamat"
-                            className="block w-full"
-                            placeholder="Alamat"
-                            value={data.alamat}
-                            onChange={(e) =>
-                                setData("alamat", e.target.value)
-                            }
-                            required
-                        />
-                        <InputError
-                            message={errors.alamat}
-                            className="mb-2"
-                        />
-                        
-                        <div className="flex gap-3 mt-4">
-                            <Link href={route("superadmin.docters")}>
-                                <SecondaryButton className=" gap-2">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <line x1="19" x2="5" y1="12" y2="12" />
-                                        <polyline points="12 19 5 12 12 5" />
-                                    </svg>
-                                    Back To Docter
-                                </SecondaryButton>
-                            </Link>
-                            <PrimaryButton type="submit" onClick={handleSubmit}>
-                                Create Docter
-                            </PrimaryButton>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+
+                    <InputLabel htmlFor="alamat" value="Alamat" />
+                    <TextInput
+                        type="text"
+                        id="alamat"
+                        name="alamat"
+                        className="block w-full"
+                        placeholder="Alamat"
+                        value={data.alamat}
+                        onChange={(e) => setData("alamat", e.target.value)}
+                        required
+                    />
+                    <InputError message={errors.alamat} className="mb-2" />
+
+                    <div className="flex gap-3 mt-4">
+                        <Link href={route("superadmin.docters")}>
+                            <SecondaryButton className=" gap-2">
+                                <ArrowLeftIcon />
+                                Back To Docter
+                            </SecondaryButton>
+                        </Link>
+                        <PrimaryButton type="submit" onClick={handleSubmit}>
+                            Create Docter
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </AdminLayout>
         </Authenticated>
     );
 };
