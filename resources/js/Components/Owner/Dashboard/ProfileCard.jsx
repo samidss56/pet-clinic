@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@/Components/Icons/Index";
 import UserAvatar from "@/Components/UserAvatar";
 import { Link } from "@inertiajs/react";
 
@@ -41,15 +42,7 @@ const ProfileCard = ({ user }) => {
                     className="text-center text-white text-sm flex gap-1 items-center"
                 >
                     Make Appointment
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        className="fill-white"
-                    >
-                        <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
-                    </svg>
+                    <ArrowRightIcon />
                 </Link>
             </div>
         </div>

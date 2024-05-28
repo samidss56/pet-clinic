@@ -1,8 +1,10 @@
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 
@@ -41,165 +43,140 @@ const UpdateProduct = ({ auth, title, product }) => {
             }
         >
             <Head title={title} />
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <form
-                        onSubmit={handleSubmit}
-                        encType="multipart/form-data"
-                        className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
-                    >
-                        <InputLabel
-                            htmlFor="name_product"
-                            value="Product Name"
+            <AdminLayout>
+                <form
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
+                >
+                    <InputLabel htmlFor="name_product" value="Product Name" />
+                    <TextInput
+                        type="text"
+                        id="name_product"
+                        name="name_product"
+                        className="block w-full"
+                        placeholder="Product Name"
+                        value={data.name_product}
+                        onChange={(e) =>
+                            setData("name_product", e.target.value)
+                        }
+                        required
+                    />
+                    <InputError
+                        message={errors.name_product}
+                        className="mb-2"
+                    />
+                    <InputLabel htmlFor="image_product" value="Product Image" />
+                    <div className="flex items center gap-4">
+                        <img
+                            className="w-20 rounded-lg"
+                            src={`${appUrl}/storage/${product.image_product}`}
+                            alt=""
                         />
-                        <TextInput
-                            type="text"
-                            id="name_product"
-                            name="name_product"
-                            className="block w-full"
-                            placeholder="Product Name"
-                            value={data.name_product}
-                            onChange={(e) =>
-                                setData("name_product", e.target.value)
-                            }
-                            required
-                        />
-                        <InputError
-                            message={errors.name_product}
-                            className="mb-2"
-                        />
-                        <InputLabel
-                            htmlFor="image_product"
-                            value="Product Image"
-                        />
-                        <div className="flex items center gap-4">
-                            <img
-                                className="w-20 rounded-lg"
-                                src={`${appUrl}/storage/${product.image_product}`}
-                                alt=""
+                        <div className="w-full">
+                            <TextInput
+                                id="image_product"
+                                type="file"
+                                name="image_product"
+                                className="block w-full file-input file-input-bordered mb-0"
+                                placeholder="Product Image"
+                                onChange={(e) =>
+                                    setData("image_product", e.target.files[0])
+                                }
+                                required
                             />
-                            <div className="w-full">
-                                <TextInput
-                                    id="image_product"
-                                    type="file"
-                                    name="image_product"
-                                    className="block w-full file-input file-input-bordered mb-0"
-                                    placeholder="Product Image"
-                                    onChange={(e) =>
-                                        setData(
-                                            "image_product",
-                                            e.target.files[0]
-                                        )
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.image_product}
-                                    className="mb-2"
-                                />
-                            </div>
+                            <InputError
+                                message={errors.image_product}
+                                className="mb-2"
+                            />
                         </div>
+                    </div>
 
-                        <InputLabel
-                            htmlFor="deskripsi_product"
-                            value="Product Description"
-                        />
-                        <TextInput
-                            type="text"
-                            id="deskripsi_product"
-                            name="deskripsi_product"
-                            className="block w-full"
-                            placeholder="Product Description"
-                            value={data.deskripsi_product}
-                            onChange={(e) =>
-                                setData("deskripsi_product", e.target.value)
-                            }
-                            required
-                        />
-                        <InputError
-                            message={errors.deskripsi_product}
-                            className="mb-2"
-                        />
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
-                            <div>
-                                <InputLabel
-                                    htmlFor="price_product"
-                                    value="Product Price"
-                                />
-                                <TextInput
-                                    type="number"
-                                    id="price_product"
-                                    name="price_product"
-                                    className="block w-full"
-                                    placeholder="Product Price"
-                                    value={data.price_product}
-                                    onChange={(e) =>
-                                        setData(
-                                            "price_product",
-                                            parseInt(e.target.value)
-                                        )
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.price_product}
-                                    className="mb-2"
-                                />
-                            </div>
-                            <div>
-                                <InputLabel
-                                    htmlFor="stock_product"
-                                    value="Product Stock"
-                                />
-                                <TextInput
-                                    type="number"
-                                    id="stock_product"
-                                    name="stock_product"
-                                    className="block w-full"
-                                    placeholder="Product Stock"
-                                    value={data.stock_product}
-                                    onChange={(e) =>
-                                        setData(
-                                            "stock_product",
-                                            parseInt(e.target.value)
-                                        )
-                                    }
-                                    required
-                                />
-                                <InputError
-                                    message={errors.stock_product}
-                                    className="mb-2"
-                                />
-                            </div>
+                    <InputLabel
+                        htmlFor="deskripsi_product"
+                        value="Product Description"
+                    />
+                    <TextInput
+                        type="text"
+                        id="deskripsi_product"
+                        name="deskripsi_product"
+                        className="block w-full"
+                        placeholder="Product Description"
+                        value={data.deskripsi_product}
+                        onChange={(e) =>
+                            setData("deskripsi_product", e.target.value)
+                        }
+                        required
+                    />
+                    <InputError
+                        message={errors.deskripsi_product}
+                        className="mb-2"
+                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
+                        <div>
+                            <InputLabel
+                                htmlFor="price_product"
+                                value="Product Price"
+                            />
+                            <TextInput
+                                type="number"
+                                id="price_product"
+                                name="price_product"
+                                className="block w-full"
+                                placeholder="Product Price"
+                                value={data.price_product}
+                                onChange={(e) =>
+                                    setData(
+                                        "price_product",
+                                        parseInt(e.target.value)
+                                    )
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.price_product}
+                                className="mb-2"
+                            />
                         </div>
-                        <div className="flex gap-3 mt-4">
-                            <Link href={route("admin.products")}>
-                                <SecondaryButton className=" gap-2">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <line x1="19" x2="5" y1="12" y2="12" />
-                                        <polyline points="12 19 5 12 12 5" />
-                                    </svg>
-                                    Back To Products
-                                </SecondaryButton>
-                            </Link>
-                            <PrimaryButton type="submit" onClick={handleSubmit}>
-                                Update Product
-                            </PrimaryButton>
+                        <div>
+                            <InputLabel
+                                htmlFor="stock_product"
+                                value="Product Stock"
+                            />
+                            <TextInput
+                                type="number"
+                                id="stock_product"
+                                name="stock_product"
+                                className="block w-full"
+                                placeholder="Product Stock"
+                                value={data.stock_product}
+                                onChange={(e) =>
+                                    setData(
+                                        "stock_product",
+                                        parseInt(e.target.value)
+                                    )
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.stock_product}
+                                className="mb-2"
+                            />
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+                    <div className="flex gap-3 mt-4">
+                        <Link href={route("admin.products")}>
+                            <SecondaryButton className=" gap-2">
+                                <ArrowLeftIcon />
+                                Back To Products
+                            </SecondaryButton>
+                        </Link>
+                        <PrimaryButton type="submit" onClick={handleSubmit}>
+                            Update Product
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </AdminLayout>
         </Authenticated>
     );
 };

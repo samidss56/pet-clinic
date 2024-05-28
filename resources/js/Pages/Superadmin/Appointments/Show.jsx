@@ -1,13 +1,11 @@
-import { CreateIcon } from "@/Components/Icons/Index";
-import { Paginator } from "@/Components/Paginator";
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
-import DoctersList from "@/Components/Superadmin/Docters/DoctersList";
+import DetailCard from "@/Components/Superadmin/Appointments/DetailCard";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Index = ({ auth, title, docters }) => {
-    // console.log(docters);
+const DetailAppointment = ({ auth, title }) => {
     return (
         <Authenticated
             user={auth}
@@ -19,17 +17,16 @@ const Index = ({ auth, title, docters }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <Link href={route("superadmin.docters.create")}>
-                    <PrimaryButton className="mb-4 flex gap-2">
-                        <CreateIcon />
-                        Add Docters
+                <Link href={route("superadmin.appointments")}>
+                    <PrimaryButton className="mb-4 gap-2">
+                        <ArrowLeftIcon />
+                        Back To Appointments
                     </PrimaryButton>
                 </Link>
-                <DoctersList docters={docters.data} />
-                <Paginator meta={docters.meta} />
+                <DetailCard />
             </AdminLayout>
         </Authenticated>
     );
 };
 
-export default Index;
+export default DetailAppointment;

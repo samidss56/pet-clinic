@@ -14,6 +14,7 @@ import {
     TransactionsIcon,
     UsersIcon,
 } from "./Icons/Index";
+import appLogo from "../../../public/AppLogo.png";
 
 const Sidebar = ({ user }) => {
     const [isOpen, setIsOpen] = useState(true);
@@ -33,33 +34,27 @@ const Sidebar = ({ user }) => {
                 <label></label>
                 <ul
                     className={`flex flex-col shadow justify-between menu p-4 min-h-full bg-white text-gray-800 transition-all duration-300 ${
-                        isOpen ? "w-72" : "w-20"
+                        isOpen ? "w-72" : "w-22"
                     }`}
                 >
                     <div className="flex flex-col gap-3">
                         {isOpen ? (
                             <div className="flex items-center justify-between mb-2">
-                                <a
-                                    href={
-                                        user.isSuperAdmin
-                                            ? route("superadmin.dashboard")
-                                            : route("admin.dashboard")
-                                    }
-                                    className="btn btn-ghost text-xl text-gray-800"
-                                >
-                                    Pet Clinic
-                                </a>
-                                <a
-                                    // href={route("doctor.dashboard")}
-                                    className="btn bg-gray-100 hover:bg-gray-200 border-none text-md font-medium text-gray-800"
-                                >
+                                <img
+                                    src={appLogo}
+                                    alt="App Logo"
+                                    className="w-14"
+                                />
+                                <a className="btn bg-gray-100 hover:bg-gray-200 border-none text-md font-medium text-gray-800">
                                     {user.user.name}
                                 </a>
                             </div>
                         ) : (
-                            <div className="flex items-center justify-center">
-                                <div className="bg-primary-red h-10 w-10 rounded-lg"></div>
-                            </div>
+                            <img
+                                src={appLogo}
+                                alt="App Logo"
+                                className="w-14"
+                            />
                         )}
                         <div className="flex flex-col gap-3">
                             <li>
@@ -79,9 +74,9 @@ const Sidebar = ({ user }) => {
                             <li>
                                 <Link
                                     href={
-                                        user.isSuperAdmin ?
-                                        route("superadmin.appointments") :
-                                        route("admin.appoitments")
+                                        user.isSuperAdmin
+                                            ? route("superadmin.appointments")
+                                            : route("admin.appoitments")
                                     }
                                     as="button"
                                     className="bg-white hover:bg-light-red border-none text-md font-medium "

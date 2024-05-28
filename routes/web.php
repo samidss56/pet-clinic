@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Auth\DocterPasswordController;
 use App\Http\Controllers\Docter\AppoinmenController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
+use App\Http\Controllers\Docter\ProfileController as DocterProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Owner\AppointmenController as OwnerAppointmenController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
@@ -174,6 +176,10 @@ Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(functi
     Route::get('/appointmen/edit/{appointmen:appointmen_id}', [AppoinmenController::class, 'edit'])->name('docter.appointmen.edit');
     Route::post('/appointmen/update/{appointmen:appointmen_id}', [AppoinmenController::class, 'updatestatus'])->name('docter.appointmen.updatestatus');
     Route::post('/appointmen/updatetrans/{appointmen:appointmen_id}', [AppoinmenController::class, 'updatetrans'])->name('docter.appointmen.updatetrans');
+
+    Route::get('/settings', [DocterProfileController::class, 'edit'])->name('docter.profile.edit');
+    Route::patch('/settings/{docter}', [DocterProfileController::class, 'update'])->name('docter.profile.update');
+    // Route::put('/settings', [DocterPasswordController::class, 'update'])->name('docter.password.update');
 });
 
 // Route::middleware('auth')->group(function () {

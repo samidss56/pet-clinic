@@ -26,7 +26,7 @@ class HandleInertiaRequests extends Middleware
 
     public function share(Request $request): array
     {
-        $docter = Auth::guard('docter');
+        $docter = Auth::guard('docter')->user();
 
         return [
             ...parent::share($request),
@@ -40,7 +40,14 @@ class HandleInertiaRequests extends Middleware
                 'isOwner' => $request->user()?->hasAnyRoles(['owner']),
                 'isSuperAdmin' => $request->user()?->hasAnyRoles(['superadmin']),
             ] : null,
-            'docter' => $docter,
+            'docter' => $docter ? [
+                'docter_id' => $docter->docter_id,
+                'name' => $docter->name,
+                'no_telp' => $docter->no_telp,
+                'alamat' => $docter->alamat,
+                'email' => $docter->email,
+                'profile' => $docter->profile,
+            ] : null,
         ];
     }
 }

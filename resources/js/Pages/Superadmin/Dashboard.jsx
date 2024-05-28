@@ -1,3 +1,4 @@
+import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -13,11 +14,9 @@ const Dashboard = ({ auth, title }) => {
         >
             <Head title={title} />
 
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"></div>
-                </div>
-            </div>
+            <AdminLayout>
+                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"></div>
+            </AdminLayout>
         </Authenticated>
     );
 };

@@ -10,6 +10,7 @@ import {
     TransactionsIcon,
 } from "./Icons/Index";
 import UserAvatar from "./UserAvatar";
+import appLogo from "../../../public/AppLogo.png";
 
 const Navbar = ({ user }) => {
     return (
@@ -17,13 +18,12 @@ const Navbar = ({ user }) => {
             className={`navbar bg-white sticky top-0 py-3 z-50 shadow-lg flex justify-between px-2 sm:px-4`}
         >
             <div className="flex-none">
-                <a
-                    href={route("home")}
-                    className="btn btn-ghost text-xl text-primary-red max-sm:ps-0"
-                >
-                    <div className="bg-primary-red h-10 w-10 rounded-lg"></div>
-                    Pawana Jiwa
-                </a>
+                <div className="flex gap-3 px-2 items-center justify-between">
+                    <img src={appLogo} alt="App Logo" className="w-14" />
+                    <p className="text-xl font-bold text-primary-red">
+                        Pawana Jiwa
+                    </p>
+                </div>
             </div>
             <div className="flex-none gap-5 hidden md:flex lg:gap-10">
                 {!user ? (

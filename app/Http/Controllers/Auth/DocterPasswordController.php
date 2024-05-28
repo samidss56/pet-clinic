@@ -3,31 +3,36 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Docter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
 
-class PasswordController extends Controller
+class DocterPasswordController extends Controller
 {
-    /**
-     * Update the user's password.
-     */
     public function update(Request $request): RedirectResponse
     {
+        // Validate the incoming request
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        dd($validated);
+        // Get the authenticated user
+        $user = $request->user();
 
-        $request->user()->update([
+        // Update the docter's password
+        $user->update([
             'password' => Hash::make($validated['password']),
         ]);
 
-        // dd($validated);
+        // Debugging statement to ensure update logic is hit
+        // Remove this line in production
+        Log::info('Password updated for docter: ' . $user->docter_id);
 
-        return back();
+        return back()->with('status', 'Password updated successfully.');
     }
 }
