@@ -1,6 +1,7 @@
 import JadwalsList from "@/Components/Docter/Jadwals/JadwalsList";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
+import AdminLayout from "@/Layouts/AdminLayout";
 import AppDocter from "@/Layouts/AppDocter";
 import { Head, Link } from "@inertiajs/react";
 
@@ -16,12 +17,10 @@ const Index = ({ docter, title, jadwals }) => {
             }
         >
             <Head title={title} />
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <JadwalsList jadwals={jadwals.data} />
-                    <Paginator meta={jadwals.meta} />
-                </div>
-            </div>
+            <AdminLayout>
+                <JadwalsList jadwals={jadwals.data} />
+                <Paginator meta={jadwals.meta} />
+            </AdminLayout>
         </AppDocter>
     );
 };

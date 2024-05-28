@@ -13,6 +13,15 @@ class Docter extends Authenticatable
     protected $primaryKey = 'docter_id';
     public $incrementing = false;
     protected $guarded = [];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     public function jadwal()
     {

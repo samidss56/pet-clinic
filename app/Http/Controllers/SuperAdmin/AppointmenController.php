@@ -11,14 +11,14 @@ class AppointmenController extends Controller
     // Tampil Halaman Manage Appoinmen
     public function index()
     {
-        return Inertia::render('Superadmin/Appointments/Appointments', [
+        return Inertia::render('Superadmin/Appointments/Index', [
             'title' => 'Appointmens Management',
         ]);
     }
 
     public function detail()
     {
-        return Inertia::render('Superadmin/Appointments/DetailAppointment', [
+        return Inertia::render('Superadmin/Appointments/Show', [
             'title' => 'Detail Appointment',
         ]);
     }
