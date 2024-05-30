@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutusController;
 use App\Http\Controllers\Admin\AppointmenController as AdminAppointmenController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\HerosectionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Auth\DocterPasswordController;
 use App\Http\Controllers\Docter\AppoinmenController;
@@ -26,6 +28,8 @@ use App\Http\Controllers\SuperAdmin\JadwalController;
 use App\Http\Controllers\Superadmin\UserController as SuperadminUserController;
 use App\Http\Controllers\Superadmin\ProductController as SuperadminProductController;
 use App\Http\Controllers\Superadmin\ServiceController as SuperadminServiceController;
+use App\Http\Controllers\Superadmin\TransactionController as SuperadminTransactionController;
+use App\Models\Aboutus;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,6 +96,10 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
 
     // Route untuk Halaman Super Admin Article
     Route::get('/articles', [ArticleController::class, 'index'])->name('superadmin.articles');
+
+    //Transaction
+    Route::get('/transaction', [SuperadminTransactionController::class, 'index'])->name('superadmin.transaction');
+    Route::get('transaction/{transaction:invoice}', [SuperadminTransactionController::class, 'show'])->name('superadmin.transaction.show');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -141,6 +149,14 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     //Appoitment
     Route::get('/appoitments', [AdminAppointmenController::class, 'index'])->name('admin.appoitments');
     Route::get('/appoitments/detail/{appointmen:appointmen_id}', [AdminAppointmenController::class, 'detail'])->name('admin.appoitments.detail');
+
+    // Route untuk Halaman Admin Aboutus
+    Route::get('/herosection', [HerosectionController::class, 'edit'])->name('admin.herosection.edit');
+    Route::post('/herosection/update', [HerosectionController::class, 'update'])->name('admin.herosection.update');
+
+    // Route untuk Halaman Admin Aboutus
+    Route::get('/aboutus', [AboutusController::class, 'edit'])->name('admin.aboutus.edit');
+    Route::post('/aboutus/update', [AboutusController::class, 'update'])->name('admin.aboutus.update');
 });
 
 Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(function () {

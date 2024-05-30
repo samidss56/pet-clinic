@@ -13,6 +13,8 @@ import {
     ServicesIcon,
     TransactionsIcon,
     UsersIcon,
+    AboutusIcon,
+    HerosectionIcon,
 } from "./Icons/Index";
 import appLogo from "../../../public/AppLogo.png";
 
@@ -89,7 +91,11 @@ const Sidebar = ({ user }) => {
                             </li>
                             <li>
                                 <Link
-                                    href={route("admin.transaction")}
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.transaction")
+                                            : route("admin.transaction")
+                                    }
                                     as="button"
                                     className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 >
@@ -140,6 +146,26 @@ const Sidebar = ({ user }) => {
                                 >
                                     <ArticlesIcon />
                                     {isOpen && <span>Article Management</span>}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={route("admin.herosection.edit")}
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <HerosectionIcon />
+                                    {isOpen && <span>Hero Section Management</span>}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={route("admin.aboutus.edit")}
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <AboutusIcon />
+                                    {isOpen && <span>About Us Management</span>}
                                 </Link>
                             </li>
                             {user.isSuperAdmin && (
