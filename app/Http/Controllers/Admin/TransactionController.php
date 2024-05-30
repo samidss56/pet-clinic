@@ -91,7 +91,7 @@ class TransactionController extends Controller
                         $detail_trans = TransactionDetail::where('transaction_id', $transaction->id)
                         ->where('product_id', $product['product_id'])
                         ->first();
-                       
+
                         if ($detail_trans) {
                             $qty_value = $detail_trans->quantity - $product['qty'];
                             // $totalQuantity += $qty_value;
@@ -110,7 +110,7 @@ class TransactionController extends Controller
                                 'harga_product' => $product['price_product'],
                             ]);
                         }
-    
+
                         $productModel = Product::where('product_id', $product['product_id'])->first();
                         if ($productModel) {
                             $productModel->stock_product += $qty_value;
@@ -131,7 +131,7 @@ class TransactionController extends Controller
             // $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
             $oldProducts = array_keys($data_product);
             $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
-           
+
             foreach ($removedProducts as $productId) {
                 if (isset($data_product[$productId])) {
 
@@ -183,11 +183,11 @@ class TransactionController extends Controller
                     }
                 }
             }
-            
+
             if ($request->has('products')) {
                 foreach ($request->products as $product) {
                     if ($product['product_id'] !== null && $product['price_product'] !== null && $product['qty'] !== null) {
-                        
+
                         $detail_trans = TransactionDetail::where('transaction_id', $transaction->id)
                         ->where('product_id', $product['product_id'])
                         ->first();
@@ -207,7 +207,7 @@ class TransactionController extends Controller
                                 'harga_product' => $product['price_product'],
                             ]);
                         }
-    
+
                         $productModel = Product::where('product_id', $product['product_id'])->first();
                         if ($productModel) {
                             $productModel->stock_product += $qty_value;
@@ -219,7 +219,7 @@ class TransactionController extends Controller
 
             $oldProducts = array_keys($data_product);
             $removedProducts = array_diff($oldProducts, array_column($request->products, 'product_id'));
-           
+
             foreach ($removedProducts as $productId) {
                 if (isset($data_product[$productId])) {
 
@@ -277,19 +277,19 @@ class TransactionController extends Controller
             ];
 
             // dd($data);
-                        
+
             if ($request->payment_type == 'bank_transfer') {
 
                 $data = [...$data, 'bank_transfer' => [
                     'bank' => $request->bank,
                 ]];
             }
-                        
-            $response = Http::withBasicAuth('SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m' . ':', '')
+
+            $response = Http::withBasicAuth('SB-Mid-server-gfJ3JhUM6EV8bIalJpvFmA3j' . ':', '')
                         ->post('https://api.sandbox.midtrans.com/v2/charge', $data);
-                        
+
             $body = $response->json();
-            
+
             // dd($body);
 
             $transaction->update([
@@ -327,7 +327,7 @@ class TransactionController extends Controller
                     'status_payment' => $request->transaction_status,
                     'succeeded_at' => $request->settlement_time,
                 ]);
-    
+
                 Appointmen::where('appointmen_id', $trans->appointmen_id)->update([
                     'status' => 'finished',
                 ]);
@@ -336,5 +336,5 @@ class TransactionController extends Controller
             }
         }
     }
-    
+
 }
