@@ -396,7 +396,7 @@ export function ChevronRight() {
             viewBox="0 0 24 24"
             width="24"
             height="24"
-            class="main-grid-item-icon"
+            className="main-grid-item-icon"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -415,7 +415,7 @@ export function ChevronLeft() {
             viewBox="0 0 24 24"
             width="24"
             height="24"
-            class="main-grid-item-icon"
+            className="main-grid-item-icon"
             fill="none"
             stroke="currentColor"
             strokeLinecap="round"
@@ -423,6 +423,36 @@ export function ChevronLeft() {
             strokeWidth="2"
         >
             <polyline points="15 18 9 12 15 6" />
+        </svg>
+    );
+}
+
+export function AboutusIcon() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="main-grid-item-icon fill-primary-red"
+        >
+            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"></path>
+        </svg>
+    );
+}
+
+export function HerosectionIcon() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="main-grid-item-icon fill-primary-red"
+        >
+            <path d="M2 3H21.1384C21.4146 3 21.6385 3.22386 21.6385 3.5C21.6385 3.58701 21.6157 3.67252 21.5725 3.74807L18 10L21.5725 16.2519C21.7095 16.4917 21.6262 16.7971 21.3865 16.9341C21.3109 16.9773 21.2254 17 21.1384 17H4V22H2V3Z"></path>
         </svg>
     );
 }
