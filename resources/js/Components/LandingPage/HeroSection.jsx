@@ -1,8 +1,8 @@
 const HeroSection = () => {
     return (
       <section className="container mx-auto py-12">
-        <div className="flex items-center">
-          <div className="w-1/2 text-left">
+        <div className="flex flex-col-reverse p-4 md:flex-row items-center">
+          <div className="w-full md:w-1/2 text-left">
             <h2 className="text-4xl font-bold mb-4 text-black">
               <span>Your Pet's Health is</span><br />
               <span>Our Priority!!</span>
@@ -15,7 +15,7 @@ const HeroSection = () => {
               Learn More
             </button>
           </div>
-          <div className="w-1/2 text-right">
+          <div className="w-full md:w-1/2 text-right">
             <img src="/banner1.png" alt="Banner Image" className="mx-auto" />
           </div>
         </div>
