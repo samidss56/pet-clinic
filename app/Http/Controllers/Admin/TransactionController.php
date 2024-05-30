@@ -288,7 +288,6 @@ class TransactionController extends Controller
             $response = Http::withBasicAuth('KEY' . ':', '')
                         ->post('/', $data);
                         
-
             $body = $response->json();
 
             // dd($body);

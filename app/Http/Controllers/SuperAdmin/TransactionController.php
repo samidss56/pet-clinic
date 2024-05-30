@@ -28,7 +28,11 @@ class TransactionController extends Controller
     }
 
     public function show(Transaction $transaction)
-    {
+    {  
+        $transaction->load(['user', 'appoitment.docter', 'appoitment.pet', 'details']);
+
+        // return new TransactionSuperAdminResource($transaction);
+
         return inertia('Superadmin/Transaction/Show',[
             'transaction' => new TransactionSuperAdminResource($transaction),
         ]);
