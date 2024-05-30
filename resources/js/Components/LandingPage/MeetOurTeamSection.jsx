@@ -1,3 +1,5 @@
+import DoctorCard from "./DoctorCard";
+
 const MeetOurTeamSection = () => {
     return (
       <section className="container mx-auto py-12 bg-gray-200">

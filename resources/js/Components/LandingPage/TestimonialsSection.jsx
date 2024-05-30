@@ -1,3 +1,5 @@
+import TestimonialCard from "./TestimonialCard";
+
 const TestimonialsSection = () => {
     return (
       <section className="container mx-auto py-12">

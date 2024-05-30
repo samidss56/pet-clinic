@@ -1,3 +1,5 @@
+import ServiceCard from "./ServiceCard";
+
 const ServicesSection = () => {
     return (
       <section className="container mx-auto py-12">

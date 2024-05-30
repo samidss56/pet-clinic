@@ -7,7 +7,6 @@ import ServicesSection from "@/Components/LandingPage/ServiceSection";
 import TestimonialsSection from "@/Components/LandingPage/TestimonialsSection";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import { useState, useEffect } from "react";
 
 export default function Welcome({ auth }) {
   const user = auth?.user?.name;
@@ -16,7 +15,7 @@ export default function Welcome({ auth }) {
     <Authenticated user={user}>
       <Head title="Welcome" />
       <div className="bg-gray-100">
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-2 sm:px-6 lg:px-8">
           <HeroSection />
           <ServicesSection />
           <MeetOurTeamSection />
@@ -24,9 +23,6 @@ export default function Welcome({ auth }) {
           <GallerySection />
           <AboutUsSection />
           <Footer />
-          <ServiceCard />
-          <DoctorCard />
-          <TestimonialCard />
         </div>
       </div>
     </Authenticated>
