@@ -96,9 +96,9 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                                     selectedSchedule === schedule.id
                                         ? 'bg-blue-500 text-white'
                                         : 'bg-white border-gray-300'
-                                } ${schedule.is_aktif === '0' ? 'bg-gray-900 text-white cursor-not-allowed' : ''}`}
+                                } ${schedule.is_aktif === '0' || schedule.is_aktif === '2' ? 'bg-gray-300 text-black cursor-not-allowed' : ''}`}
                                 onClick={() => handleScheduleClick(schedule)}
-                                disabled={schedule.is_aktif === '0'}
+                                disabled={schedule.is_aktif === '0' || schedule.is_aktif === '2'}
                             >
                                 {`${schedule.day} - ${schedule.schedule}`}
                             </button>
