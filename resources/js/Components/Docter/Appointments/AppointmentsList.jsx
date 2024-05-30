@@ -25,6 +25,9 @@ const isProducts = (docter_app) => {
                             Date
                         </th>
                         <th className="text-black dark:text-white text-sm">
+                            Jadwal
+                        </th>
+                        <th className="text-black dark:text-white text-sm">
                             Status
                         </th>
                         <th className="text-black dark:text-white text-sm">
@@ -47,6 +50,9 @@ const isProducts = (docter_app) => {
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {product.date_appointmens}
+                                </th>
+                                <th className="text-black dark:text-white font-medium">
+                                    {product.jadwal}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {product.status === "finished" && (

@@ -46,7 +46,7 @@ const isProducts = (transaction) => {
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {product.status_payment ===
-                                        "Settlement" && (
+                                        "settlement" && (
                                         <span className="inline-block px-2 py-1 bg-green-500 text-white rounded">
                                             finished
                                         </span>
@@ -71,7 +71,7 @@ const isProducts = (transaction) => {
                                             <PrimaryButton
                                                 disabled={
                                                     product.status_payment ===
-                                                    "Settlement"
+                                                    "settlement"
                                                         ? true
                                                         : false
                                                 }

@@ -22,10 +22,17 @@ const isProducts = (jadwals, handleToggleChange) => {
                                 <th className="text-black dark:text-white font-medium">{product.schedule}</th>
                                 <th className="text-black dark:text-white font-medium">{product.day}</th>
                                 <th className="text-black dark:text-white font-medium">
-                                    <ToggleSwitch
+                                    {product.is_aktif === '2' ? 
+                                    <>
+                                        {product.is_aktif === "2" && (
+                                        <span className="inline-block px-2 py-1 bg-gray-500 text-white rounded">
+                                            Sudah ada appoitment
+                                        </span>
+                                        )}
+                                    </> :  <ToggleSwitch
                                         checked={product.is_aktif === '1'}
                                         onChange={() => handleToggleChange(product.id, product.is_aktif)}
-                                    />
+                                    />}
                                 </th>
                             </tr>
                         ))}
@@ -47,7 +54,8 @@ const JadwalsList = ({ jadwals }) => {
     const [jadwalList, setJadwalList] = useState(jadwals);
 
     const handleToggleChange = async (id, jadwal_aktif) => {
-        const status = jadwal_aktif === '1' ? '0' : '1';
+        // const status = jadwal_aktif === '1' ? '0' ? '2' : '1';
+        const status = jadwal_aktif === '0' ? '1' : jadwal_aktif === '1' ? '2' : '0';
         try {
             await axios.post(`/docter/jadwal/update/${id}`, {
                 is_aktif: status,
@@ -61,7 +69,8 @@ const JadwalsList = ({ jadwals }) => {
         }
     };
 
-    return !jadwalList ? noProducts() : isProducts(jadwalList, handleToggleChange);
+    // return !jadwalList ? noProducts() : isProducts(jadwalList, handleToggleChange);
+    return !jadwalList || jadwalList.length === 0 ? noProducts() : isProducts(jadwalList, handleToggleChange);
 };
 
 export default JadwalsList;

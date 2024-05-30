@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Docter;
 
 use Inertia\Inertia;
+use App\Models\Jadwal;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Appointmen;
@@ -79,6 +80,15 @@ class AppoinmenController extends Controller
             'weight' => $request->weight,
             'temperature' => $request->temperature,
             'advice' => $request->advice,
+        ]);
+
+        
+        $jadwal = Jadwal::where('docter_id', $request->docter_id)
+                    ->where('schedule', $request->jadwal)
+                    ->first();
+
+        $jadwal->update([
+            'is_aktif' => '1'
         ]);
 
         $transaction = Transaction::create([

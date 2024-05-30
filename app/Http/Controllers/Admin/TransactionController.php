@@ -59,7 +59,7 @@ class TransactionController extends Controller
                 'user_id' => $request->user_id,
                 'appointmen_id' => $request->appointmen_id,
                 'date_transaction' => $request->date_transaction,
-                'status_payment' => 'Settlement',
+                'status_payment' => 'settlement',
                 'payment_type'=> json_encode($request->payment_type),
                 'payment_info'=> 'tunai',
                 'succeeded_at'=> date('Y-m-d H:i:s'),
@@ -285,8 +285,8 @@ class TransactionController extends Controller
                 ]];
             }
                         
-            $response = Http::withBasicAuth('SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m' . ':', '')
-                        ->post('https://api.sandbox.midtrans.com/v2/charge', $data);
+            $response = Http::withBasicAuth('KEY' . ':', '')
+                        ->post('/', $data);
                         
             $body = $response->json();
             
