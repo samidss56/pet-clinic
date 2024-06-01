@@ -5,38 +5,38 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AboutusCollection;
 use App\Models\Aboutus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Response;
 
 class AboutusController extends Controller
 {
-    // Tampil Halaman Manage Transaction
-    // public function index()
-    // {
-    //     $trans = Transaction::latest()->paginate(5);
-    //     return Inertia::render('Superadmin/Transaction/Index', [
-    //         'title' => 'Transaction Management',
-    //         'transaction' => TransactionSuperAdminResource::collection($trans),
-    //     ]);
-    // }
+    // Tampil Halaman Manage About Us
+    public function index()
+    {
+        $aboutusColection = new AboutusCollection(Aboutus::orderByDesc('created_at'));
+        // dd($aboutusColection);
+        // $aboutus = new AboutusCollection(Aboutus::first());
+        $aboutus = $aboutusColection->first();
+        // dd($aboutus);
+        return Inertia::render('Admin/Aboutus/Index', [
+            'title' => 'About Us Management',
+            'aboutus' => $aboutus,
+        ]);
+    }
 
-    /**
-     * Display the about us form.
-     */
-    public function edit(): Response
+    // Tampil Halaman Edit About Us
+    public function edit()
     {
         $aboutusData = Aboutus::first();
         return Inertia::render('Admin/Aboutus/Edit', [
-            'title' => 'About Us Management',
+            'title' => 'Update About Us',
             'aboutus' => $aboutusData,
         ]);
     }
 
-    /**
-     * Update the about us information.
-     */
+    // Update About Us
     public function update(Request $request): RedirectResponse
     {
         $aboutus = Aboutus::first();
@@ -58,22 +58,20 @@ class AboutusController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.aboutus.edit');
+        return redirect()->route('admin.aboutus.index');
     }
 
-    /**
-     * Delete the aboutus account.
-     */
     // public function destroy(): RedirectResponse
     // {
     //     $aboutus = Aboutus::first();
 
-    //     Storage::disk('public')->delete($aboutus->image);
-    //     $aboutus->delete();
+    //     $aboutus->update([
+    //         'title' => '',
+    //         'content' => '',
+    //         'image' => '',
+    //     ]);
 
-    //     return Redirect::to('/');
-
-    //     // return redirect()->route('admin.aboutus.edit');
+    //     return redirect()->route('admin.aboutus.index');
     // }
 
 }

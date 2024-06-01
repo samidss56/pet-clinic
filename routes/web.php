@@ -151,11 +151,13 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/appoitments/detail/{appointmen:appointmen_id}', [AdminAppointmenController::class, 'detail'])->name('admin.appoitments.detail');
 
     // Route untuk Halaman Admin Aboutus
-    Route::get('/herosection', [HerosectionController::class, 'edit'])->name('admin.herosection.edit');
+    Route::get('/herosection', [HerosectionController::class, 'index'])->name('admin.herosection.index');
+    Route::get('/herosection/edit', [HerosectionController::class, 'edit'])->name('admin.herosection.edit');
     Route::post('/herosection/update', [HerosectionController::class, 'update'])->name('admin.herosection.update');
 
     // Route untuk Halaman Admin Aboutus
-    Route::get('/aboutus', [AboutusController::class, 'edit'])->name('admin.aboutus.edit');
+    Route::get('/aboutus', [AboutusController::class, 'index'])->name('admin.aboutus.index');
+    Route::get('/aboutus/edit', [AboutusController::class, 'edit'])->name('admin.aboutus.edit');
     Route::post('/aboutus/update', [AboutusController::class, 'update'])->name('admin.aboutus.update');
 });
 
