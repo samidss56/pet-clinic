@@ -5,23 +5,35 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HerosectionCollection;
 use App\Models\Herosection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Response;
 
 class HerosectionController extends Controller
 {
-    // Tampil Halaman Manage Transaction
-    public function edit(): Response
+    // Tampil Halaman Manage Hero Section
+    public function index()
+    {
+        $herosectionColection = new HerosectionCollection(Herosection::orderByDesc('created_at'));
+        $herosection = $herosectionColection->first();
+        return Inertia::render('Admin/Herosection/Index', [
+            'title' => 'Hero Section Management',
+            'herosection' => $herosection,
+        ]);
+    }
+
+    // Tampil Halaman Edit Hero Section
+    public function edit()
     {
         $herosectionData = Herosection::first();
         return Inertia::render('Admin/Herosection/Edit', [
-            'title' => 'Hero Section Management',
+            'title' => 'Update Hero Section',
             'herosection' => $herosectionData,
         ]);
     }
 
+    // Update Hero Section
     public function update(Request $request): RedirectResponse
     {
         $herosection = Herosection::first();
@@ -39,12 +51,11 @@ class HerosectionController extends Controller
         }
 
         $herosection->Update([
-            'herosection_id' => $request->herosection_id,
             'title' => $request->title,
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.herosection.edit');
+        return redirect()->route('admin.herosection.index');
     }
 
 }

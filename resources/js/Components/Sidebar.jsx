@@ -150,7 +150,7 @@ const Sidebar = ({ user }) => {
                             </li>
                             <li>
                                 <Link
-                                    href={route("admin.herosection.edit")}
+                                    href={route("admin.herosection.index")}
                                     as="button"
                                     className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 >
@@ -160,7 +160,7 @@ const Sidebar = ({ user }) => {
                             </li>
                             <li>
                                 <Link
-                                    href={route("admin.aboutus.edit")}
+                                    href={route("admin.aboutus.index")}
                                     as="button"
                                     className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 >

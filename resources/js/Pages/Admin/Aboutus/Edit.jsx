@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@/Components/Icons/Index";
+import { ArrowLeftIcon, DeleteIcon } from "@/Components/Icons/Index";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -97,12 +97,12 @@ const UpdateAboutus = ({ auth, title, aboutus }) => {
                     />
                     <InputError message={errors.content} className="mb-2" />
                     <div className="flex gap-3 mt-4">
-                        {/* <Link href={route("admin.articles")}>
+                        <Link href={route("admin.aboutus.index")}>
                             <SecondaryButton className=" gap-2">
                                 <ArrowLeftIcon />
-                                Back To Articles
+                                Back To About Us
                             </SecondaryButton>
-                        </Link> */}
+                        </Link>
                         <PrimaryButton type="submit" onClick={handleSubmit}>
                             Update Aboutus
                         </PrimaryButton>

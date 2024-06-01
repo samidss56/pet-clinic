@@ -108,12 +108,12 @@ const UpdateHerosection = ({ auth, title, herosection }) => {
                     />
                     <InputError message={errors.content} className="mb-2" />
                     <div className="flex gap-3 mt-4">
-                        {/* <Link href={route("admin.articles")}>
+                        <Link href={route("admin.herosection.index")}>
                             <SecondaryButton className=" gap-2">
                                 <ArrowLeftIcon />
-                                Back To Articles
+                                Back To Hero Section
                             </SecondaryButton>
-                        </Link> */}
+                        </Link>
                         <PrimaryButton type="submit" onClick={handleSubmit}>
                             Update Hero Section
                         </PrimaryButton>
