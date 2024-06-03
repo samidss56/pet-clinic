@@ -19,6 +19,7 @@ export default function Welcome({ auth }) {
           <HeroSection />
           <ServicesSection />
           <MeetOurTeamSection />
+          <ArticleSection />
           <TestimonialsSection />
           <GallerySection />
           <AboutUsSection />
@@ -28,3 +29,4 @@ export default function Welcome({ auth }) {
     </Authenticated>
   );
 };
+  
