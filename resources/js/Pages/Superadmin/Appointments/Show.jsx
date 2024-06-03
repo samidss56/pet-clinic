@@ -5,7 +5,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const DetailAppointment = ({ auth, title }) => {
+const DetailAppointment = ({ auth, title, appointment }) => {
     return (
         <Authenticated
             user={auth}
@@ -17,13 +17,7 @@ const DetailAppointment = ({ auth, title }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <Link href={route("superadmin.appointments")}>
-                    <PrimaryButton className="mb-4 gap-2">
-                        <ArrowLeftIcon />
-                        Back To Appointments
-                    </PrimaryButton>
-                </Link>
-                <DetailCard />
+                <DetailCard appointment={appointment.data} />
             </AdminLayout>
         </Authenticated>
     );

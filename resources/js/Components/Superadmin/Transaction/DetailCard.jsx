@@ -1,142 +1,174 @@
-const DetailCard = () => {
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
+import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
+import { formatCurr } from "@/Utils/FormatPrice";
+import { Link } from "@inertiajs/react";
+import React from "react";
+
+const DetailCard = ({ transaction }) => {
+    console.log(transaction);
+    const products = transaction.details.filter(
+        (detail) => detail.product_id !== null
+    );
+    const services = transaction.details.filter(
+        (detail) => detail.service_id !== null
+    );
     return (
-        <div className="p-6 border bg-white dark:bg-dark-gray border-gray-200 dark:border-gray-700 rounded-lg">
-            <div className="flex justify-between items-center rounded-lg  bg-gray-100 dark:bg-light-gray mb-4 p-3 shadow-md">
-                <h3 className="text-xl text-black dark:text-white font-semibold">
-                    Detail ID No. 80
-                </h3>
-                <div className="badge badge-outline bg-green-500 p-3 text-white font-semibold">
-                    finished
+        <div className="bg-white rounded-md">
+            <div className="p-4 flex items-center justify-between border-b bg-gray-200 rounded-t-md">
+                <h2 className="text-xl font-bold inline-block px-2 py-1 text-gray-800">
+                    Invoice #{transaction.invoice}
+                </h2>
+                <div className="flex gap-2 items-center">
+                    <div className="px-2 py-2 rounded-lg bg-white text-sm text-gray-600">
+                        {transaction.date_transaction}
+                    </div>
+                    {transaction.status_payment === "settlement" && (
+                        <span className="inline-block px-2 py-1 bg-green-500 text-white rounded-lg">
+                            finished
+                        </span>
+                    )}
+                    {transaction.status_payment === "pending" && (
+                        <span className="inline-block px-2 py-1 bg-yellow-500 text-black rounded-lg">
+                            pending
+                        </span>
+                    )}
                 </div>
             </div>
-            <div className="flex flex-col gap-4">
-                {/* Pet Data */}
-                <div className="flex gap-4">
-                    <div className="w-1/3">
-                        <img
-                            className="rounded-lg"
-                            src="https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg"
-                            alt="Pet Image"
-                        />
-                    </div>
-                    <div className="w-2/3 flex flex-row justify-between">
-                        <div className="flex gap-5 justify-between w-full">
-                            <div className="flex flex-col gap-7  p-5 ">
-                                <div>
-                                    <p className="text-gray-400 text-sm">
-                                        Pet Name
-                                    </p>
-                                    <p className="text-black dark:text-white font-medium">
-                                        Puki
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="text-gray-400 text-sm">
-                                        Pet Type
-                                    </p>
-                                    <p className="text-black dark:text-white font-medium">
-                                        Cat
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-7 p-5">
-                                <div>
-                                    <p className="text-gray-400 text-sm">
-                                        Pet Gender
-                                    </p>
-                                    <p className="text-black dark:text-white font-medium">
-                                        Male
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="text-gray-400 text-sm">
-                                        Pet Color
-                                    </p>
-                                    <p className="text-black dark:text-white font-medium">
-                                        Black
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="rounded-lg p-4 bg-gray-100 dark:bg-light-gray shadow-md">
-                                <div className="flex flex-col gap-7">
-                                    <div>
-                                        <p className="text-gray-400 text-sm">
-                                            Doctor Name
-                                        </p>
-                                        <p className="text-black dark:text-white font-medium">
-                                            Dr. Wahed Sulistiono
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-400 text-sm">
-                                            Doctor ID
-                                        </p>
-                                        <p className="text-black dark:text-white font-medium">
-                                            12
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+            <div className="p-4 grid grid-cols-4">
+                <div className="p-2">
+                    <p className="text-gray-500">Pet ID</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.pet_id}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Pet Name</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.pet_name}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Pet Age</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.pet_age} years
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Pet Gender</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.pet_gender}
+                    </p>
+                </div>
+            </div>
+            <div className="p-4 grid grid-cols-4 ">
+                <div className="p-2">
+                    <p className="text-gray-500">Owner ID</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.owner_id}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Owner Name</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.owner_name}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Owner Email</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.owner_email}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Owner Phone</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.owner_phone}
+                    </p>
+                </div>
+            </div>
+            <div className="p-4 grid grid-cols-4 ">
+                <div className="p-2">
+                    <p className="text-gray-500">Doctor ID</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.doctor_id}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Doctor Name</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.doctor_name}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Doctor Email</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.doctor_email}
+                    </p>
+                </div>
+                <div className="p-2">
+                    <p className="text-gray-500">Doctor Phone</p>
+                    <p className="font-bold text-gray-800">
+                        {transaction.appointment.doctor_phone}
+                    </p>
+                </div>
+            </div>
+            {products.map((detail) => (
+                <div key={detail.transaction_id}>
+                    <div className="p-4 grid grid-cols-4">
+                        <div className="p-2">
+                            <p className="text-gray-500">Product Name</p>
+                            <p className="font-bold text-gray-800">
+                                {detail.product_id}
+                            </p>
+                        </div>
+                        <div className="p-2">
+                            <p className="text-gray-500">Product Price</p>
+                            <p className="font-bold text-gray-800">
+                                {formatCurr(detail.harga_product)}
+                            </p>
+                        </div>
+                        <div className="p-2">
+                            <p className="text-gray-500">Product Quantity</p>
+                            <p className="font-bold text-gray-800">
+                                {detail.quantity}
+                            </p>
                         </div>
                     </div>
                 </div>
-                {/* Desc,  */}
-                <div className="flex flex-col gap-4">
-                    <div>
-                        <p className="text-gray-400 text-sm">
-                            Appointment Description
-                        </p>
-                        <p className="text-black dark:text-white font-medium">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing
-                            elit. Quia quasi illum perferendis voluptas!
-                            Accusantium tempore aliquam cum obcaecati officiis
-                            quis?
-                        </p>
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="flex">
-                            <span className="text-gray-400 text-sm font-light w-1/3">
-                                Appointment ID
-                            </span>
-                            <span className="text-black dark:text-white font-medium w-2/3">
-                                : 102
-                            </span>
+            ))}
+
+            {services.map((detail) => (
+                <div key={detail.transaction_id}>
+                    <div className="p-4 grid grid-cols-4">
+                        <div className="p-2">
+                            <p className="text-gray-500">Service Name</p>
+                            <p className="font-bold text-gray-800">
+                                {detail.service_id}
+                            </p>
                         </div>
-                        <div className="flex">
-                            <span className="text-gray-400 text-sm font-light w-1/3">
-                                Appointment Date
-                            </span>
-                            <span className="text-black dark:text-white font-medium w-2/3">
-                                : 27-02-2024
-                            </span>
-                        </div>
-                        <div className="flex">
-                            <span className="text-gray-400 text-sm font-light w-1/3">
-                                Weight
-                            </span>
-                            <span className="text-black dark:text-white font-medium w-2/3">
-                                : 3.5 Kg
-                            </span>
-                        </div>
-                        <div className="flex">
-                            <span className="text-gray-400 text-sm font-light w-1/3">
-                                Temperature
-                            </span>
-                            <span className="text-black dark:text-white font-medium w-2/3">
-                                : 37 C
-                            </span>
-                        </div>
-                        <div className="flex">
-                            <span className="text-gray-400 text-sm font-light w-1/3">
-                                Advice
-                            </span>
-                            <span className="text-black dark:text-white font-medium w-2/3">
-                                : Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit.{" "}
-                            </span>
+                        <div className="p-2">
+                            <p className="text-gray-500">Service Price</p>
+                            <p className="font-bold text-gray-800">
+                                {formatCurr(detail.harga_service)}
+                            </p>
                         </div>
                     </div>
                 </div>
+            ))}
+            <div className="text-end px-4 space-y-2">
+                <h2 className="text-gray-500 font-semibold border-t-2 border-gray-800">
+                    Subtotal
+                </h2>
+                <p className="text-gray-800 font-semibold ">{formatCurr(transaction.subtotal)}</p>
+            </div>
+            <div className="p-4">
+                <Link href={route("superadmin.transaction")}>
+                    <SecondaryButton>
+                        <ArrowLeftIcon />
+                        Back to Transaction List
+                    </SecondaryButton>
+                </Link>
             </div>
         </div>
     );

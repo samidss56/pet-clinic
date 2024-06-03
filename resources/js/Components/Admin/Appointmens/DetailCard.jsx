@@ -105,7 +105,7 @@ const DetailCard = ({ appointment }) => {
                         {appointment.docter.email}
                     </p>
                 </div>
-                <Link href={route("superadmin.appointments")}>
+                <Link href={route("admin.appoitments")}>
                     <SecondaryButton>
                         <ArrowLeftIcon />
                         Back to Appointments List

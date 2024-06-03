@@ -1,9 +1,9 @@
-import AppointmentsList from "@/Components/Superadmin/Appointments/AppointmentsList";
+import DetailCard from "@/Components/Admin/Appointmens/DetailCard";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-const Appointments = ({ auth, title, appointments }) => {
+const Show = ({ auth, title, appointment }) => {
     return (
         <Authenticated
             user={auth}
@@ -15,10 +15,10 @@ const Appointments = ({ auth, title, appointments }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <AppointmentsList appointments={appointments.data} />
+                <DetailCard appointment={appointment.data} />
             </AdminLayout>
         </Authenticated>
     );
 };
 
-export default Appointments;
+export default Show;

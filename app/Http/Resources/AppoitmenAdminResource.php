@@ -33,6 +33,7 @@ class AppoitmenAdminResource extends JsonResource
             'docter' => [
                 'docter_id' => $this->docter->docter_id,
                 'name' => $this->docter->name,
+                'email' => $this->docter->email,
                 'jadwal' => $this->docter->jadwal,
             ],
            

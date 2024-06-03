@@ -1,3 +1,7 @@
+import BarChart from "@/Components/Dashboard/BarChart";
+import CardDataStats from "@/Components/Dashboard/CardDataStats";
+import LineChart from "@/Components/Dashboard/LineChart";
+import { UsersIcon } from "@/Components/Icons/Index";
 import AdminLayout from "@/Layouts/AdminLayout";
 import AppDocter from "@/Layouts/AppDocter";
 import { Head } from "@inertiajs/react";
@@ -15,7 +19,33 @@ const Dashboard = ({ docter, title }) => {
             <Head title={title} />
 
             <AdminLayout>
-                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"></div>
+                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+                    <CardDataStats
+                        title="Total pengunjung"
+                        total="5.456"
+                        rate="2.43%"
+                    >
+                        <UsersIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
+                    <CardDataStats
+                        title="Total pengunjung"
+                        total="5.456"
+                        rate="2.43%"
+                    >
+                        <UsersIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
+                    <CardDataStats
+                        title="Total pengunjung"
+                        total="5.456"
+                        rate="2.43%"
+                    >
+                        <UsersIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
+                </div>
+                <div className="grid grid-cols-1 2xl:grid-cols-2 gap-3">
+                    <LineChart />
+                    <BarChart />
+                </div>
             </AdminLayout>
         </AppDocter>
     );

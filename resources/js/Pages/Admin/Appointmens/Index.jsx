@@ -7,7 +7,8 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Index = ({ auth, title, appoitments }) => {
+const Index = ({ auth, title, appointments }) => {
+    console.log(appointments);
     return (
         <Authenticated
             user={auth}
@@ -19,8 +20,8 @@ const Index = ({ auth, title, appoitments }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <AppointmensList appoitments={appoitments.data} />
-                <Paginator meta={appoitments.meta} />
+                <AppointmensList appointments={appointments.data} />
+                <Paginator meta={appointments.meta} />
             </AdminLayout>
         </Authenticated>
     );

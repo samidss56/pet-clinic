@@ -1,3 +1,8 @@
+import BarChart from "@/Components/Dashboard/BarChart";
+import CardDataStats from "@/Components/Dashboard/CardDataStats";
+import LineChart from "@/Components/Dashboard/LineChart";
+import { UsersIcon } from "@/Components/Icons/Index";
+import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -13,11 +18,35 @@ const Dashboard = ({ auth, title }) => {
         >
             <Head title={title} />
 
-            <div className="py-12 px-4">
-                <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4"></div>
+            <AdminLayout>
+                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+                    <CardDataStats
+                        title="Total pengunjung"
+                        total="5.456"
+                        rate="2.43%"
+                    >
+                        <UsersIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
+                    <CardDataStats
+                        title="Total pengunjung"
+                        total="5.456"
+                        rate="2.43%"
+                    >
+                        <UsersIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
+                    <CardDataStats
+                        title="Total pengunjung"
+                        total="5.456"
+                        rate="2.43%"
+                    >
+                        <UsersIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
                 </div>
-            </div>
+                <div className="grid grid-cols-1 2xl:grid-cols-2 gap-3">
+                    <LineChart />
+                    <BarChart />
+                </div>
+            </AdminLayout>
         </Authenticated>
     );
 };
