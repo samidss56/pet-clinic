@@ -52,17 +52,16 @@ class TransactionController extends Controller
         // return $request;
         $data_product = $transaction->details()->whereNotNull('product_id')->get()->keyBy('product_id')->toArray();
 
-        if($request->payment_type == 'tunai')
-        {
+        if ($request->payment_type == 'tunai') {
             $transaction->update([
                 'invoice' => $request->invoice,
                 'user_id' => $request->user_id,
                 'appointmen_id' => $request->appointmen_id,
                 'date_transaction' => $request->date_transaction,
                 'status_payment' => 'settlement',
-                'payment_type'=> json_encode($request->payment_type),
-                'payment_info'=> 'tunai',
-                'succeeded_at'=> date('Y-m-d H:i:s'),
+                'payment_type' => json_encode($request->payment_type),
+                'payment_info' => 'tunai',
+                'succeeded_at' => date('Y-m-d H:i:s'),
                 'subtotal' => $request->subtotal,
             ]);
 
@@ -89,8 +88,8 @@ class TransactionController extends Controller
                 foreach ($request->products as $product) {
                     if ($product['product_id'] !== null && $product['price_product'] !== null && $product['qty'] !== null) {
                         $detail_trans = TransactionDetail::where('transaction_id', $transaction->id)
-                        ->where('product_id', $product['product_id'])
-                        ->first();
+                            ->where('product_id', $product['product_id'])
+                            ->first();
 
                         if ($detail_trans) {
                             $qty_value = $detail_trans->quantity - $product['qty'];
@@ -154,18 +153,18 @@ class TransactionController extends Controller
             $removedServices = array_diff($oldServices, array_column($request->services, 'service_id'));
 
             TransactionDetail::where('transaction_id', $transaction->id)
-                            ->whereIn('service_id', $removedServices)
-                            ->delete();
+                ->whereIn('service_id', $removedServices)
+                ->delete();
 
             return Inertia::location(route('admin.transaction'));
-        }else {
+        } else {
 
             $transaction->update([
                 'invoice' => $request->invoice,
                 'user_id' => $request->user_id,
                 'appointmen_id' => $request->appointmen_id,
                 'date_transaction' => $request->date_transaction,
-                'payment_type'=> json_encode($request->payment_type),
+                'payment_type' => json_encode($request->payment_type),
                 'subtotal' => $request->subtotal,
             ]);
 
@@ -189,8 +188,8 @@ class TransactionController extends Controller
                     if ($product['product_id'] !== null && $product['price_product'] !== null && $product['qty'] !== null) {
 
                         $detail_trans = TransactionDetail::where('transaction_id', $transaction->id)
-                        ->where('product_id', $product['product_id'])
-                        ->first();
+                            ->where('product_id', $product['product_id'])
+                            ->first();
 
                         if ($detail_trans) {
                             $qty_value = $detail_trans->quantity - $product['qty'];
@@ -238,8 +237,8 @@ class TransactionController extends Controller
             $removedServices = array_diff($oldServices, array_column($request->services, 'service_id'));
 
             TransactionDetail::where('transaction_id', $transaction->id)
-                            ->whereIn('service_id', $removedServices)
-                            ->delete();
+                ->whereIn('service_id', $removedServices)
+                ->delete();
 
             $transactionDetails = $transaction->details()->with(['service', 'product'])->get();
 
@@ -284,10 +283,10 @@ class TransactionController extends Controller
                     'bank' => $request->bank,
                 ]];
             }
-                        
-            $response = Http::withBasicAuth('KEY' . ':', '')
-                        ->post('/', $data);
-                        
+
+            $response = Http::withBasicAuth('SB-Mid-server-UskSyItBUaes0ElP0-AttfIU' . ':', '')
+                ->post('https://api.sandbox.midtrans.com/v2/charge', $data);
+
             $body = $response->json();
 
             // dd($body);
@@ -309,20 +308,18 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         // return new TransactionResource($transaction);
-        return inertia('Admin/Transaction/Show',[
+        return inertia('Admin/Transaction/Show', [
             'transaction' => new TransactionResource($transaction),
         ]);
     }
 
     public function notif(Request $request)
     {
-        $trans = Transaction::where('invoice',$request->order_id)->first();
-        $grossAmount = $trans->subtotal.'.00';
-        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount."SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m");
-        if($request->signature_key == $signature_key)
-        {
-            if($request->transaction_status == 'settlement')
-            {
+        $trans = Transaction::where('invoice', $request->order_id)->first();
+        $grossAmount = $trans->subtotal . '.00';
+        $signature_key = hash("sha512", $request->order_id . $request->status_code . $grossAmount . "SB-Mid-server-UskSyItBUaes0ElP0-AttfIU");
+        if ($request->signature_key == $signature_key) {
+            if ($request->transaction_status == 'settlement') {
                 $trans->update([
                     'status_payment' => $request->transaction_status,
                     'succeeded_at' => $request->settlement_time,
@@ -336,5 +333,4 @@ class TransactionController extends Controller
             }
         }
     }
-
 }

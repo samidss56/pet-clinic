@@ -6,65 +6,23 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link, router } from "@inertiajs/react";
+import DetailCard from "@/Components/Superadmin/Transaction/DetailCard";
 
-const Show = ({transaction,auth}) => {
-    // console.log(transaction);
-    Echo.private(`trans.paid.${auth.user.user_id}`).listen(
-        "TransactionPaid",
-        ({ trans }) => {
-            if (trans.status_payment == "settlement") {
-                router.visit(route("admin.transaction"), { method: "get" });
-            }
-        }
-    );
+const Show = ({ transaction, auth, title }) => {
+    console.log(transaction);
 
     return (
         <Authenticated
             user={auth}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-                    {transaction.data.invoice}
+                    {title} #{transaction.data.invoice}
                 </h2>
             }
         >
-            <Head title={`Your Order - ${transaction.data.invoice}`} />
+            <Head title={title} />
             <AdminLayout>
-                    <div className="grid grid-cols-2 gap-10">
-                        <div>
-                            {transaction.data.qr_code ? (
-                                <img
-                                    className='border shadow-sm rounded-lg'
-                                    src={transaction.data.qr_code}
-                                    alt="QR Code"
-                                />
-                            ) : null}
-                            {transaction.data.bank ? (
-                                <div>
-                                    <div className='p-2 rounded-lg text-blue-900 bg-gradient-to-r from-blue-200 via-transparent to-transparent'>
-                                        <div>
-                                            <strong className="font-semibold uppercase">
-                                                {transaction.data.bank.bank}
-                                            </strong>
-                                            Virtual Account Number
-                                        </div>
-                                        <div>
-                                            {transaction.data.bank.va_number}
-                                        </div>
-                                    </div>
-                                </div>
-                            ) : null}
-                        </div>
-                        <div>
-                            <h1 className='font-semibold text-2xl mb-4'>Instruksi Pembayaran</h1>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet.</li>
-                                <li>Reprehenderit officia repellat vel sit.</li>
-                                <li>Incidunt reiciendis officia quidem at.</li>
-                                <li>Iure ratione fugit enim vitae!</li>
-                                <li>Voluptas vel voluptates non reiciendis.</li>
-                            </ul>
-                        </div>
-                    </div>
+                <DetailCard transaction={transaction.data} />
             </AdminLayout>
         </Authenticated>
     );

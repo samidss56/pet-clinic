@@ -35,6 +35,7 @@ class TransactionController extends Controller
 
         return inertia('Superadmin/Transaction/Show',[
             'transaction' => new TransactionSuperAdminResource($transaction),
+            'title' => 'Inovoice',
         ]);
     }
 

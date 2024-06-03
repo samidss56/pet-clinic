@@ -19,15 +19,15 @@ class AppointmenController extends Controller
         // return AppoitmenAdminResource::collection($app);
         return Inertia::render('Admin/Appointmens/Index', [
             'title' => 'Appointmens Management',
-            'appoitments' => AppoitmenAdminResource::collection($app),
+            'appointments' => AppoitmenAdminResource::collection($app),
         ]);
     }
 
     public function detail(Appointmen $appointmen)
     {
         return Inertia::render('Admin/Appointmens/Detail', [
-            'title' => 'Appointmens Management',
-            'appoitments' => AppoitmenAdminResource::make($appointmen->load('pet')),
+            'title' => 'Detail Appointment',
+            'appointment' => AppoitmenAdminResource::make($appointmen->load('pet')),
         ]);
     }
 }

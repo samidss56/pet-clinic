@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
 const isAppointment = (appointments) => {
+    console.log(appointments);
     const [openIndex, setOpenIndex] = useState(null);
 
     const toggleAccordion = (index) => {

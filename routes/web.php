@@ -76,7 +76,7 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::post('jadwal/update/{jadwal:docter_id}', [JadwalController::class, 'update']);
 
     Route::get('/appointments', [AppointmenController::class, 'index'])->name('superadmin.appointments');
-    Route::get('/appointments/detail', [AppointmenController::class, 'detail'])->name('superadmin.appointments.detail');
+    Route::get('/appointments/detail/{appointmen:appointmen_id}', [AppointmenController::class, 'detail'])->name('superadmin.appointments.detail');
 
     // Route untuk Halaman Super Admin Product
     Route::get('/products', [SuperadminProductController::class, 'index'])->name('superadmin.products');

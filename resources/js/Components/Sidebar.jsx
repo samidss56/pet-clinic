@@ -32,10 +32,10 @@ const Sidebar = ({ user }) => {
             } transition duration-500`}
         >
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-side bg-white relative">
+            <div className="drawer-side bg-white relative no-scrollbar">
                 <label></label>
                 <ul
-                    className={`flex flex-col shadow justify-between menu p-4 min-h-full bg-white text-gray-800 transition-all duration-300 ${
+                    className={`flex flex-col shadow justify-between menu p-4 min-h-full bg-white text-gray-800 transition-all duration-300 space-y-6 ${
                         isOpen ? "w-72" : "w-22"
                     }`}
                 >

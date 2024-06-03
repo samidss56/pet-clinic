@@ -23,8 +23,8 @@ class Appointmen extends Model
         return $this->belongsTo(Pet::class, 'pet_id', 'pet_id');
     }
 
-    // public function transaction()
-    // {
-    //     return $this->hasOne(Transaction::class, 'appointmen_id', 'appointmen_id');
-    // }
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class, 'appointmen_id', 'appointmen_id');
+    }
 }

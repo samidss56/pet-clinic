@@ -34,7 +34,23 @@ class AppoitmenOwnerResource extends JsonResource
                 'name' => $this->docter->name,
                 'jadwal' => $this->docter->jadwal,
             ],
-           
+            'transaction' => $this->transaction ? [
+                'appointmen_id' => $this->transaction->appointmen_id,
+                'invoice' => $this->transaction->invoice,
+                'date_transaction' => $this->transaction->date_transaction,
+                'subtotal' => $this->transaction->subtotal,
+                'status_payment' => $this->transaction->status_payment,
+                'details' => $this->transaction->details->map(function ($detail) {
+                    return [
+                        'transaction_id' => $detail->transaction_id,
+                        'product_id' => $detail->product_id,
+                        'service_id' => $detail->service_id,
+                        'quantity' => $detail->quantity,
+                        'harga_product' => $detail->harga_product,
+                        'harga_service' => $detail->harga_service,
+                    ];
+                })->toArray(),
+            ] : null,
         ];
     }
 }
