@@ -51,12 +51,6 @@ const Navbar = ({ user }) => {
                         >
                             Appointments
                         </NavLink>
-                        <NavLink
-                        // href={route("user.orders")}
-                        // active={route().current("user.orders")}
-                        >
-                            Transaction
-                        </NavLink>
                     </>
                 )}
             </div>
@@ -129,15 +123,6 @@ const Navbar = ({ user }) => {
                                         >
                                             <AppointmentsIcon />
                                             Appointments
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            // href={route("owner.transaction")}
-                                            as="button"
-                                        >
-                                            <TransactionsIcon />
-                                            Transaction
                                         </Link>
                                     </li>
                                 </div>

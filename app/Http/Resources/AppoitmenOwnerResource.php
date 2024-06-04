@@ -28,10 +28,16 @@ class AppoitmenOwnerResource extends JsonResource
             'pet' => [
                 'pet_id' => $this->pet->pet_id,
                 'name' => $this->pet->name,
+                'image' => $this->pet->image,
+                'gender' => $this->pet->gender,
+                'age' => $this->pet->age,
             ],
             'docter' => [
                 'docter_id' => $this->docter->docter_id,
                 'name' => $this->docter->name,
+                'profile' => $this->docter->profile,
+                'email' => $this->docter->email,
+                'phone' => $this->docter->phone,
                 'jadwal' => $this->docter->jadwal,
             ],
             'transaction' => $this->transaction ? [

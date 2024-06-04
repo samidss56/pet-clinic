@@ -175,6 +175,7 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::get('/appointmen/create/{pet_id}', [OwnerAppointmenController::class, 'create'])->name('owner.appointmen.create');
     Route::post('/appointmen/store', [OwnerAppointmenController::class, 'store'])->name('owner.appointmen.store');
     Route::post('/appointmen/update/{appointmen:appointmen_id}', [OwnerAppointmenController::class, 'update'])->name('owner.appointmen.update');
+    Route::get('/appointmen/detail/{appointmen:appointmen_id}', [OwnerAppointmenController::class, 'show'])->name('owner.appointmen.detail');
 
     Route::get('/settings', [ProfileController::class, 'edit'])->name('owner.profile.edit');
     Route::patch('/settings', [ProfileController::class, 'update'])->name('owner.profile.update');

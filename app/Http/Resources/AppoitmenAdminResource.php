@@ -28,12 +28,14 @@ class AppoitmenAdminResource extends JsonResource
             'pet' => [
                 'pet_id' => $this->pet->pet_id,
                 'name' => $this->pet->name,
+                'image' => $this->pet->image,
                 'user' => $this->pet->user,
             ],
             'docter' => [
                 'docter_id' => $this->docter->docter_id,
                 'name' => $this->docter->name,
                 'email' => $this->docter->email,
+                'profile' => $this->docter->profile,
                 'jadwal' => $this->docter->jadwal,
             ],
            

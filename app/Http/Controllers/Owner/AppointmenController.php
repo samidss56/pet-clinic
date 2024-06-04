@@ -59,6 +59,15 @@ class AppointmenController extends Controller
         ]);
     }
 
+    public function show($appointmen_id)
+    {
+        $appointmen = Appointmen::where('appointmen_id', $appointmen_id)->first();
+        return Inertia::render('Owner/Appointments/Show', [
+            'title' => 'Show Your Appointmens',
+            'appointment' => AppoitmenOwnerResource::make($appointmen),
+        ]);
+    }
+
     public function create($pet_id)
     {   
         $pets = Pet::get();

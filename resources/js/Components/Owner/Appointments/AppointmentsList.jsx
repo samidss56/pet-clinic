@@ -1,4 +1,5 @@
 import DangerButton from "@/Components/DangerButton";
+import { ShowIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import { Link } from "@inertiajs/react";
@@ -78,7 +79,58 @@ const isAppointment = (appointments) => {
                         </div>
                         {openIndex === appointment.appointmen_id && (
                             <div className="collapse-content p-4">
-                                <p>{appointment.pet.name}</p>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td className="text-gray-400 text-sm">
+                                                ID Appointment
+                                            </td>
+                                            <td className="px-3"> : </td>
+                                            <td className="font-semibold text-sm text-gray-700">
+                                                {appointment.appointmen_id}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-gray-400 text-sm">
+                                                ID Doctor
+                                            </td>
+                                            <td className="px-3"> : </td>
+                                            <td className="font-semibold text-sm text-gray-700">
+                                                {appointment.docter_id}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-gray-400 text-sm">
+                                                ID Hewan Peliharaan
+                                            </td>
+                                            <td className="px-3"> : </td>
+                                            <td className="font-semibold text-sm text-gray-700">
+                                                {appointment.pet_id}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-gray-400 text-sm">
+                                                Tanggal Appointment
+                                            </td>
+                                            <td className="px-3"> : </td>
+                                            <td className="font-semibold text-sm text-gray-700">
+                                                {appointment.date_appointmens}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div className="flex justify-end gap-2 mt-4">
+                                    <Link
+                                        href={route(
+                                            "owner.appointmen.detail",
+                                            appointment.appointmen_id
+                                        )}
+                                    >
+                                        <PrimaryButton>
+                                            <ShowIcon />
+                                        </PrimaryButton>
+                                    </Link>
+                                </div>
                             </div>
                         )}
                     </div>
