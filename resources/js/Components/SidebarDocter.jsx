@@ -57,7 +57,7 @@ const SidebarDocter = ({ user }) => {
                         )}
                         <div className="flex flex-col gap-3">
                             <li>
-                                <Link href={"doctor.dashboard"} as="button">
+                                <Link href={route("doctor.dashboard")} as="button">
                                     <DashboardIcon />
                                     {isOpen && <span>Dashboard</span>}
                                 </Link>

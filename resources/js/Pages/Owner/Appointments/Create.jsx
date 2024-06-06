@@ -8,7 +8,6 @@ import { Head, useForm } from "@inertiajs/react";
 import axios from 'axios';
 
 const Create = ({ auth, title, pets, docters, pet_id }) => {
-    // console.log(pet_id);
     const { data, setData, errors, post } = useForm({
         pet_id: pet_id.pet_id,
         docter_id: "",
@@ -17,9 +16,10 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
         jadwal: "",
     });
 
-    // console.log(data.pet_id)
     const [schedules, setSchedules] = useState([]);
+    const [bookedSchedules, setBookedSchedules] = useState([]);
     const [selectedSchedule, setSelectedSchedule] = useState(null);
+    const [validationError, setValidationError] = useState('');
 
     const handleDoctorChange = async (e) => {
         const docterId = e.target.value;
@@ -30,6 +30,7 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                 const response = await axios.get(`/doctor-schedule/${docterId}`);
                 setSchedules(response.data);
                 setSelectedSchedule(null);
+                validateSchedule(docterId, data.date_appointmens);
             } catch (error) {
                 console.error('Error fetching doctor schedule', error);
             }
@@ -38,14 +39,37 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
         }
     };
 
+    const handleDateChange = (e) => {
+        const date = e.target.value;
+        setData("date_appointmens", date);
+        validateSchedule(data.docter_id, date);
+    };
+
     const handleScheduleClick = (schedule) => {
         setSelectedSchedule(schedule.id);
         setData("jadwal", schedule.schedule);
     };
 
+    const validateSchedule = async (docterId, date) => {
+        if (docterId && date) {
+            try {
+                const response = await axios.post('/owner/check-schedule-availability', {
+                    docter_id: docterId,
+                    date_appointmens: date,
+                });
+
+                setBookedSchedules(response.data.booked_schedules);
+            } catch (error) {
+                console.error('Error validating schedule', error);
+            }
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route("owner.appointmen.store"), { data });
+        if (!validationError) {
+            post(route("owner.appointmen.store"), { data });
+        }
     };
 
     const petOptions = pets.map(pet => ({ value: pet.pet_id, label: pet.name }));
@@ -81,12 +105,27 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                         >
                             <option value="">Select Doctor</option>
                             {doctorOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
                         </select>
                         <InputError message={errors.docter_id} className="mt-2" />
+
+                        <InputLabel htmlFor="date_appointmens" value="Appointment Date" />
+                        <TextInput
+                            id="date_appointmens"
+                            type="date"
+                            className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
+                            value={data.date_appointmens}
+                            onChange={handleDateChange}
+                            required
+                        />
+                        <InputError message={errors.date_appointmens} className="mt-2" />
+
+                        {validationError && (
+                            <div className="text-red-500 mb-4">{validationError}</div>
+                        )}
 
                         {schedules.map((schedule) => (
                             <button
@@ -96,46 +135,17 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                                     selectedSchedule === schedule.id
                                         ? 'bg-blue-500 text-white'
                                         : 'bg-white border-gray-300'
-                                } ${schedule.is_aktif === '0' || schedule.is_aktif === '2' ? 'bg-gray-300 text-black cursor-not-allowed' : ''}`}
+                                } ${
+                                    schedule.is_aktif === '0' || bookedSchedules.includes(schedule.schedule)
+                                        ? '!bg-gray-500 text-black cursor-not-allowed'
+                                        : ''
+                                }`}
                                 onClick={() => handleScheduleClick(schedule)}
-                                disabled={schedule.is_aktif === '0' || schedule.is_aktif === '2'}
+                                disabled={schedule.is_aktif === '0' || bookedSchedules.includes(schedule.schedule)}
                             >
                                 {`${schedule.day} - ${schedule.schedule}`}
                             </button>
                         ))}
-                        {/* {schedules.length > 0 && (
-                            <div className="mt-4">
-                                <InputLabel value="Select Schedule" />
-                                <div className="flex gap-3 mb-2">
-                                    {schedules.map((schedule) => (
-                                        <button
-                                            type="button"
-                                            key={schedule.id}
-                                            className={`p-2 border rounded ${
-                                                selectedSchedule === schedule.id
-                                                    ? 'bg-white text-primary-red border-[1.5px] border-primary-red'
-                                                    : 'bg-white border-gray-300'
-                                            }`}
-                                            onClick={() => handleScheduleClick(schedule)}
-                                        >
-                                            {`${schedule.day} - ${schedule.schedule}`}
-                                        </button>
-                                    ))}
-                                </div>
-                                <InputError message={errors.jadwal} className="mt-2" />
-                            </div>
-                        )} */}
-
-                        <InputLabel htmlFor="date_appointmens" value="Appointment Date" />
-                        <TextInput
-                            id="date_appointmens"
-                            type="date"
-                            className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                            value={data.date_appointmens}
-                            onChange={(e) => setData("date_appointmens", e.target.value)}
-                            required
-                        />
-                        <InputError message={errors.date_appointmens} className="mt-2" />
 
                         <InputLabel htmlFor="description" value="Description" />
                         <TextInput

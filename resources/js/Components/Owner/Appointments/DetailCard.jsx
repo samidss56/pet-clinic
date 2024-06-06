@@ -7,13 +7,12 @@ import { formatCurr } from "@/Utils/FormatPrice";
 import { Link } from "@inertiajs/react";
 
 const DetailCard = ({ appointment }) => {
-    console.log(appointment);
-    const products = appointment.transaction.details.filter(
+    const products = appointment.transaction?.details?.filter(
         (detail) => detail.product_id !== null
-    );
-    const services = appointment.transaction.details.filter(
+    ) ?? [];
+    const services = appointment.transaction?.details?.filter(
         (detail) => detail.service_id !== null
-    );
+    ) ?? [];
     return (
         <div className="bg-white rounded-md shadow-md ">
             <div className="p-4 flex items-center justify-between border-b rounded-t-md">

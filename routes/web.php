@@ -100,6 +100,8 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     //Transaction
     Route::get('/transaction', [SuperadminTransactionController::class, 'index'])->name('superadmin.transaction');
     Route::get('transaction/{transaction:invoice}', [SuperadminTransactionController::class, 'show'])->name('superadmin.transaction.show');
+    Route::get('/download-laporan', [SuperadminTransactionController::class, 'downloadlaporan'])->name('downloadlaporansuperadmin');
+    Route::get('transaction/{transaction:invoice}/pdf', [SuperadminTransactionController::class, 'downloaddetailPDF'])->name('superadmin.transaction.downloadPDF');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -176,6 +178,7 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::post('/appointmen/store', [OwnerAppointmenController::class, 'store'])->name('owner.appointmen.store');
     Route::post('/appointmen/update/{appointmen:appointmen_id}', [OwnerAppointmenController::class, 'update'])->name('owner.appointmen.update');
     Route::get('/appointmen/detail/{appointmen:appointmen_id}', [OwnerAppointmenController::class, 'show'])->name('owner.appointmen.detail');
+    Route::post('/check-schedule-availability', [OwnerAppointmenController::class, 'checkScheduleAvailability']);
 
     Route::get('/settings', [ProfileController::class, 'edit'])->name('owner.profile.edit');
     Route::patch('/settings', [ProfileController::class, 'update'])->name('owner.profile.update');
@@ -198,7 +201,7 @@ Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(functi
 
     Route::get('/settings', [DocterProfileController::class, 'edit'])->name('docter.profile.edit');
     Route::patch('/settings/{docter}', [DocterProfileController::class, 'update'])->name('docter.profile.update');
-    // Route::put('/settings', [DocterPasswordController::class, 'update'])->name('docter.password.update');
+    Route::put('/settings', [DocterPasswordController::class, 'update'])->name('docter.password.update');
 });
 
 // Route::middleware('auth')->group(function () {

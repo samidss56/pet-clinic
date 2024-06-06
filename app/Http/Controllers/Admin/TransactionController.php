@@ -317,7 +317,7 @@ class TransactionController extends Controller
     {
         $trans = Transaction::where('invoice', $request->order_id)->first();
         $grossAmount = $trans->subtotal . '.00';
-        $signature_key = hash("sha512", $request->order_id . $request->status_code . $grossAmount . "SB-Mid-server-UskSyItBUaes0ElP0-AttfIU");
+        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount."SB-Mid-server-UskSyItBUaes0ElP0-AttfIU");
         if ($request->signature_key == $signature_key) {
             if ($request->transaction_status == 'settlement') {
                 $trans->update([
@@ -334,3 +334,4 @@ class TransactionController extends Controller
         }
     }
 }
+
