@@ -29,6 +29,7 @@
         "daisyui": "^4.10.2",
         "react-apexcharts": "^1.4.1",
         "react-hot-toast": "^2.4.1",
+        "react-modal": "^3.16.1",
         "sweetalert": "^2.1.2"
     }
 }

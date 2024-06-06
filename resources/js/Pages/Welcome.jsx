@@ -1,13 +1,3 @@
-import AboutUsSection from "@/Components/LandingPage/AboutUsSection";
-import Footer from "@/Components/LandingPage/Footer";
-import GallerySection from "@/Components/LandingPage/GalerySection";
-import HeroSection from "@/Components/LandingPage/HeroSection";
-import MeetOurTeamSection from "@/Components/LandingPage/MeetOurTeamSection";
-import ServicesSection from "@/Components/LandingPage/ServiceSection";
-import TestimonialsSection from "@/Components/LandingPage/TestimonialsSection";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
-
 const ArticleSection = () => {
   const articles = [
     {
@@ -24,6 +14,21 @@ const ArticleSection = () => {
       title: "Common Health Issues in Pets and How to Prevent Them",
       image: "/artikel3.png",
       description: "Pets can suffer from a variety of health issues, from dental problems to obesity. Discover preventive measures to keep your pet healthy and happy."
+    },
+    {
+      title: "How to Train Your New Puppy",
+      image: "/artikel4.png",
+      description: "Training your new puppy is essential for ensuring good behavior and a happy household. Learn effective training techniques and tips to help your puppy learn quickly."
+    },
+    {
+      title: "Understanding Your Pet’s Body Language",
+      image: "/artikel5.png",
+      description: "Pets communicate through body language, and understanding these signals can improve your relationship with your pet. Learn the basics of pet body language and what different behaviors mean."
+    },
+    {
+      title: "Seasonal Pet Care Tips",
+      image: "/artikel6.png",
+      description: "Each season brings unique challenges and needs for pet care. Discover how to adapt your pet care routine for winter, spring, summer, and fall to keep your pet healthy year-round."
     }
   ];
 
