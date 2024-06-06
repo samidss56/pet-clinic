@@ -1,4 +1,19 @@
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import AboutUsSection from "@/Components/LandingPage/AboutUsSection";
+import Footer from "@/Components/LandingPage/Footer";
+import GallerySection from "@/Components/LandingPage/GalerySection";
+import HeroSection from "@/Components/LandingPage/HeroSection";
+import MeetOurTeamSection from "@/Components/LandingPage/MeetOurTeamSection";
+import ServicesSection from "@/Components/LandingPage/ServiceSection";
+import TestimonialsSection from "@/Components/LandingPage/TestimonialsSection";
+import Authenticated from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
+
 const ArticleSection = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState(null);
+
   const articles = [
     {
       title: "The Importance of Regular Veterinary Check-Ups",
@@ -21,7 +36,7 @@ const ArticleSection = () => {
       description: "Training your new puppy is essential for ensuring good behavior and a happy household. Learn effective training techniques and tips to help your puppy learn quickly."
     },
     {
-      title: "Understanding Your Pet’s Body Language",
+      title: "Understanding Your Pets Body Language",
       image: "/artikel5.png",
       description: "Pets communicate through body language, and understanding these signals can improve your relationship with your pet. Learn the basics of pet body language and what different behaviors mean."
     },
@@ -32,20 +47,61 @@ const ArticleSection = () => {
     }
   ];
 
+  const openModal = (article) => {
+    setSelectedArticle(article);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedArticle(null);
+  };
+
   return (
     <section className="bg-white py-12">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-8 text-red-600">ARTICLES</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article, index) => (
-            <div key={index} className="bg-gray-100 p-6 rounded-lg shadow-lg">
-              <img src={article.image} alt={article.title} className="w-full h-48 object-cover rounded-md mb-4" />
-              <h3 className="text-xl font-bold text-black mb-2">{article.title}</h3>
-              <p className="text-gray-900">{article.description}</p>
+            <div key={index} className="bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col justify-between">
+              <div>
+                <img src={article.image} alt={article.title} className="w-full h-48 object-cover rounded-md mb-4" />
+                <h3 className="text-xl font-bold text-black mb-2">{article.title}</h3>
+                <p className="text-gray-900 mb-4">{article.description}</p>
+              </div>
+              <button 
+                onClick={() => openModal(article)} 
+                className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-300 mt-4"
+              >
+                Read More
+              </button>
             </div>
           ))}
         </div>
       </div>
+      {selectedArticle && (
+        <Modal 
+          isOpen={modalIsOpen} 
+          onRequestClose={closeModal} 
+          contentLabel="Article Details"
+          className="fixed inset-0 flex items-center justify-center z-50"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+        >
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 md:mx-auto p-6 relative">
+            <button 
+              onClick={closeModal} 
+              className="absolute top-0 right-0 mt-4 mr-4 text-gray-500 hover:text-gray-700 transition duration-300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <h2 className="text-2xl font-bold text-black mb-4">{selectedArticle.title}</h2>
+            <img src={selectedArticle.image} alt={selectedArticle.title} className="w-full h-48 object-cover rounded-md mb-4" />
+            <p className="text-gray-900 mb-4">{selectedArticle.description}</p>
+          </div>
+        </Modal>
+      )}
     </section>
   );
 };
