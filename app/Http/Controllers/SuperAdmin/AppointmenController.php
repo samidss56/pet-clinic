@@ -25,6 +25,7 @@ class AppointmenController extends Controller
 
     public function detail(Appointmen $appointmen)
     {
+        // return AppoitmenAdminResource::make($appointmen->load('pet'));
         return Inertia::render('Superadmin/Appointments/Show', [
             'title' => 'Detail Appointment',
             'appointment' => AppoitmenAdminResource::make($appointmen->load('pet')),

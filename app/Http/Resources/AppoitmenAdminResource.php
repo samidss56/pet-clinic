@@ -14,6 +14,12 @@ class AppoitmenAdminResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $jadwal =  $this->jadwal ? substr($this->jadwal, 0, 5) : null;
+
+        $tes = collect($this->docter->jadwal)->first( function ($abc) use ($jadwal) {
+            return substr($abc['schedule'], 0, 5) === $jadwal;
+        });
+
         return [
             'appointmen_id' => $this->appointmen_id,
             'pet_id' => $this->pet_id,
@@ -36,7 +42,7 @@ class AppoitmenAdminResource extends JsonResource
                 'name' => $this->docter->name,
                 'email' => $this->docter->email,
                 'profile' => $this->docter->profile,
-                'jadwal' => $this->docter->jadwal,
+                'jadwal' => [$tes],
             ],
            
         ];

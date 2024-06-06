@@ -5,15 +5,33 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { Link } from "@inertiajs/react";
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { Inertia } from "@inertiajs/inertia";
 
 const DetailCard = ({ transaction }) => {
+    // console.log(transaction)
+    const [exportReset, setExportReset] = useState(false);
+
     const products = transaction.details.filter(
         (detail) => detail.product_id !== null
     );
     const services = transaction.details.filter(
         (detail) => detail.service_id !== null
     );
+
+    useEffect(() => {
+        if (exportReset) {
+            const url = route('superadmin.transaction.downloadPDF', transaction.invoice);
+            window.location.href = url;
+            setExportReset(false);
+        }
+    }, [exportReset]);
+
+    const handleDownloadPDF = () => {
+        // Inertia.get(route('superadmin.transaction.downloadPDF', transaction.invoice), {});
+        setExportReset(true);
+    };
+
     return (
         <div className="bg-white rounded-md">
             <div className="p-4 flex items-center justify-between border-b bg-gray-50 rounded-t-md">
@@ -21,10 +39,13 @@ const DetailCard = ({ transaction }) => {
                     Invoice #{transaction.invoice}
                 </h2>
                 <div className="flex gap-2 items-center">
-                    <PrimaryButton className="flex items-center gap-2">
+                    {transaction.status_payment  === "settlement" ?
+                      <PrimaryButton className="flex items-center gap-2" onClick={handleDownloadPDF}>
                         <FileIcon />
                         PDF
                     </PrimaryButton>
+                    : null}
+                  
                     {transaction.status_payment === "settlement" && (
                         <span className="inline-block px-2 py-2 bg-green-500 text-white rounded-lg">
                             finished
@@ -186,7 +207,7 @@ const DetailCard = ({ transaction }) => {
                         <tbody>
                             {products.map((product) => (
                                 <tr key={product.transaction_id}>
-                                    <th>{product.product_id}</th>
+                                    <th>{product.product_name}</th>
                                     <th>{product.quantity}</th>
                                     <th>{formatCurr(product.harga_product)}</th>
                                 </tr>
@@ -213,11 +234,9 @@ const DetailCard = ({ transaction }) => {
                         <tbody>
                             {services.map((service) => (
                                 <tr key={service.transaction_id}>
-                                    <th>{service.service_id}</th>
+                                    <th>{service.service_name}</th>
                                     <th>
-                                        {service.quantity
-                                            ? service.quantity
-                                            : "-"}
+                                        1
                                     </th>
                                     <th>{formatCurr(service.harga_service)}</th>
                                 </tr>

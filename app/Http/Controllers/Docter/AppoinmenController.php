@@ -82,14 +82,6 @@ class AppoinmenController extends Controller
             'advice' => $request->advice,
         ]);
 
-        
-        $jadwal = Jadwal::where('docter_id', $request->docter_id)
-                    ->where('schedule', $request->jadwal)
-                    ->first();
-
-        $jadwal->update([
-            'is_aktif' => '1'
-        ]);
 
         $transaction = Transaction::create([
             'invoice' => $invoice,

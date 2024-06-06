@@ -36,22 +36,10 @@ class AppointmenController extends Controller
 
         // return  AppoitmenOwnerResource::collection($appoitment);
 
-        $expired = Appointmen::where('status', 'pending')
+        Appointmen::where('status', 'pending')
         ->whereDate('date_appointmens', '<', now())
-        ->get();
+        ->update(['status' => 'expired']);
 
-        foreach ($expired as $appointments) {
-            // dd($appointments);
-            $appointments->update(['status' => 'expired']);
-
-            $jadwal = Jadwal::where('docter_id', $appointments->docter_id)
-                ->where('schedule', $appointments->jadwal)
-                ->first();
-
-            if ($jadwal) {
-                $jadwal->update(['is_aktif' => '1']);
-            }
-        }
 
         return Inertia::render('Owner/Appointments/Index', [
             'title' => 'Your Appointmens',
@@ -109,13 +97,6 @@ class AppointmenController extends Controller
             
         ]);
 
-        $jadwal = Jadwal::where('docter_id', $request->docter_id)
-                    ->where('schedule', $request->jadwal)
-                    ->first();
-
-        $jadwal->update([
-            'is_aktif' => '2'
-        ]);
 
         $docter = Docter::where('docter_id', $request->docter_id)->first();
 
@@ -150,5 +131,15 @@ class AppointmenController extends Controller
             'status' => 'rejected',
         ]);
         return Inertia::location(route('owner.appointmen'));
+    }
+
+    public function checkScheduleAvailability(Request $request)
+    {
+        $appointments = Appointmen::where('docter_id', $request->docter_id)
+                            ->where('date_appointmens', $request->date_appointmens)
+                            ->where('status', 'pending')
+                            ->pluck('jadwal')->toArray();
+    
+        return response()->json(['booked_schedules' => $appointments]);
     }
 }

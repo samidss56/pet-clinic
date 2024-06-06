@@ -74,6 +74,11 @@ class User extends Authenticatable
         return false;
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id','user_id');
+    }
+
     // public function owner()
     // {
     //     return $this->hasOne(Owner::class, 'owner_id', 'id');
