@@ -47,6 +47,7 @@ use Illuminate\Support\Facades\Route;
 // auth()->loginUsingId(3);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/detailarticle', [HomeController::class, 'detailarticle'])->name('detailarticle');
 
 Route::get('/login/docter', [LoginController::class, 'login']);
 Route::post('/login/docter', [LoginController::class, 'login_post'])->name('login.docter');

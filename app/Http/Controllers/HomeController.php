@@ -16,4 +16,9 @@ class HomeController extends Controller
             'canRegister' => Route::has('register'),
         ]);
     }
+    public function detailarticle()
+    {
+        return Inertia::render('DetailArticle');
+    }
 }
+

@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeft, ChevronRight } from "../Icons/Index";
 
-const ArticleSection = () => {
+const MoreArticleSection = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
 
@@ -102,7 +102,7 @@ const ArticleSection = () => {
   return (
     <section className="bg-white py-12">
       <div className="container mx-auto px-4 relative">
-        <h2 className="text-3xl font-semibold text-center mb-8 text-red-600">ARTICLES</h2>
+        <h2 className="text-3xl font-semibold text-center mb-8 text-red-600"> MORE ARTICLES</h2>
         <Slider {...settings}>
           {articles.map((article, index) => (
             <div key={index} className="p-2">
@@ -147,4 +147,4 @@ const ArticleSection = () => {
   );
 };
 
-export default ArticleSection;
+export default MoreArticleSection;
