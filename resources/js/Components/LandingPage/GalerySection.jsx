@@ -27,7 +27,7 @@ const GallerySection = () => {
     };
 
     return (
-        <section className="container mx-auto py-12">
+        <section className="px-2 sm:px-6 lg:px-8 py-12">
             <h2 className="text-3xl font-bold text-center mb-8 text-red-500">
                 GALLERY
             </h2>

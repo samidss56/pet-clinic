@@ -7,7 +7,6 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 const Aboutus = ({ auth, title, aboutus }) => {
-    // console.log(aboutus);
     const appUrl = import.meta.env.VITE_APP_URL;
     return (
         <Authenticated

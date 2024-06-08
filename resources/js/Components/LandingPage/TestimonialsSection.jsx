@@ -2,7 +2,7 @@ import TestimonialCard from "./TestimonialCard";
 
 const TestimonialsSection = () => {
     return (
-      <section className="container mx-auto py-12">
+      <section className="px-2 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center mb-8">
           <span className="text-red-500">TESTIMONIALS</span>
         </h2>

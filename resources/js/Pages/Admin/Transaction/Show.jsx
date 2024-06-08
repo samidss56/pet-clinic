@@ -8,7 +8,6 @@ import { Inertia } from "@inertiajs/inertia";
 import { Head, Link, router } from "@inertiajs/react";
 
 const Show = ({ transaction, auth }) => {
-    // console.log(transaction);
     Echo.private(`trans.paid.${auth.user.user_id}`).listen(
         "TransactionPaid",
         ({ trans }) => {

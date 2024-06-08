@@ -6,7 +6,6 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 const Index = ({ auth, title, jadwals }) => {
-    // console.log(jadwals);
     return (
         <Authenticated
             user={auth}

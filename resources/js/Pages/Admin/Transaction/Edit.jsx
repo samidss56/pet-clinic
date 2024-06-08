@@ -22,8 +22,6 @@ const Edit = ({
     appointment,
     owner,
 }) => {
-    // console.log(auth.user.user_id);
-
     const { data, setData, errors } = useForm({
         appointmen_id: transaction.appointmen_id,
         invoice: transaction.invoice,
@@ -53,9 +51,6 @@ const Edit = ({
                     )?.stock_product || 0,
             })),
     });
-
-    // console.log(data.user_id);
-
     const handleServiceChange = (index, e) => {
         const { name, value } = e.target;
         const newServiceList = [...data.serviceList];
@@ -108,7 +103,6 @@ const Edit = ({
 
         setData({ ...data, productList: newProductList });
     };
-    // console.log(data.productList);
     const handleQtyChange = (index, e) => {
         const { value } = e.target;
         const newProductList = [...data.productList];

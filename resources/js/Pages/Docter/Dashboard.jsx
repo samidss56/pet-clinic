@@ -8,7 +8,6 @@ import AppDocter from "@/Layouts/AppDocter";
 import { Head } from "@inertiajs/react";
 
 const Dashboard = ({ docter, title, selesai, cancel, proses, appoitmentsPerbulan, jadwal }) => {
-    // console.log(appoitmentsPerbulan);
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const chartData = {
         categories: months,
