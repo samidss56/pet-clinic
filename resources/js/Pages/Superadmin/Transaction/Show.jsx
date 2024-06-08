@@ -9,6 +9,7 @@ import { Head, Link, router } from "@inertiajs/react";
 import DetailCard from "@/Components/Superadmin/Transaction/DetailCard";
 
 const Show = ({ transaction, auth, title }) => {
+    // console.log(transaction);
 
     return (
         <Authenticated
