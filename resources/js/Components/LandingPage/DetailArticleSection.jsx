@@ -5,42 +5,62 @@ import MoreArticleSection from './MoreArticleSection';
 
 // ArticleCard Component
 const ArticleCard = ({ title, description, bannerImgSrc }) => {
+  const renderDescription = () => {
+    const sections = description.split('\n\n').map((section, index) => {
+      if (section.startsWith('# ')) {
+        return (
+          <h2 key={index} className="text-2xl font-bold mb-4 text-black">
+            {section.slice(2)}
+          </h2>
+        );
+      }
+      return (
+        <p key={index} className="text-black text-base leading-relaxed mb-4">
+          {section}
+        </p>
+      );
+    });
+    return sections;
+  };
+
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-lg">
       <div className="p-4">
         <h1 className="text-5xl font-bold text-black mb-4">{title}</h1>
-        <div class="flex justify-between my-4">
-        <div className='text-md font-semibold text-black mb-4'>
-          <span className='text-gray-400'>Author :</span> Azmi</div>
-        <div className='text-md font-semibold text-gray-400 mb-4'>7 Juni 2024</div>
-    </div>
+        <div className="flex justify-between my-4">
+          <div className='text-md font-semibold text-black mb-4'>
+            <span className='text-gray-400'>Author :</span> Azmi
+          </div>
+          <div className='text-md font-semibold text-gray-400 mb-4'>7 Juni 2024</div>
+        </div>
         <img src={bannerImgSrc} alt={title} className="w-full h-80 object-cover mb-4" />
-        <p className="text-black text-base leading-relaxed whitespace-pre-wrap">{description}</p>
+        <div>{renderDescription()}</div>
       </div>
     </div>
   );
 };
 
 const longDescription = `
+
 # Introduction
 
-Regular veterinary check-ups are vital for maintaining the health and well-being of your pets. These visits allow veterinarians to detect potential health issues early, provide necessary preventive care, and offer guidance on the best practices for your pet's overall health.
+Regular veterinary check-ups are essential for maintaining the health and well-being of your pets. These visits enable veterinarians to detect potential health issues early, provide necessary preventive care, and offer expert guidance on best practices for your pet's overall health.
 
 # Early Detection of Diseases
 
-One of the primary benefits of regular veterinary check-ups is the early detection of diseases. During these visits, veterinarians perform thorough physical examinations and may conduct diagnostic tests to identify any underlying health conditions that may not yet show obvious symptoms. Early detection often leads to more effective treatments and better outcomes.
+One of the primary advantages of regular veterinary check-ups is the early detection of diseases. During these visits, veterinarians conduct thorough physical examinations and may perform diagnostic tests to identify underlying health conditions that have not yet manifested obvious symptoms. Early detection often leads to more effective treatments and better outcomes.
 
 # Preventive Care
 
-Preventive care is essential to avoid health problems before they arise. This includes vaccinations, parasite control, and dental care. By staying up-to-date with vaccinations, you can protect your pet from common infectious diseases. Regular parasite control helps prevent infestations of fleas, ticks, and worms, which can cause significant health issues.
+Preventive care is crucial for avoiding health problems before they arise. This includes vaccinations, parasite control, and dental care. Keeping up-to-date with vaccinations protects your pet from common infectious diseases. Regular parasite control prevents infestations of fleas, ticks, and worms, which can cause significant health issues.
 
 # Nutrition and Weight Management
 
-Veterinarians provide valuable advice on nutrition and weight management during check-ups. Proper nutrition is crucial for your pet's health, and vets can recommend the best diet based on your pet's age, breed, and activity level. Maintaining a healthy weight is important to prevent obesity-related issues, such as diabetes and joint problems.
+Veterinarians provide valuable advice on nutrition and weight management during check-ups. Proper nutrition is vital for your pet's health, and vets can recommend the best diet based on your pet's age, breed, and activity level. Maintaining a healthy weight is important to prevent obesity-related issues, such as diabetes and joint problems.
 
 # Dental Health
 
-Dental health is often overlooked, but it's a critical component of your pet's overall health. Regular dental check-ups help prevent periodontal disease, which can lead to serious health complications if left untreated. Vets can perform professional cleanings and guide you on how to care for your pet's teeth at home.
+Dental health is often overlooked, but it is a critical component of your pet's overall health. Regular dental check-ups help prevent periodontal disease, which can lead to serious health complications if left untreated. Vets can perform professional cleanings and guide you on how to care for your pet's teeth at home.
 
 # Parasite Control
 
@@ -52,7 +72,7 @@ Behavioral issues can affect your pet's quality of life and your relationship wi
 
 # Age-Specific Needs
 
-Pets have different health needs at various life stages. Regular check-ups allow your vet to tailor their care to your pet's age, whether they're a young puppy or kitten, an adult, or a senior pet. Age-specific screenings and preventive measures can help manage age-related health issues.
+Pets have different health needs at various life stages. Regular check-ups allow your vet to tailor their care to your pet's age, whether they are a young puppy or kitten, an adult, or a senior pet. Age-specific screenings and preventive measures help manage age-related health issues.
 
 # Emergency Preparedness
 
@@ -65,7 +85,7 @@ In conclusion, regular veterinary check-ups are a fundamental aspect of responsi
 
 const DetailArticleSection = () => {
   const title = "The Importance of Regular Veterinary Check-Ups";
-  const bannerImgSrc = "https://img.freepik.com/free-vector/flat-design-medical-clinic-sale-banner_23-2149641439.jpg";
+  const bannerImgSrc = "https://www.purina.co.nz/sites/default/files/2021-01/Article%20Hero%20vet%20visit.jpg";
 
   return (
     <div className="container mx-auto p-4">

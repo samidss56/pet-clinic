@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Modal from 'react-modal';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { ChevronLeft, ChevronRight } from "../Icons/Index";
+import { ChevronLeft, ChevronRight, CloseIcon } from "../Icons/Index";
 
 const ArticleSection = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -133,9 +133,7 @@ const ArticleSection = () => {
               onClick={closeModal} 
               className="absolute top-0 right-0 mt-4 mr-4 text-gray-500 hover:text-gray-700 transition duration-300"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+             < CloseIcon  />
             </button>
             <h2 className="text-2xl font-bold text-black mb-4">{selectedArticle.title}</h2>
             <img src={selectedArticle.image} alt={selectedArticle.title} className="w-full h-48 object-cover rounded-md mb-4" />
