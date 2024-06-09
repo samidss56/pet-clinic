@@ -83,7 +83,7 @@ const Create = ({ auth, title }) => {
                         <div>
                             <InputLabel htmlFor="password" value="Password" />
                             <TextInput
-                                type="text"
+                                type="password"
                                 id="password"
                                 name="password"
                                 className="block w-full"
