@@ -111,7 +111,7 @@ class AppointmenController extends Controller
             $message .= "Thank you! 🙏";
 
             Http::withHeaders([
-                'Authorization' => 'KEY',
+                'Authorization' => 'N_sNQP1fA-HDAr!CL38Y',
             ])->withOptions([
                 'verify' => false,
             ])->post('https://api.fonnte.com/send', [

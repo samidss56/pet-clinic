@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ServiceCollection;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -48,6 +49,15 @@ class ServiceController extends Controller
         $service->name_service = $request->name_service;
         $service->price_service = $request->price_service;
 
+        if ($request->hasFile('image_service')) {
+            $imageName = uniqid('product_') . '.' . $request->image_service->getClientOriginalExtension();
+            $path = $request->image_service->storeAs('images/services', $imageName, 'public');
+            if (!$path) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+            $service->image_service = $path;
+        }
+
         $service->save();
 
         return redirect()->route('superadmin.services');
@@ -66,6 +76,16 @@ class ServiceController extends Controller
     // Update Service
     public function update(Request $request, Service $service)
     {
+        if ($request->hasFile('image_service')) {
+            $imageName = uniqid('product_') . '.' . $request->file('image_service')->getClientOriginalExtension();
+            $path = $request->file('image_service')->storeAs('images/services', $imageName, 'public');
+            if (!$path) {
+                return response()->json(['error' => 'Failed to upload image'], 500);
+            }
+            Storage::disk('public')->delete($service->image_service);
+            $service->image_service = $path;
+        }
+
         $service->update([
             'name_service' => $request->name_service,
             'price_service' => $request->price_service,
@@ -77,6 +97,7 @@ class ServiceController extends Controller
     // Delete Service
     public function destroy(Service $service)
     {
+        Storage::disk('public')->delete($service->image_service);
         $service->delete();
         return redirect()->route('superadmin.services');
     }

@@ -91,8 +91,6 @@ const Edit = ({ docter, auth, title, appointmen, services, products }) => {
         setData({ ...data, productList: newProductList });
     };
 
-    //   console.log(productList);
-
     const handleQtyChange = (index, e) => {
         const { value } = e.target;
         const newProductList = [...data.productList];
@@ -223,7 +221,6 @@ const Edit = ({ docter, auth, title, appointmen, services, products }) => {
         );
     };
 
-    //   console.log(subtotal)
     return (
         <AppDocter
             user={docter}

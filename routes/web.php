@@ -93,7 +93,7 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::get('/services/create-service', [SuperadminServiceController::class, 'create'])->name('superadmin.services.create');
     Route::post('/services/create', [SuperadminServiceController::class, 'store'])->name('superadmin.services.store');
     Route::get('/services/update-service/{service}', [SuperadminServiceController::class, 'edit'])->name('superadmin.services.edit');
-    Route::put('/services/update/{service}', [SuperadminServiceController::class, 'update'])->name('superadmin.services.update');
+    Route::post('/services/update/{service}', [SuperadminServiceController::class, 'update'])->name('superadmin.services.update');
     Route::delete('/services/delete/{service}', [SuperadminServiceController::class, 'destroy'])->name('superadmin.services.destroy');
 
     // Route untuk Halaman Super Admin Article
@@ -132,7 +132,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/services/create-service', [AdminServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/services/create', [AdminServiceController::class, 'store'])->name('admin.services.store');
     Route::get('/services/update-service/{service}', [AdminServiceController::class, 'edit'])->name('admin.services.edit');
-    Route::put('/services/update/{service}', [AdminServiceController::class, 'update'])->name('admin.services.update');
+    Route::post('/services/update/{service}', [AdminServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/services/delete/{service}', [AdminServiceController::class, 'destroy'])->name('admin.services.destroy');
 
     // Route untuk Halaman Admin Article

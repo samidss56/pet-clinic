@@ -7,7 +7,6 @@ import AppDocter from "@/Layouts/AppDocter";
 import { Head, Link } from "@inertiajs/react";
 
 const Index = ({ docter, title, docter_app }) => {
-    // console.log(jadwals);
     return (
         <AppDocter
             user={docter}

@@ -9,15 +9,26 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 const UpdateService = ({ auth, title, service }) => {
-    const { data, setData, put, errors } = useForm({
+    const { data, setData, post, errors } = useForm({
         name_service: service.name_service,
         price_service: service.price_service,
+        image_service: service.image_service,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("superadmin.services.update", service.service_id));
+
+        const formData = new FormData();
+        formData.append("name_service", data.name_service);
+        formData.append("price_service", data.price_service);
+        formData.append("image_service", data.image_service);
+
+        post(route("superadmin.services.update", service.service_id), {
+            _method: "put",
+        });
     };
+
+    const appUrl = import.meta.env.VITE_APP_URL;
 
     return (
         <Authenticated
@@ -30,7 +41,11 @@ const UpdateService = ({ auth, title, service }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <form className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray">
+                <form
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
+                >
                     <InputLabel htmlFor="name_service" value="Service Name" />
                     <TextInput
                         type="text"
@@ -48,6 +63,30 @@ const UpdateService = ({ auth, title, service }) => {
                         message={errors.name_service}
                         className="mb-2"
                     />
+                    <div className="flex items center gap-4">
+                        <img
+                            className="w-20 rounded-lg"
+                            src={`${appUrl}/storage/${service.image_service}`}
+                            alt=""
+                        />
+                        <div className="w-full flex items-center">
+                            <TextInput
+                                id="image_service"
+                                type="file"
+                                name="image_service"
+                                className="block w-full file-input file-input-bordered mb-0"
+                                placeholder="Service Image"
+                                onChange={(e) =>
+                                    setData("image_service", e.target.files[0])
+                                }
+                                required
+                            />
+                            <InputError
+                                message={errors.image_service}
+                                className="mb-2"
+                            />
+                        </div>
+                    </div>
                     <InputLabel htmlFor="price_service" value="Service Price" />
                     <TextInput
                         type="number"

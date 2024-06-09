@@ -19,11 +19,8 @@ const Edit = ({ auth, title, docters }) => {
         profile: docters.data.profile,
     });
 
-    // console.log(docters);
-    // console.log(data.name);
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form submitted");
 
         const formData = new FormData();
         formData.append("docter_id", data.docter_id);

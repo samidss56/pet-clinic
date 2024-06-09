@@ -9,7 +9,6 @@ import React, { useState, useEffect } from 'react';
 import { Inertia } from "@inertiajs/inertia";
 
 const DetailCard = ({ transaction }) => {
-    // console.log(transaction)
     const [exportReset, setExportReset] = useState(false);
 
     const products = transaction.details.filter(

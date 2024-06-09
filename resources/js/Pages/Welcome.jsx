@@ -8,23 +8,21 @@ import TestimonialsSection from "@/Components/LandingPage/TestimonialsSection";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Welcome({ auth }) {
-  const user = auth?.user?.name;
-
-  return (
-    <Authenticated user={user}>
-      <Head title="Welcome" />
-      <div className="bg-gray-100">
-        <div className="w-full mx-auto px-2 sm:px-6 lg:px-8">
-          <HeroSection />
-          <ServicesSection />
-          <MeetOurTeamSection />
-          <TestimonialsSection />
-          <GallerySection />
-          <AboutUsSection />
-          <Footer />
-        </div>
-      </div>
-    </Authenticated>
-  );
-};
+export default function Welcome({ auth, hero, services, doctors, about }) {
+    return (
+        <Authenticated user={auth}>
+            <Head title="Welcome" />
+            <div className="bg-white">
+                <div className="w-full space-y-8">
+                    <HeroSection hero={hero} />
+                    <ServicesSection services={services} />
+                    <MeetOurTeamSection doctors={doctors} />
+                    <TestimonialsSection />
+                    <GallerySection />
+                    <AboutUsSection about={about} />
+                    <Footer />
+                </div>
+            </div>
+        </Authenticated>
+    );
+}

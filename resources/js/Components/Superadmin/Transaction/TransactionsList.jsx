@@ -6,7 +6,6 @@ import { formatCurr } from "@/Utils/FormatPrice";
 import { ShowIcon } from "@/Components/Icons/Index";
 
 const isTransactions = (transaction) => {
-    // console.log(transaction);
     return (
         <div className="overflow-x-auto">
             <table className="table bg-white dark:bg-dark-gray border-dark-gray rounded-md">
