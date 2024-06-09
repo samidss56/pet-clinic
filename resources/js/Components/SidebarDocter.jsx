@@ -18,6 +18,10 @@ const SidebarDocter = ({ user }) => {
         setIsOpen(!isOpen);
     };
 
+    // if (!user || !user.isDoctor) {
+    //     return null;
+    // }
+
     return (
         <div
             className={`drawer drawer-open w-${

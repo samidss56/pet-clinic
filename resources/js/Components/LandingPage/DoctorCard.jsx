@@ -1,14 +1,14 @@
-const DoctorCard = ({ imgSrc, altText, name, key }) => {
+const DoctorCard = ({ imgSrc, altText, name, docter_id }) => {
     return (
         <div
-            key={key}
+            key={docter_id}
             className="card w-full lg:max-w-80 bg-white shadow-xl cursor-pointer"
         >
-            <figure className="p-5">
+            <figure className="p-5 relative w-full h-64">
                 <img
                     src={imgSrc}
                     alt={altText}
-                    className="w-full h-auto rounded-xl"
+                    className="absolute inset-0 w-full h-full object-cover rounded-t-xl"
                 />
             </figure>
             <div className="card-body p-5 flex justify-between">

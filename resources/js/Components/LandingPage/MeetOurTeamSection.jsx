@@ -18,7 +18,7 @@ const MeetOurTeamSection = ({ doctors }) => {
                 {doctors.map((doctor) => (
                     <DoctorCard
                         key={doctor.docter_id}
-                        imgSrc={`${appUrl}/storage/${doctor.profile}`}
+                        imgSrc={doctor.profile ? `${appUrl}/storage/${doctor.profile}` : 'https://fakeimg.pl/100x100/?text=Profile&font=noto'}
                         altText={doctor.name}
                         name={doctor.name}
                     />
