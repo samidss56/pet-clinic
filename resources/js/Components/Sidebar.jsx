@@ -15,6 +15,7 @@ import {
     UsersIcon,
     AboutusIcon,
     HerosectionIcon,
+    FeedbackIcon,
 } from "./Icons/Index";
 import appLogo from "../../../public/AppLogo.png";
 
@@ -148,26 +149,40 @@ const Sidebar = ({ user }) => {
                                     {isOpen && <span>Article Management</span>}
                                 </Link>
                             </li>
-                            <li>
-                                <Link
-                                    href={route("admin.herosection.index")}
-                                    as="button"
-                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
-                                >
-                                    <HerosectionIcon />
-                                    {isOpen && <span>Hero Section Management</span>}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={route("admin.aboutus.index")}
-                                    as="button"
-                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
-                                >
-                                    <AboutusIcon />
-                                    {isOpen && <span>About Us Management</span>}
-                                </Link>
-                            </li>
+                            {!user.isSuperAdmin && (
+                                <>
+                                    <li>
+                                        <Link
+                                            href={route("admin.testimonials")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <FeedbackIcon />
+                                            {isOpen && <span>Testimonial Management</span>}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("admin.herosection.index")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <HerosectionIcon />
+                                            {isOpen && <span>Hero Section Management</span>}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("admin.aboutus.index")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <AboutusIcon />
+                                            {isOpen && <span>About Us Management</span>}
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
                             {user.isSuperAdmin && (
                                 <>
                                     <li>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\HerosectionController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Auth\DocterPasswordController;
 use App\Http\Controllers\Docter\AppoinmenController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Owner\AppointmenController as OwnerAppointmenController
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\Owner\ProfileController;
+use App\Http\Controllers\Owner\TestimonialController as OwnerTestimonialController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\ArticleController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
@@ -152,7 +154,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/appoitments', [AdminAppointmenController::class, 'index'])->name('admin.appoitments');
     Route::get('/appoitments/detail/{appointmen:appointmen_id}', [AdminAppointmenController::class, 'detail'])->name('admin.appoitments.detail');
 
-    // Route untuk Halaman Admin Aboutus
+    // Route untuk Halaman Admin Herosection
     Route::get('/herosection', [HerosectionController::class, 'index'])->name('admin.herosection.index');
     Route::get('/herosection/edit', [HerosectionController::class, 'edit'])->name('admin.herosection.edit');
     Route::post('/herosection/update', [HerosectionController::class, 'update'])->name('admin.herosection.update');
@@ -161,6 +163,12 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/aboutus', [AboutusController::class, 'index'])->name('admin.aboutus.index');
     Route::get('/aboutus/edit', [AboutusController::class, 'edit'])->name('admin.aboutus.edit');
     Route::post('/aboutus/update', [AboutusController::class, 'update'])->name('admin.aboutus.update');
+
+    // Route untuk Halaman Admin Testimonial
+    Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('admin.testimonials');
+    Route::get('/testimonials/update-testimonial/{testimonial}', [AdminTestimonialController::class, 'edit'])->name('admin.testimonials.edit');
+    Route::post('/testimonials/update/{testimonial}', [AdminTestimonialController::class, 'update'])->name('admin.testimonials.update');
+    Route::delete('/testimonials/delete/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
 });
 
 Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(function () {
@@ -183,6 +191,10 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::get('/settings', [ProfileController::class, 'edit'])->name('owner.profile.edit');
     Route::patch('/settings', [ProfileController::class, 'update'])->name('owner.profile.update');
     Route::delete('/settings', [ProfileController::class, 'destroy'])->name('owner.profile.destroy');
+
+    Route::get('/testimonials', [OwnerTestimonialController::class, 'index'])->name('owner.testimonials');
+    Route::get('/testimonials/create-testimonial', [OwnerTestimonialController::class, 'create'])->name('owner.testimonials.create');
+    Route::post('/testimonials/create', [OwnerTestimonialController::class, 'store'])->name('owner.testimonials.store');
 });
 
 Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(function () {

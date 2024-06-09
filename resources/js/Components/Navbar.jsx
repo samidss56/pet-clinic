@@ -46,6 +46,12 @@ const Navbar = ({ user }) => {
                         >
                             Appointments
                         </NavLink>
+                        <NavLink
+                            href={route("owner.testimonials")}
+                            active={route().current("owner.testimonials")}
+                        >
+                            Testimonials
+                        </NavLink>
                     </>
                 )}
             </div>
