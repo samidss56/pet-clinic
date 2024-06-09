@@ -12,8 +12,8 @@ export default function Welcome({ auth, hero, services, doctors, about }) {
     return (
         <Authenticated user={auth}>
             <Head title="Welcome" />
-            <div className="bg-gray-100">
-                <div className="w-full">
+            <div className="bg-white">
+                <div className="w-full space-y-8">
                     <HeroSection hero={hero} />
                     <ServicesSection services={services} />
                     <MeetOurTeamSection doctors={doctors} />
