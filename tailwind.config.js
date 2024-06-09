@@ -24,6 +24,7 @@ export default {
                 "primary-red": "#DB1328",
                 "secondary-red": "#ec172d",
                 "light-red": "#FFDBDF",
+                "light-blue": "#f4f9ff",
                 "primary-color": "#F4F4F4",
                 "secondary-color": "#E2E2E2",
             },

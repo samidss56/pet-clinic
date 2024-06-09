@@ -26,12 +26,7 @@ const Navbar = ({ user }) => {
                 </div>
             </div>
             <div className="flex-none gap-5 hidden md:flex lg:gap-10">
-                {!user ? (
-                    <>
-                        <NavLink href={route("login")}>Login</NavLink>
-                        <NavLink href={route("register")}>Register</NavLink>
-                    </>
-                ) : (
+                {user && (
                     <>
                         <NavLink
                             href={route("owner.dashboard")}

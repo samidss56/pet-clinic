@@ -9,6 +9,7 @@ import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
 const isServices = (services) => {
     const [showModalDeleteService, setShowModalDeleteService] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
+    const appUrl = import.meta.env.VITE_APP_URL;
 
     const handleShowModalDeleteService = (service) => {
         setShowModalDeleteService(true);
@@ -30,6 +31,9 @@ const isServices = (services) => {
                             Service Name
                         </th>
                         <th className="text-black dark:text-white text-sm">
+                            Service Image
+                        </th>
+                        <th className="text-black dark:text-white text-sm">
                             Service Price
                         </th>
                         <th className="text-black dark:text-white text-sm">
@@ -46,6 +50,13 @@ const isServices = (services) => {
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {service.name_service}
+                                </th>
+                                <th className="text-black dark:text-white font-medium">
+                                    <img
+                                        src={`${appUrl}/storage/${service.image_service}`}
+                                        alt="Pet Image"
+                                        className="w-28 rounded-md"
+                                    />
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {formatCurr(service.price_service)}

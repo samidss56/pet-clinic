@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('service_id')->primary();
             $table->string('name_service');
             $table->double('price_service');
+            $table->text('image_service');
             $table->timestamps();
         });
     }

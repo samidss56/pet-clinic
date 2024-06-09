@@ -12,12 +12,18 @@ const CreateService = ({ auth, title }) => {
     const { data, setData, errors, post } = useForm({
         name_service: "",
         price_service: 0,
+        image_service: "",
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route("admin.services.store"));
+        const formData = new FormData();
+        formData.append("name_service", data.name_service);
+        formData.append("price_service", data.price_service);
+        formData.append("image_service", data.image_service);
+
+        post(route("admin.services.store", formData));
     };
     return (
         <Authenticated
@@ -30,7 +36,11 @@ const CreateService = ({ auth, title }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <form className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray">
+                <form
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
+                >
                     <InputLabel htmlFor="name_service" value="Service Name" />
                     <TextInput
                         type="text"
@@ -46,6 +56,24 @@ const CreateService = ({ auth, title }) => {
                     />
                     <InputError
                         message={errors.name_service}
+                        className="mb-2"
+                    />
+
+                    <InputLabel htmlFor="image_service" value="Service Image" />
+                    <TextInput
+                        id="image_service"
+                        type="file"
+                        name="image_service"
+                        // value={data.image_service}
+                        className="block w-full file-input file-input-bordered mb-0"
+                        placeholder="Product Image"
+                        onChange={(e) =>
+                            setData("image_service", e.target.files[0])
+                        }
+                        required
+                    />
+                    <InputError
+                        message={errors.image_service}
                         className="mb-2"
                     />
                     <InputLabel htmlFor="price_service" value="Service Price" />

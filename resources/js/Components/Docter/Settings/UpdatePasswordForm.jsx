@@ -24,8 +24,6 @@ const UpdatePasswordForm = ({ className = "" }) => {
         password_confirmation: "",
     });
 
-    // console.log(data);
-    // console.log(recentlySuccessful);
     const updatePassword = (e) => {
         e.preventDefault();
 

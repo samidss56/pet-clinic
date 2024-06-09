@@ -13,7 +13,6 @@ import { Link } from "@inertiajs/react";
 import React from "react";
 
 const DetailCard = ({ appointment }) => {
-    // console.log(appointment);
     return (
         <div className="bg-white rounded-md">
             <div className="p-4 flex items-center justify-between border-b rounded-t-md">

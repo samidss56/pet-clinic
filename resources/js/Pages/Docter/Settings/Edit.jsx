@@ -5,7 +5,6 @@ import AppDocter from "@/Layouts/AppDocter";
 import { Head } from "@inertiajs/react";
 
 const Edit = ({ docter, title, status }) => {
-    // console.log(docter);
     return (
         <AppDocter
             user={docter}
