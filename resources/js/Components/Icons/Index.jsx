@@ -237,14 +237,14 @@ export function ArrowBottomIcons() {
     );
 }
 
-export function ArrowRightIcon() {
+export function ArrowRightIcon({ color }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className="fill-white"
+            className={color}
         >
             <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
         </svg>
@@ -584,7 +584,18 @@ export function TextIcon() {
 
 export function PendapatanIcon() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            class="main-grid-item-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+        >
             <line x1="18" x2="18" y1="20" y2="10" class="stroke-primary-red" />
             <line x1="12" x2="12" y1="20" y2="4" class="stroke-primary-red" />
             <line x1="6" x2="6" y1="20" y2="14" class="stroke-primary-red" />
@@ -603,6 +614,26 @@ export function FeedbackIcon() {
             className="main-grid-item-icon fill-primary-red"
         >
             <path d="M6.45455 19L2 22.5V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.45455ZM4 18.3851L5.76282 17H20V5H4V18.3851ZM11 13H13V15H11V13ZM11 7H13V12H11V7Z"></path>
+        </svg>
+    );
+}
+
+export function AuthorIcon() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            class="stroke-gray-800"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+        >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
         </svg>
     );
 }

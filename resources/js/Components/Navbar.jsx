@@ -26,7 +26,22 @@ const Navbar = ({ user }) => {
                 </div>
             </div>
             <div className="flex-none gap-5 hidden md:flex lg:gap-10">
-                {user && (
+                {!user ? (
+                    <>
+                        <NavLink
+                            href={route("home")}
+                            active={route().current("home")}
+                        >
+                            Home
+                        </NavLink>
+                        <NavLink
+                            href={route("articles.index")}
+                            active={route().current("articles.index")}
+                        >
+                            Articles
+                        </NavLink>
+                    </>
+                ) : (
                     <>
                         <NavLink
                             href={route("owner.dashboard")}

@@ -18,8 +18,17 @@ import {
 } from "@/Components/Icons/Index";
 import UserAvatar from "@/Components/UserAvatar";
 import AppDocter from "@/Layouts/AppDocter";
+import ArticlesSection from "@/Components/LandingPage/ArticlesSection";
 
-export default function Welcome({ auth, hero, services, doctors, about, docter }) {
+export default function Welcome({
+    auth,
+    hero,
+    services,
+    doctors,
+    about,
+    docter,
+    articles
+}) {
     // console.log(docter);
     // console.log(auth);
 
@@ -83,7 +92,10 @@ export default function Welcome({ auth, hero, services, doctors, about, docter }
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href={route("register")} as="button">
+                                        <Link
+                                            href={route("register")}
+                                            as="button"
+                                        >
                                             Register
                                         </Link>
                                     </li>
@@ -91,23 +103,41 @@ export default function Welcome({ auth, hero, services, doctors, about, docter }
                             ) : (
                                 <>
                                     <li>
-                                        {auth && auth.user && auth.isSuperAdmin ? (
-                                            <Link href={route("superadmin.dashboard")} as="button">
+                                        {auth &&
+                                        auth.user &&
+                                        auth.isSuperAdmin ? (
+                                            <Link
+                                                href={route(
+                                                    "superadmin.dashboard"
+                                                )}
+                                                as="button"
+                                            >
                                                 <DashboardIcon />
                                                 Dashboard Superadmin
                                             </Link>
-                                        ) : auth && auth.user && auth.isAdmin ? (
-                                            <Link href={route("admin.dashboard")} as="button">
+                                        ) : auth &&
+                                          auth.user &&
+                                          auth.isAdmin ? (
+                                            <Link
+                                                href={route("admin.dashboard")}
+                                                as="button"
+                                            >
                                                 <DashboardIcon />
                                                 Dashboard Admin
                                             </Link>
                                         ) : auth && auth.user ? (
-                                            <Link href={route("owner.dashboard")} as="button">
+                                            <Link
+                                                href={route("owner.dashboard")}
+                                                as="button"
+                                            >
                                                 <DashboardIcon />
                                                 Dashboard
                                             </Link>
                                         ) : docter ? (
-                                            <Link href={route("doctor.dashboard")} as="button">
+                                            <Link
+                                                href={route("doctor.dashboard")}
+                                                as="button"
+                                            >
                                                 <DashboardIcon />
                                                 Dashboard Doctor
                                             </Link>
@@ -115,18 +145,24 @@ export default function Welcome({ auth, hero, services, doctors, about, docter }
                                     </li>
                                     <li>
                                         {docter ? (
-                                           <Link href={route("logout.docter")} method="post" as="button">
-                                           <LogoutIcon />
-                                           Logout
-                                           </Link>
+                                            <Link
+                                                href={route("logout.docter")}
+                                                method="post"
+                                                as="button"
+                                            >
+                                                <LogoutIcon />
+                                                Logout
+                                            </Link>
                                         ) : (
-                                            <Link href={route("logout")} method="post" as="button">
-                                            <LogoutIcon />
-                                            Logout
+                                            <Link
+                                                href={route("logout")}
+                                                method="post"
+                                                as="button"
+                                            >
+                                                <LogoutIcon />
+                                                Logout
                                             </Link>
                                         )}
-                                       
-                                       
                                     </li>
                                 </>
                             )}
@@ -150,10 +186,12 @@ export default function Welcome({ auth, hero, services, doctors, about, docter }
                 <div className="w-full space-y-8">
                     <HeroSection hero={hero} />
                     <ServicesSection services={services} />
+                    {/* -- Why Us -- */}
                     <MeetOurTeamSection doctors={doctors} />
-                    <TestimonialsSection />
                     <GallerySection />
+                    <TestimonialsSection />
                     <AboutUsSection about={about} />
+                    <ArticlesSection articles={articles} />
                     <Footer />
                 </div>
             </div>

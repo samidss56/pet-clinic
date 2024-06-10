@@ -2,7 +2,7 @@ const DoctorCard = ({ imgSrc, altText, name, docter_id }) => {
     return (
         <div
             key={docter_id}
-            className="card w-full lg:max-w-80 bg-white shadow-xl cursor-pointer"
+            className="card w-full bg-white shadow-xl cursor-pointer"
         >
             <figure className="p-5 relative w-full h-64">
                 <img
