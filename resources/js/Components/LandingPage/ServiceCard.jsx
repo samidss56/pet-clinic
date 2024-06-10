@@ -1,7 +1,7 @@
-const ServiceCard = ({ imgSrc, altText, title, key }) => {
+const ServiceCard = ({ imgSrc, altText, title, service_id }) => {
     return (
         <div
-            key={key}
+            key={service_id}
             className="bg-light-blue rounded-lg shadow-md p-1 flex flex-col items-center"
         >
             <img src={imgSrc} alt={altText} className="w-28" />

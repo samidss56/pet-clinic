@@ -17,8 +17,8 @@ const ServicesSection = ({ services }) => {
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {services.map((service) => (
                     <ServiceCard
-                        key={service.services_id}
-                        imgSrc={`${appUrl}/storage/${service.image_service}`}
+                        key={service.service_id}
+                        imgSrc={service.image_service ? `${appUrl}/storage/${service.image_service}` : 'https://fakeimg.pl/100x100/?text=Profile&font=noto'}
                         altText={service.name_service}
                         title={service.name_service}
                     />
