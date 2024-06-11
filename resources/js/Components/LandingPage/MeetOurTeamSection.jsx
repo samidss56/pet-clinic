@@ -31,7 +31,7 @@ const MeetOurTeamSection = ({ doctors }) => {
                 ))}
             </div>
             <div className="flex justify-end">
-                <Link>
+                <Link href={route("doctors.index")}>
                     <button className="bg-white hover:bg-gray-100 border-[1.5px] border-primary-red text-primary-red font-bold py-2 px-4 flex items-center rounded-full">
                         More Doctors
                         <ArrowRightIcon color="fill-primary-red" />

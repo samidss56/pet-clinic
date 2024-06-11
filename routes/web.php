@@ -32,6 +32,7 @@ use App\Http\Controllers\Superadmin\ProductController as SuperadminProductContro
 use App\Http\Controllers\Superadmin\ServiceController as SuperadminServiceController;
 use App\Http\Controllers\Superadmin\TransactionController as SuperadminTransactionController;
 use App\Http\Controllers\Home\ArticleController as HomeArticleController;
+use App\Http\Controllers\Home\DoctorController as HomeDoctorController;
 use App\Models\Aboutus;
 use Illuminate\Support\Facades\Route;
 
@@ -50,8 +51,11 @@ use Illuminate\Support\Facades\Route;
 // auth()->loginUsingId(3);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/articles', [HomeArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name('articles.show');
+
+Route::get('/doctors', [HomeDoctorController::class, 'index'])->name('doctors.index');
 
 Route::get('/login/docter', [LoginController::class, 'login']);
 Route::post('/login/docter', [LoginController::class, 'login_post'])->name('login.docter');

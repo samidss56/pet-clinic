@@ -27,11 +27,9 @@ export default function Welcome({
     doctors,
     about,
     docter,
-    articles
+    articles,
+    testimonials,
 }) {
-    // console.log(docter);
-    // console.log(auth);
-
     const renderNavBar = () => {
         return (
             <div className="navbar bg-white sticky top-0 py-3 z-50 shadow-lg flex justify-between px-2 sm:px-4">
@@ -189,7 +187,7 @@ export default function Welcome({
                     {/* -- Why Us -- */}
                     <MeetOurTeamSection doctors={doctors} />
                     <GallerySection />
-                    <TestimonialsSection />
+                    <TestimonialsSection testimonials={testimonials} />
                     <AboutUsSection about={about} />
                     <ArticlesSection articles={articles} />
                     <Footer />

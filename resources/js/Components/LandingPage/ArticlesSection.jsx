@@ -4,7 +4,6 @@ import ArticleCards from "./ArticleCards";
 
 const ArticlesSection = ({ articles }) => {
     const appUrl = import.meta.env.VITE_APP_URL;
-    console.log(articles);
     return (
         <section className="px-2 sm:px-6 lg:px-8 py-8 my-10 space-y-4 bg-light-blue">
             <div className="text-center">
@@ -23,7 +22,7 @@ const ArticlesSection = ({ articles }) => {
                 {articles.map((article) => (
                     <ArticleCards
                         key={article.article_id}
-                        id={article.article_id} 
+                        id={article.article_id}
                         title={article.title}
                         content={article.content}
                         image={`${appUrl}/storage/${article.image}`}
