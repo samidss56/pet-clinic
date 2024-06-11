@@ -4,8 +4,6 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 const Show = ({ auth, article, title, articles }) => {
-    console.log(article);
-    console.log(articles);
     const appUrl = import.meta.env.VITE_APP_URL;
     return (
         <Authenticated user={auth}>

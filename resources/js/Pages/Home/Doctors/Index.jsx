@@ -1,11 +1,9 @@
-import ArticleCards from "@/Components/LandingPage/ArticleCards";
+import DoctorCard from "@/Components/LandingPage/DoctorCard";
 import { Paginator } from "@/Components/Paginator";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import React from "react";
 
-const Index = ({ auth, articles, title }) => {
-    const appUrl = import.meta.env.VITE_APP_URL;
+const Index = ({ auth, title, doctors }) => {
     return (
         <Authenticated user={auth}>
             <Head title={title} />
@@ -13,7 +11,7 @@ const Index = ({ auth, articles, title }) => {
                 <div className="text-center">
                     <div>
                         <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                            Our Articles
+                            Our Veterinarians
                         </h2>
                         <p className="text-gray-500 max-w-xl mx-auto">
                             Lorem ipsum dolor sit amet consectetur adipisicing
@@ -23,17 +21,16 @@ const Index = ({ auth, articles, title }) => {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    {articles.data.map((article) => (
-                        <ArticleCards
-                            key={article.article_id}
-                            id={article.article_id} 
-                            title={article.title}
-                            content={article.content}
-                            image={`${appUrl}/storage/${article.image}`}
+                    {doctors.data.map((doctor) => (
+                        <DoctorCard
+                            key={doctor.docter_id}
+                            imgSrc={doctor.profile}
+                            altText={doctor.name}
+                            name={doctor.name}
                         />
                     ))}
                 </div>
-                <Paginator meta={articles.meta} />
+                <Paginator meta={doctors.meta} />
             </div>
         </Authenticated>
     );

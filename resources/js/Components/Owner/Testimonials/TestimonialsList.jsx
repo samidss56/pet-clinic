@@ -6,7 +6,6 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
 const isTestimonials = (testimonials) => {
-    console.log(testimonials);
     const [openIndex, setOpenIndex] = useState(null);
 
     const toggleAccordion = (index) => {

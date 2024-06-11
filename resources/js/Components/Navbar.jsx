@@ -40,6 +40,12 @@ const Navbar = ({ user }) => {
                         >
                             Articles
                         </NavLink>
+                        <NavLink
+                            href={route("doctors.index")}
+                            active={route().current("doctors.index")}
+                        >
+                            Doctors
+                        </NavLink>
                     </>
                 ) : (
                     <>

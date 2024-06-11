@@ -72,7 +72,6 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
-                        required
                         autoComplete="name"
                     />
 
@@ -88,7 +87,6 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.email}
                         onChange={(e) => setData("email", e.target.value)}
-                        required
                         autoComplete="username"
                     />
 
@@ -104,7 +102,6 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.no_telp}
                         onChange={(e) => setData("no_telp", e.target.value)}
-                        required
                         autoComplete="username"
                     />
 
@@ -120,7 +117,6 @@ export default function UpdateProfileInformation({
                         className="mt-1 block w-full"
                         value={data.alamat}
                         onChange={(e) => setData("alamat", e.target.value)}
-                        required
                         autoComplete="username"
                     />
 
