@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Gallery extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'article_id';
+    protected $table = 'galleries';
+
+    protected $primaryKey = 'gallery_id';
     public $incrementing = false;
     protected $guarded = [];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
-    }
 }

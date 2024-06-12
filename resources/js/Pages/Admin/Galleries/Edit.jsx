@@ -3,34 +3,29 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
-import TextArea from "@/Components/TextArea";
 import TextInput from "@/Components/TextInput";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
-const UpdateArticle = ({ auth, title, article }) => {
-    const { data, setData, errors } = useForm({
-        author_name: article.author_name,
-        title: article.title,
-        content: article.content,
-        image: article.image,
+const UpdateGallery = ({ auth, title, gallery }) => {
+    const { data, setData, post, errors } = useForm({
+        image: gallery.image,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("title", data.title);
-        formData.append("content", data.content);
         formData.append("image", data.image);
 
-        router.post(`/admin/articles/update/${article.article_id}`, formData, {
+        post(route("admin.galleries.update", gallery.gallery_id), {
             _method: "put",
         });
     };
 
     const appUrl = import.meta.env.VITE_APP_URL;
+
     return (
         <Authenticated
             user={auth}
@@ -47,41 +42,20 @@ const UpdateArticle = ({ auth, title, article }) => {
                     encType="multipart/form-data"
                     className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
                 >
-                    <InputLabel htmlFor="author_name" value="Author Name" />
-                    <TextInput
-                        id="author_name"
-                        type="text"
-                        className="block w-full border-gray-300 rounded-md shadow-sm"
-                        value={article.author_name}
-                        readOnly
-                    />
-                    <InputError message={errors.author_name} className="mt-2" />
-                    <InputLabel htmlFor="title" value="Article Title" />
-                    <TextInput
-                        type="text"
-                        id="title"
-                        name="title"
-                        className="block w-full"
-                        placeholder="Article Title"
-                        value={data.title}
-                        onChange={(e) => setData("title", e.target.value)}
-                        required
-                    />
-                    <InputError message={errors.title} className="mb-2" />
-                    <InputLabel htmlFor="title" value="Article Title" />
+                    <InputLabel htmlFor="image" value="Image For Gallery" />
                     <div className="flex items center gap-4">
                         <img
                             className="w-20 rounded-lg"
-                            src={`${appUrl}/storage/${article.image}`}
+                            src={`${appUrl}/storage/${gallery.image}`}
                             alt=""
                         />
-                        <div className="w-full">
+                        <div className="w-full flex items-center">
                             <TextInput
                                 id="image"
                                 type="file"
                                 name="image"
                                 className="block w-full file-input file-input-bordered mb-0"
-                                placeholder="Article Image"
+                                placeholder="Image For Gallery"
                                 onChange={(e) =>
                                     setData("image", e.target.files[0])
                                 }
@@ -93,28 +67,15 @@ const UpdateArticle = ({ auth, title, article }) => {
                             />
                         </div>
                     </div>
-
-                    <InputLabel htmlFor="content" value="Article Content" />
-                    <TextArea
-                        type="text"
-                        id="content"
-                        name="content"
-                        className="block w-full"
-                        placeholder="Article Content"
-                        value={data.content}
-                        onChange={(e) => setData("content", e.target.value)}
-                        required
-                    />
-                    <InputError message={errors.content} className="mb-2" />
                     <div className="flex gap-3 mt-4">
-                        <Link href={route("admin.articles")}>
+                        <Link href={route("admin.galleries")}>
                             <SecondaryButton className=" gap-2">
                                 <ArrowLeftIcon />
-                                Back To Articles
+                                Back To Galleries
                             </SecondaryButton>
                         </Link>
                         <PrimaryButton type="submit" onClick={handleSubmit}>
-                            Update Article
+                            Update Gallery
                         </PrimaryButton>
                     </div>
                 </form>
@@ -123,4 +84,4 @@ const UpdateArticle = ({ auth, title, article }) => {
     );
 };
 
-export default UpdateArticle;
+export default UpdateGallery;

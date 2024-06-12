@@ -3,6 +3,7 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
+import TextArea from "@/Components/TextArea";
 import TextInput from "@/Components/TextInput";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
@@ -10,6 +11,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 
 const CreateArticle = ({ auth, title }) => {
     const { data, setData, errors, post } = useForm({
+        author_name: auth.user.name,
         title: "",
         content: "",
         image: "",
@@ -41,6 +43,15 @@ const CreateArticle = ({ auth, title }) => {
                     encType="multipart/form-data"
                     className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
                 >
+                    <InputLabel htmlFor="author_name" value="Author Name" />
+                    <TextInput
+                        id="author_name"
+                        type="text"
+                        className="block w-full border-gray-300 rounded-md shadow-sm"
+                        value={auth.user.name}
+                        readOnly
+                    />
+                    <InputError message={errors.author_name} className="mt-2" />
                     <InputLabel htmlFor="title" value="Article Title" />
                     <TextInput
                         type="text"
@@ -66,7 +77,7 @@ const CreateArticle = ({ auth, title }) => {
                     />
                     <InputError message={errors.image} className="mb-2" />
                     <InputLabel htmlFor="content" value="Article Content" />
-                    <TextInput
+                    <TextArea
                         type="text"
                         id="content"
                         name="content"

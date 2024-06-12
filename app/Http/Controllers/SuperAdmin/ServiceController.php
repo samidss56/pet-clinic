@@ -50,7 +50,7 @@ class ServiceController extends Controller
         $service->price_service = $request->price_service;
 
         if ($request->hasFile('image_service')) {
-            $imageName = uniqid('product_') . '.' . $request->image_service->getClientOriginalExtension();
+            $imageName = uniqid('service_') . '.' . $request->image_service->getClientOriginalExtension();
             $path = $request->image_service->storeAs('images/services', $imageName, 'public');
             if (!$path) {
                 return response()->json(['error' => 'Failed to upload image'], 500);
@@ -77,7 +77,7 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         if ($request->hasFile('image_service')) {
-            $imageName = uniqid('product_') . '.' . $request->file('image_service')->getClientOriginalExtension();
+            $imageName = uniqid('service_') . '.' . $request->file('image_service')->getClientOriginalExtension();
             $path = $request->file('image_service')->storeAs('images/services', $imageName, 'public');
             if (!$path) {
                 return response()->json(['error' => 'Failed to upload image'], 500);

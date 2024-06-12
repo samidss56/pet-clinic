@@ -57,11 +57,11 @@ class AppointmenController extends Controller
     }
 
     public function create($pet_id)
-    {   
+    {
         $pets = Pet::get();
         $docters = Docter::get();
         $pet_id = Pet::find($pet_id);
-    
+
         return inertia('Owner/Appointments/Create',[
             'title' => 'Create Your Appointmens',
             'pet_id' => $pet_id,
@@ -94,7 +94,7 @@ class AppointmenController extends Controller
             'status' => 'pending',
             'description' => $request->description,
             'jadwal' => $request->jadwal,
-            
+
         ]);
 
 
@@ -111,7 +111,7 @@ class AppointmenController extends Controller
             $message .= "Thank you! 🙏";
 
             Http::withHeaders([
-                'Authorization' => 'N_sNQP1fA-HDAr!CL38Y',
+                'Authorization' => 'ov56Lz6GfC@@pSKXbksk',
             ])->withOptions([
                 'verify' => false,
             ])->post('https://api.fonnte.com/send', [
@@ -139,7 +139,7 @@ class AppointmenController extends Controller
                             ->where('date_appointmens', $request->date_appointmens)
                             ->where('status', 'pending')
                             ->pluck('jadwal')->toArray();
-    
+
         return response()->json(['booked_schedules' => $appointments]);
     }
 }
