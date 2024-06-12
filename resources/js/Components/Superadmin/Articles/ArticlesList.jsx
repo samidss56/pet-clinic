@@ -10,6 +10,9 @@ const isArticles = (articles) => {
                             Article ID
                         </th>
                         <th className="text-black dark:text-white text-sm">
+                            Author Name
+                        </th>
+                        <th className="text-black dark:text-white text-sm">
                             Image
                         </th>
                         <th className="text-black dark:text-white text-sm">
@@ -26,6 +29,9 @@ const isArticles = (articles) => {
                             <tr key={article.article_id}>
                                 <th className="text-black dark:text-white font-medium">
                                     {article.article_id}
+                                </th>
+                                <th className="text-black dark:text-white font-medium">
+                                    {article.author_name}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     <img

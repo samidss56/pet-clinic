@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\HerosectionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Auth\DocterPasswordController;
 use App\Http\Controllers\Docter\AppoinmenController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
@@ -176,6 +177,14 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/testimonials/update-testimonial/{testimonial}', [AdminTestimonialController::class, 'edit'])->name('admin.testimonials.edit');
     Route::post('/testimonials/update/{testimonial}', [AdminTestimonialController::class, 'update'])->name('admin.testimonials.update');
     Route::delete('/testimonials/delete/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
+
+    // Route untuk Halaman Admin Gallery
+    Route::get('/galleries', [AdminGalleryController::class, 'index'])->name('admin.galleries');
+    Route::get('/galleries/create-gallery', [AdminGalleryController::class, 'create'])->name('admin.galleries.create');
+    Route::post('/galleries/create', [AdminGalleryController::class, 'store'])->name('admin.galleries.store');
+    Route::get('/galleries/update-gallery/{gallery}', [AdminGalleryController::class, 'edit'])->name('admin.galleries.edit');
+    Route::post('/galleries/update/{gallery}', [AdminGalleryController::class, 'update'])->name('admin.galleries.update');
+    Route::delete('/galleries/delete/{gallery}', [AdminGalleryController::class, 'destroy'])->name('admin.galleries.destroy');
 });
 
 Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(function () {
