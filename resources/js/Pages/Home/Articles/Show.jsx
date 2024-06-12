@@ -1,12 +1,13 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@/Components/Icons/Index";
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 import ArticleCards from "@/Components/LandingPage/ArticleCards";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
+import Navbar from "@/Components/LandingPage/Navbar";
 import { Head, Link } from "@inertiajs/react";
 
-const Show = ({ auth, article, title, articles }) => {
+const Show = ({ auth, docter, article, title, articles }) => {
     const appUrl = import.meta.env.VITE_APP_URL;
     return (
-        <Authenticated user={auth}>
+        <>
+            <Navbar auth={auth} docter={docter} />
             <Head title={title} />
             <div className="p-4 space-y-8 bg-white">
                 <div className="card card-compact w-full bg-white shadow-xl">
@@ -51,7 +52,7 @@ const Show = ({ auth, article, title, articles }) => {
                     ))}
                 </div>
             </div>
-        </Authenticated>
+        </>
     );
 };
 
