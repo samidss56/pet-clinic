@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -28,9 +29,16 @@ class DashboardController extends Controller
         ->groupBy('appointmens.docter_id', 'docters.name')
         ->get();
         // dd($appointmentsPerDoctor);
+
+        $admin_id = Auth::user()->user_id;
+
+        $articleCount = Article::whereHas('user', function ($query) use ($admin_id) {
+            $query->where('user_id', $admin_id);
+        })->count();
+
         return Inertia::render('Admin/Dashboard', [
             'title' => 'Admin Dashboard',
-            'article' => Article::count(),
+            'article' => $articleCount,
             'transaction' => $transaction,
             'pendapatan' => $pendapatan,
             'transactionPerbulan' => $transactionPerbulan,

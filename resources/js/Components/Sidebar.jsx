@@ -16,6 +16,7 @@ import {
     AboutusIcon,
     HerosectionIcon,
     FeedbackIcon,
+    GalleryIcon,
 } from "./Icons/Index";
 import appLogo from "../../../public/AppLogo.png";
 
@@ -151,6 +152,20 @@ const Sidebar = ({ user }) => {
                             </li>
                             {!user.isSuperAdmin && (
                                 <>
+                                    <li>
+                                        <Link
+                                            href={
+                                                user.isSuperAdmin
+                                                    ? route("superadmin.galleries")
+                                                    : route("admin.galleries")
+                                            }
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <GalleryIcon />
+                                            {isOpen && <span>Gallery Management</span>}
+                                        </Link>
+                                    </li>
                                     <li>
                                         <Link
                                             href={route("admin.testimonials")}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleCollection;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -15,9 +16,11 @@ class ArticleController extends Controller
     // Tampil Halaman Manage Article
     public function index()
     {
-        $articles = new ArticleCollection(Article::orderByDesc('created_at')->paginate(10));
+        $user_id = Auth::user()->user_id;
+        $articles = new ArticleCollection(Article::where('user_id', $user_id)->orderByDesc('created_at')->paginate(10));
+
         return Inertia::render('Admin/Articles/Index', [
-            'title' => 'Article Management',
+            'title' => 'Articles Management',
             'articles' => $articles
         ]);
     }
@@ -44,9 +47,12 @@ class ArticleController extends Controller
         }
 
         $article_id = 'ART-' . date('ymdhis');
+        $author_id = Auth::user()->user_id;
 
         $article = new Article;
         $article->article_id = $article_id;
+        $article->user_id = $author_id;
+        $article->author_name = $request->author_name;
         $article->title = $request->title;
         $article->content = $request->content;
 
