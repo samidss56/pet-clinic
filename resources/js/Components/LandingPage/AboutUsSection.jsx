@@ -5,7 +5,7 @@ const AboutUsSection = ({ about }) => {
             <div className="text-left mb-8"></div>
             <div className="flex flex-col-reverse md:flex-row items-center justify-center">
                 <div className="w-full flex-col space-y-6 md:w-1/2 p-4 px-2 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-red-500">
+                    <h2 className="text-3xl font-bold text-gray-800">
                         {about.title}
                     </h2>
                     <p className="text-lg text-gray-600 mb-6">

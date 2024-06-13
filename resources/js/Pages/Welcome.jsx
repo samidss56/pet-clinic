@@ -8,6 +8,7 @@ import TestimonialsSection from "@/Components/LandingPage/TestimonialsSection";
 import { Head } from "@inertiajs/react";
 import ArticlesSection from "@/Components/LandingPage/ArticlesSection";
 import Navbar from "@/Components/LandingPage/Navbar";
+import WhyUsSection from "@/Components/LandingPage/WhyUsSection";
 
 export default function Welcome({
     auth,
@@ -18,6 +19,8 @@ export default function Welcome({
     docter,
     articles,
     testimonials,
+    whyUs,
+    galleries,
 }) {
     return (
         <>
@@ -27,9 +30,9 @@ export default function Welcome({
                 <div className="w-full space-y-8">
                     <HeroSection hero={hero} />
                     <ServicesSection services={services} />
-                    {/* -- Why Us -- */}
+                    <WhyUsSection whyUs={whyUs} />
                     <MeetOurTeamSection doctors={doctors} />
-                    <GallerySection />
+                    <GallerySection galleries={galleries} />
                     <TestimonialsSection testimonials={testimonials} />
                     <AboutUsSection about={about} />
                     <ArticlesSection articles={articles} />

@@ -14,7 +14,7 @@ const Show = ({ auth, docter, article, title, articles }) => {
                     <figure>
                         <img
                             src={`${appUrl}/storage/${article.image}`}
-                            alt="Shoes"
+                            alt="Article Image"
                             className="w-full object-cover h-96"
                         />
                     </figure>
@@ -46,6 +46,9 @@ const Show = ({ auth, docter, article, title, articles }) => {
                             key={article.article_id}
                             id={article.article_id}
                             title={article.title}
+                            author={article.author_name}
+                            date={article.created_at}
+                            slug={article.slug}
                             content={article.content}
                             image={`${appUrl}/storage/${article.image}`}
                         />

@@ -74,6 +74,8 @@ class GalleryController extends Controller
             $gallery->image = $path;
         }
 
+        $gallery->update();
+
         return redirect()->route('admin.galleries');
     }
 

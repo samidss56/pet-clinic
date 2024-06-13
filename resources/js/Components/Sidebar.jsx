@@ -17,6 +17,7 @@ import {
     HerosectionIcon,
     FeedbackIcon,
     GalleryIcon,
+    WhyUsIcon,
 } from "./Icons/Index";
 import appLogo from "../../../public/AppLogo.png";
 
@@ -194,6 +195,16 @@ const Sidebar = ({ user }) => {
                                         >
                                             <AboutusIcon />
                                             {isOpen && <span>About Us Management</span>}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("admin.whyus.index")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <WhyUsIcon color={"stroke-primary-red"} />
+                                            {isOpen && <span>Why Us Management</span>}
                                         </Link>
                                     </li>
                                 </>

@@ -29,8 +29,11 @@ const Index = ({ auth, articles, title, docter }) => {
                             key={article.article_id}
                             id={article.article_id}
                             title={article.title}
+                            author={article.author_name}
+                            date={article.created_at}
                             content={article.content}
                             image={`${appUrl}/storage/${article.image}`}
+                            slug={article.slug}
                         />
                     ))}
                 </div>

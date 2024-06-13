@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\HerosectionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
+use App\Http\Controllers\Admin\WhyUsController;
 use App\Http\Controllers\Auth\DocterPasswordController;
 use App\Http\Controllers\Docter\AppoinmenController;
 use App\Http\Controllers\Docter\DashboardController as DocterDashboardController;
@@ -54,7 +55,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/articles', [HomeArticleController::class, 'index'])->name('articles.index');
-Route::get('/articles/{article}', [HomeArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/{slug}', [HomeArticleController::class, 'show'])->name('articles.show');
 
 Route::get('/doctors', [HomeDoctorController::class, 'index'])->name('doctors.index');
 
@@ -171,6 +172,11 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::get('/aboutus', [AboutusController::class, 'index'])->name('admin.aboutus.index');
     Route::get('/aboutus/edit', [AboutusController::class, 'edit'])->name('admin.aboutus.edit');
     Route::post('/aboutus/update', [AboutusController::class, 'update'])->name('admin.aboutus.update');
+
+    // Route untuk Halaman Admin Why Us
+    Route::get('/whyus', [WhyUsController::class, 'index'])->name('admin.whyus.index');
+    Route::get('/whyus/edit', [WhyUsController::class, 'edit'])->name('admin.whyus.edit');
+    Route::post('/whyus/update', [WhyUsController::class, 'update'])->name('admin.whyus.update');
 
     // Route untuk Halaman Admin Testimonial
     Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('admin.testimonials');
