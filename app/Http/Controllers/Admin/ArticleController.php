@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -55,6 +56,7 @@ class ArticleController extends Controller
         $article->author_name = $request->author_name;
         $article->title = $request->title;
         $article->content = $request->content;
+        $article->slug = Str::slug($request->title, '-');
 
         if ($request->hasFile('image')) {
             $imageName = uniqid('article_') . '.' . $request->image->getClientOriginalExtension();

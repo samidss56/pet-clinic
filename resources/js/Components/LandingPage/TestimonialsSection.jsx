@@ -17,7 +17,7 @@ const TestimonialsSection = ({ testimonials }) => {
             <div className="carousel carousel-center p-4 space-x-4 bg-white w-full">
                 {testimonials.map((testimonial) => (
                     <TestimonialCards
-                        key={testimonial.testimonial_id}
+                        id={testimonial.testimonial_id}
                         profile={
                             testimonial.profile
                                 ? `${appUrl}/storage/${testimonial.profile}`

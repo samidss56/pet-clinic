@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { AuthorIcon, ClockIcon } from "../Icons/Index";
 
-const ArticleCards = ({ key, image, title, content, id }) => {
+const ArticleCards = ({ key, image, title, content, slug, author, date }) => {
     const truncateContent = (content) => {
         const words = content.split(" ");
         return words.length > 15
@@ -21,18 +21,18 @@ const ArticleCards = ({ key, image, title, content, id }) => {
                     <div className="flex justify-between items-center">
                         <div className="flex gap-2 items-center">
                             <AuthorIcon />
-                            <p className="text-gray-600">by Admin</p>
+                            <p className="text-gray-600">by {author}</p>
                         </div>
                         <div className="flex gap-2 items-center">
                             <ClockIcon />
-                            <p className="text-gray-600">7 Hours Ago</p>
+                            <p className="text-gray-600">{date}</p>
                         </div>
                     </div>
                     <h2 className="card-title text-gray-800">{title}</h2>
                     <p className="text-gray-600">
                         {truncateContent(content)}
                         <Link
-                             href={route("articles.show", { article: id })}
+                            href={route("articles.show", slug)}
                             className="text-primary-red"
                         >
                             Read More

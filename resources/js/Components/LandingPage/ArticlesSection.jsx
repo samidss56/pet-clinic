@@ -22,10 +22,12 @@ const ArticlesSection = ({ articles }) => {
                 {articles.map((article) => (
                     <ArticleCards
                         key={article.article_id}
-                        id={article.article_id}
                         title={article.title}
                         content={article.content}
+                        author={article.author_name}
+                        date={article.created_at}
                         image={`${appUrl}/storage/${article.image}`}
+                        slug={article.slug}
                     />
                 ))}
             </div>

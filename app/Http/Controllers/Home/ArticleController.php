@@ -19,14 +19,19 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function show(Article $article)
+    public function show($slug)
     {
-        $articleData = Article::find($article->article_id);
-        $articles = Article::limit(3)->inRandomOrder()->get();
+        $article = Article::where('slug', $slug)->first();
+
+        if (!$article) {
+            return abort(404, 'Article not found');
+        }
+
+        $relatedArticles = Article::limit(3)->inRandomOrder()->get();
         return Inertia::render('Home/Articles/Show', [
             'title' => 'Detail Article',
-            'article' => $articleData,
-            'articles' => $articles
+            'article' => $article,
+            'articles' => $relatedArticles
         ]);
     }
 }

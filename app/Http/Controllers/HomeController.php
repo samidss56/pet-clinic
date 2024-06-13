@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Aboutus;
 use App\Models\Article;
 use App\Models\Docter;
+use App\Models\Gallery;
 use App\Models\Herosection;
 use App\Models\Service;
 use App\Models\Testimonial;
+use App\Models\WhyUs;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,8 @@ class HomeController extends Controller
         $about = Aboutus::first();
         $articles = Article::limit(3)->get();
         $testimonials = Testimonial::where('status', 'accepted')->get();
+        $whyUs = WhyUs::first();
+        $galleries = Gallery::all();
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -31,7 +35,9 @@ class HomeController extends Controller
             'doctors' => $doctors,
             'about' => $about,
             'articles' => $articles,
-            'testimonials' => $testimonials
+            'testimonials' => $testimonials,
+            'whyUs' => $whyUs,
+            'galleries' => $galleries
         ]);
     }
 }

@@ -7,7 +7,8 @@ import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
 import ModalDeleteTestimonial from "./ModalDeleteTestimonial";
 
 const isTestimonials = (testimonials) => {
-    const [showModalDeleteTestimonial, setShowModalDeleteTestimonial] = useState(false);
+    const [showModalDeleteTestimonial, setShowModalDeleteTestimonial] =
+        useState(false);
     const [selectedTestimonial, setSelectedTestimonial] = useState(null);
     const appUrl = import.meta.env.VITE_APP_URL;
 
@@ -30,7 +31,7 @@ const isTestimonials = (testimonials) => {
                             Testimonial ID
                         </th>
                         <th className="text-black dark:text-white text-sm">
-                            Owner Name
+                            Owner Profile
                         </th>
                         <th className="text-black dark:text-white text-sm">
                             Content
@@ -51,21 +52,34 @@ const isTestimonials = (testimonials) => {
                                     {testimonial.testimonial_id}
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
-                                    {testimonial.name}
+                                    <div className="flex items-center gap-3">
+                                        <img
+                                            src={
+                                                testimonial.profile
+                                                    ? `${appUrl}/storage/${testimonial.profile}`
+                                                    : `https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1716422400&semt=ais_user`
+                                            }
+                                            alt="Profile"
+                                            className="w-12 h-12 rounded-full"
+                                        />
+                                        {testimonial.name}
+                                    </div>
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {testimonial.content}
                                 </th>
-                                <th className={`badge p-3 mt-4 ${
-                                            testimonial.status === "pending" &&
-                                            "bg-orange-400 border-orange-400 text-white"
-                                        } ${
-                                            testimonial.status === "accepted" &&
-                                            "bg-green-600 border-green-600 text-white"
-                                        } ${
-                                            testimonial.status === "rejected" &&
-                                            "bg-primary-red border-primary-red text-white"
-                                        }`}>
+                                <th
+                                    className={`badge p-3 mt-4 ${
+                                        testimonial.status === "pending" &&
+                                        "bg-orange-400 border-orange-400 text-white"
+                                    } ${
+                                        testimonial.status === "accepted" &&
+                                        "bg-green-600 border-green-600 text-white"
+                                    } ${
+                                        testimonial.status === "rejected" &&
+                                        "bg-primary-red border-primary-red text-white"
+                                    }`}
+                                >
                                     {testimonial.status}
                                 </th>
 
@@ -94,9 +108,12 @@ const isTestimonials = (testimonials) => {
                                         <ModalDeleteTestimonial
                                             show={
                                                 showModalDeleteTestimonial &&
-                                                selectedTestimonial == testimonial
+                                                selectedTestimonial ==
+                                                    testimonial
                                             }
-                                            onClose={closeModalDeleteTestimonial}
+                                            onClose={
+                                                closeModalDeleteTestimonial
+                                            }
                                             testimonial={selectedTestimonial}
                                         />
                                     </div>

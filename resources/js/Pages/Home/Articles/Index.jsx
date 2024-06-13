@@ -1,13 +1,14 @@
 import ArticleCards from "@/Components/LandingPage/ArticleCards";
+import Navbar from "@/Components/LandingPage/Navbar";
 import { Paginator } from "@/Components/Paginator";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import React from "react";
 
-const Index = ({ auth, articles, title }) => {
+const Index = ({ auth, articles, title, docter }) => {
     const appUrl = import.meta.env.VITE_APP_URL;
     return (
-        <Authenticated user={auth}>
+        <>
+            <Navbar auth={auth} docter={docter} />
             <Head title={title} />
             <div className="bg-white w-full space-y-8 p-8">
                 <div className="text-center">
@@ -26,16 +27,19 @@ const Index = ({ auth, articles, title }) => {
                     {articles.data.map((article) => (
                         <ArticleCards
                             key={article.article_id}
-                            id={article.article_id} 
+                            id={article.article_id}
                             title={article.title}
+                            author={article.author_name}
+                            date={article.created_at}
                             content={article.content}
                             image={`${appUrl}/storage/${article.image}`}
+                            slug={article.slug}
                         />
                     ))}
                 </div>
                 <Paginator meta={articles.meta} />
             </div>
-        </Authenticated>
+        </>
     );
 };
 

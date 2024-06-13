@@ -59,24 +59,13 @@ class TestimonialController extends Controller
         $testimonial->content = $request->content;
         $testimonial->status = 'pending';
 
-        // $path_name = $profile_picture ? $profile_picture->storeAs('images/testimonials', $profile_picture, 'public') : null;
-
-        // if (!is_null($profile_picture)) {
-        //     Storage::copy($profile_picture, $path_name);
-        // }
-
-        // $testimonial->image = $path_name;
-
         $profile_picture = Auth::user()->profile;
 
         if ($profile_picture) {
-            // Jika $profile_picture adalah path string, kita akan menggunakan Storage::copy
-            $path_name = 'images/testimonials/' . basename($profile_picture);
+            $path_name = 'images/profiles/' . basename($profile_picture);
 
-            // Menggunakan Storage untuk menyalin file dari lokasi asal ke lokasi tujuan
             Storage::copy($profile_picture, $path_name);
 
-            // Menyimpan path yang baru ke kolom image di tabel testimonial
             $testimonial->profile = $path_name;
         } else {
             $testimonial->profile = null;

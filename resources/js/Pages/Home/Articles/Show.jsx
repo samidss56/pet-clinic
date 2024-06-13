@@ -1,19 +1,20 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@/Components/Icons/Index";
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 import ArticleCards from "@/Components/LandingPage/ArticleCards";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
+import Navbar from "@/Components/LandingPage/Navbar";
 import { Head, Link } from "@inertiajs/react";
 
-const Show = ({ auth, article, title, articles }) => {
+const Show = ({ auth, docter, article, title, articles }) => {
     const appUrl = import.meta.env.VITE_APP_URL;
     return (
-        <Authenticated user={auth}>
+        <>
+            <Navbar auth={auth} docter={docter} />
             <Head title={title} />
             <div className="p-4 space-y-8 bg-white">
                 <div className="card card-compact w-full bg-white shadow-xl">
                     <figure>
                         <img
                             src={`${appUrl}/storage/${article.image}`}
-                            alt="Shoes"
+                            alt="Article Image"
                             className="w-full object-cover h-96"
                         />
                     </figure>
@@ -45,13 +46,16 @@ const Show = ({ auth, article, title, articles }) => {
                             key={article.article_id}
                             id={article.article_id}
                             title={article.title}
+                            author={article.author_name}
+                            date={article.created_at}
+                            slug={article.slug}
                             content={article.content}
                             image={`${appUrl}/storage/${article.image}`}
                         />
                     ))}
                 </div>
             </div>
-        </Authenticated>
+        </>
     );
 };
 

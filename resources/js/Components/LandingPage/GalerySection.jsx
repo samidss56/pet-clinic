@@ -1,41 +1,39 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "../Icons/Index";
 
-const GallerySection = () => {
+const GallerySection = ({ galleries }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const images = Array.from(
-        { length: 15 },
-        (_, index) => `/galeri${index + 1}.png`
-    );
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % galleries.length);
         }, 3000); // change slide every 3 seconds
 
         return () => clearInterval(interval);
-    }, [images.length]);
+    }, [galleries.length]);
 
     const prevSlide = () => {
         setCurrentIndex(
-            (prevIndex) => (prevIndex - 1 + images.length) % images.length
+            (prevIndex) => (prevIndex - 1 + galleries.length) % galleries.length
         );
     };
 
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % galleries.length);
     };
+
+    const appUrl = import.meta.env.VITE_APP_URL;
 
     return (
         <section className="px-2 sm:px-6 lg:px-8 py-12">
-            <h2 className="text-3xl font-bold text-center mb-8 text-red-500">
-                GALLERY
+            <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                Our Galleries
             </h2>
             <div className="relative w-full h-96 overflow-hidden">
-                {images.map((imgSrc, index) => (
+                {galleries.map((gallery, index) => (
                     <img
-                        key={index}
-                        src={imgSrc}
+                        key={gallery.gallery_id}
+                        src={`${appUrl}/storage/${gallery.image}`}
                         alt={`Gallery Image ${index + 1}`}
                         className={`w-full h-96 object-cover rounded-lg shadow-lg absolute top-0 left-0 transition-opacity duration-1000 ${
                             index === currentIndex ? "opacity-100" : "opacity-0"

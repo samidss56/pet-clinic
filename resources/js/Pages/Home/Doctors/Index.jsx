@@ -1,11 +1,12 @@
 import DoctorCard from "@/Components/LandingPage/DoctorCard";
+import Navbar from "@/Components/LandingPage/Navbar";
 import { Paginator } from "@/Components/Paginator";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-const Index = ({ auth, title, doctors }) => {
+const Index = ({ auth, title, doctors, docter }) => {
     return (
-        <Authenticated user={auth}>
+        <>
+            <Navbar auth={auth} docter={docter} />
             <Head title={title} />
             <div className="bg-white w-full space-y-8 p-8">
                 <div className="text-center">
@@ -32,7 +33,7 @@ const Index = ({ auth, title, doctors }) => {
                 </div>
                 <Paginator meta={doctors.meta} />
             </div>
-        </Authenticated>
+        </>
     );
 };
 
