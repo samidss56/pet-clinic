@@ -5,8 +5,9 @@ import { useState } from "react";
 import ModalDeleteService from "./ModalDeleteService";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
+import useToastNotification from "@/Hooks/useToastNotification";
 
-const isServices = (services) => {
+const isServices = (services, notification) => {
     const [showModalDeleteService, setShowModalDeleteService] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
     const appUrl = import.meta.env.VITE_APP_URL;
@@ -19,6 +20,8 @@ const isServices = (services) => {
         setShowModalDeleteService(false);
         setSelectedService(null);
     };
+
+    useToastNotification(notification);
     return (
         <div className="overflow-x-auto">
             <table className="table bg-white dark:bg-dark-gray border-dark-gray rounded-md">
@@ -112,8 +115,8 @@ const noServices = () => {
     );
 };
 
-const ServicesList = ({ services }) => {
-    return !services ? noServices() : isServices(services);
+const ServicesList = ({ services, notification }) => {
+    return !services ? noServices() : isServices(services, notification);
 };
 
 export default ServicesList;

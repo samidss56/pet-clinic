@@ -48,6 +48,9 @@ class HandleInertiaRequests extends Middleware
                 'email' => $docter->email,
                 'profile' => $docter->profile,
             ] : null,
+            'flash' => [
+                'message' => $request->session()->get('message'),
+            ],
         ];
     }
 }

@@ -30,6 +30,7 @@
         "react-apexcharts": "^1.4.1",
         "react-hot-toast": "^2.4.1",
         "react-responsive-masonry": "^2.2.0",
+        "react-toastify": "^10.0.5",
         "sweetalert": "^2.1.2"
     }
 }

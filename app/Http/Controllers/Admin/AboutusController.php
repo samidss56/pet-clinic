@@ -58,20 +58,6 @@ class AboutusController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.aboutus.index');
+        return redirect('/admin/aboutus')->with(['message' => 'About Us Section Updated Successfully!', 'aboutus' => $aboutus], 200);
     }
-
-    // public function destroy(): RedirectResponse
-    // {
-    //     $aboutus = Aboutus::first();
-
-    //     $aboutus->update([
-    //         'title' => '',
-    //         'content' => '',
-    //         'image' => '',
-    //     ]);
-
-    //     return redirect()->route('admin.aboutus.index');
-    // }
-
 }

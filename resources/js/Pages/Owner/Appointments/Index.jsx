@@ -5,7 +5,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Index = ({ auth, title, appointments }) => {
+const Index = ({ auth, title, appointments, flash }) => {
     return (
         <Authenticated user={auth}>
             <Head title={title} />
@@ -14,7 +14,10 @@ const Index = ({ auth, title, appointments }) => {
                     <ProfileCard user={auth} />
                 </div>
                 <div className="w-full p-4 sm:p-0 flex-col">
-                    <AppointmentsList appointments={appointments.data} />
+                    <AppointmentsList
+                        appointments={appointments.data}
+                        notification={flash.message}
+                    />
                     <Paginator meta={appointments.meta} />
                 </div>
             </OwnerLayout>

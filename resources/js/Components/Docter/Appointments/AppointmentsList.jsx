@@ -3,9 +3,12 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Link } from "@inertiajs/react";
 import useSwal from "@/Components/Hooks/useSwal";
 import { CheckIcon, UpdateIcon } from "@/Components/Icons/Index";
+import useToastNotification from "@/Hooks/useToastNotification";
 
-const isProducts = (docter_app) => {
+const isProducts = (docter_app, notification) => {
     const { ask } = useSwal();
+
+    useToastNotification(notification);
 
     return (
         <div className="overflow-x-auto">
@@ -139,8 +142,8 @@ const noProducts = () => {
     );
 };
 
-const AppointmentsList = ({ docter_app }) => {
-    return !docter_app ? noProducts() : isProducts(docter_app);
+const AppointmentsList = ({ docter_app, notification }) => {
+    return !docter_app ? noProducts() : isProducts(docter_app, notification);
 };
 
 export default AppointmentsList;

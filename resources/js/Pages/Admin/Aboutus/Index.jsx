@@ -2,12 +2,15 @@ import AboutusList from "@/Components/Admin/Aboutus/AboutusList";
 import { CreateIcon, UpdateIcon } from "@/Components/Icons/Index";
 import { Paginator } from "@/Components/Paginator";
 import PrimaryButton from "@/Components/PrimaryButton";
+import useToastNotification from "@/Hooks/useToastNotification";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 
 const Aboutus = ({ auth, title, aboutus }) => {
     const appUrl = import.meta.env.VITE_APP_URL;
+    const notification = usePage().props.flash.message;
+    useToastNotification(notification);
     return (
         <Authenticated
             user={auth}
@@ -37,7 +40,6 @@ const Aboutus = ({ auth, title, aboutus }) => {
                         Edit Abous Us
                     </PrimaryButton>
                 </Link>
-                {/* <AboutusList aboutus={aboutus.data} /> */}
             </AdminLayout>
         </Authenticated>
     );

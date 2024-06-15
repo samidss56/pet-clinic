@@ -6,7 +6,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Index = ({ auth, title, docters }) => {
+const Index = ({ auth, title, docters, flash }) => {
     return (
         <Authenticated
             user={auth}
@@ -24,7 +24,10 @@ const Index = ({ auth, title, docters }) => {
                         Add Docters
                     </PrimaryButton>
                 </Link>
-                <DoctersList docters={docters.data} />
+                <DoctersList
+                    docters={docters.data}
+                    notification={flash.message}
+                />
                 <Paginator meta={docters.meta} />
             </AdminLayout>
         </Authenticated>

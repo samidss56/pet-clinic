@@ -6,7 +6,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import AppDocter from "@/Layouts/AppDocter";
 import { Head, Link } from "@inertiajs/react";
 
-const Index = ({ docter, title, docter_app }) => {
+const Index = ({ docter, title, docter_app, flash }) => {
     return (
         <AppDocter
             user={docter}
@@ -18,7 +18,10 @@ const Index = ({ docter, title, docter_app }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                <AppointmentsList docter_app={docter_app.data} />
+                <AppointmentsList
+                    docter_app={docter_app.data}
+                    notification={flash.message}
+                />
                 <Paginator meta={docter_app.meta} />
             </AdminLayout>
         </AppDocter>

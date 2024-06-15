@@ -91,6 +91,6 @@ class JadwalController extends Controller
             );
         }
 
-        return Inertia::location(route('superadmin.jadwal'));
+        return redirect('/superadmin/jadwal')->with(['message' => 'Doctor Schedules Updated Successfully!', 'jadwal' => $jadwal], 200);
     }
 }

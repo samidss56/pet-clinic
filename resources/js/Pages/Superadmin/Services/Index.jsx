@@ -6,7 +6,7 @@ import { Head, Link } from "@inertiajs/react";
 import { CreateIcon } from "@/Components/Icons/Index";
 import AdminLayout from "@/Layouts/AdminLayout";
 
-const Services = ({ auth, title, services }) => {
+const Services = ({ auth, title, services, flash }) => {
     return (
         <Authenticated
             user={auth}
@@ -24,7 +24,10 @@ const Services = ({ auth, title, services }) => {
                         Add Service
                     </PrimaryButton>
                 </Link>
-                <ServicesList services={services.data} />
+                <ServicesList
+                    services={services.data}
+                    notification={flash.message}
+                />
                 <Paginator meta={services.meta} />
             </AdminLayout>
         </Authenticated>

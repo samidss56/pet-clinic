@@ -2,11 +2,14 @@ import ProfileCard from "@/Components/Owner/Dashboard/ProfileCard";
 import DeleteUserForm from "@/Components/Owner/Settings/DeleteUserForm";
 import UpdatePasswordForm from "@/Components/Owner/Settings/UpdatePasswordForm";
 import UpdateProfileInformation from "@/Components/Owner/Settings/UpdateProfileInformationForm";
+import useToastNotification from "@/Hooks/useToastNotification";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import OwnerLayout from "@/Layouts/OwnerLayout";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
+    const notification = usePage().props.flash.message;
+    useToastNotification(notification);
     return (
         <AuthenticatedLayout
             user={auth}

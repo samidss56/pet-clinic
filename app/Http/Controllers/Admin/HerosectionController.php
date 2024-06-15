@@ -55,7 +55,7 @@ class HerosectionController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.herosection.index');
+        return redirect('/admin/herosection')->with(['message' => 'Hero Section Updated Successfully!', 'herosection' => $herosection], 200);
     }
 
 }

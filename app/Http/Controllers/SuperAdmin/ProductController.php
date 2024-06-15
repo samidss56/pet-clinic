@@ -65,7 +65,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('superadmin.products');
+        return redirect('/superadmin/products')->with(['message' => 'Product Added Successfully!', 'product' => $product], 201);
     }
 
     // Tampil Halaman Update Product
@@ -98,7 +98,7 @@ class ProductController extends Controller
             'stock_product' => $request->stock_product,
         ]);
 
-        return redirect()->route('superadmin.products');
+        return redirect('/superadmin/products')->with(['message' => 'Product Updated Successfully!', 'product' => $product], 200);
     }
 
     // Delete Product
@@ -106,6 +106,6 @@ class ProductController extends Controller
     {
         Storage::disk('public')->delete($product->image_product);
         $product->delete();
-        return redirect()->route('superadmin.products');
+        return redirect('/superadmin/products')->with(['message' => 'Product Deleted Successfully!', 'product' => $product], 200);
     }
 }
