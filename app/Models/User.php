@@ -49,10 +49,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
-    
+
     public function hasRole(...$roles)
     {
         return $this->roles()->whereIn('name', $roles)->exists();
@@ -76,16 +77,11 @@ class User extends Authenticatable
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class, 'user_id','user_id');
+        return $this->hasMany(Transaction::class, 'user_id', 'user_id');
     }
 
-    // public function owner()
-    // {
-    //     return $this->hasOne(Owner::class, 'owner_id', 'id');
-    // }
-
-    // public function doctor()
-    // {
-    //     return $this->hasOne(Doctor::class, 'doctor_id', 'id');
-    // }
+    public function invoices()
+    {
+        return $this->hasMany(Transaction::class, 'user_id', 'user_id');
+    }
 }

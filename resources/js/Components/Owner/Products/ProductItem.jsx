@@ -9,7 +9,7 @@ const ProductItem = ({ product }) => {
 
     return (
        <Link  href={`products/show/${product.slug}`}>
-        <div className="card w-full lg:max-w-80 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer col-span-1 rounded-lg overflow-hidden">
+        <div className="card w-full bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer col-span-1 rounded-lg overflow-hidden">
             <figure className="p-5">
                 <img src={product.image_product} alt={product.name_product} className="rounded-lg object-cover h-48 w-full" />
             </figure>
