@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -50,6 +51,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->product_id = $product_id;
         $product->name_product = $request->name_product;
+        $product->slug = Str::slug($request->name_product);
         $product->deskripsi_product = $request->deskripsi_product;
         $product->price_product = $request->price_product;
         $product->stock_product = $request->stock_product;

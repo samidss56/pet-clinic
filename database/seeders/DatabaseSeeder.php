@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Aboutus;
 use App\Models\Herosection;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,9 @@ class DatabaseSeeder extends Seeder
             AboutusSeeder::class,
             HerosectionSeeder::class,
             TestimonialSeeder::class,
+            WhyUsSeeder::class,
         ]);
+
+        Product::factory(30)->create();
     }
 }
