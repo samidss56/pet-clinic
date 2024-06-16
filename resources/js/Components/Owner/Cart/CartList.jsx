@@ -113,11 +113,11 @@ const CartList = ({ cart }) => {
         // alert('oke');
         e.preventDefault();
 
-        // Inertia.post(route('invoice'), {
-        //     cart: cart,
-        //     subtotal: total,
-        //     ongkos: onkir,
-        // });
+        Inertia.post(route('invoice'), {
+            cart: cart,
+            subtotal: total,
+            ongkos: onkir,
+        });
         try {
             const response = await axios.post(route('invoice'), {
                 cart: cart,

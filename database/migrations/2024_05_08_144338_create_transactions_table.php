@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('invoice')->unique();
             $table->string('user_id')->nullable();
-            $table->string('appointmen_id');
+            $table->string('appointmen_id')->nullable();
             $table->string('status_payment');
             $table->date('date_transaction');
             $table->double('subtotal');
+            $table->json('cart_ids')->nullable();
             $table->json('payment_info')->nullable();
             $table->json('payment_type')->nullable();
             $table->dateTime('succeeded_at')->nullable();

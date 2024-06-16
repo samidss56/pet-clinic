@@ -37,6 +37,7 @@ use App\Http\Controllers\Superadmin\ServiceController as SuperadminServiceContro
 use App\Http\Controllers\Superadmin\TransactionController as SuperadminTransactionController;
 use App\Http\Controllers\Home\ArticleController as HomeArticleController;
 use App\Http\Controllers\Home\DoctorController as HomeDoctorController;
+use App\Http\Controllers\InvoiceController;
 use App\Models\Aboutus;
 use Illuminate\Support\Facades\Route;
 
@@ -231,6 +232,7 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::post('onkir', [OwnerCartController::class, 'onkir'])->name('onkir');
     Route::get('/provinces', [OwnerCartController::class, 'getProvinces']);
     Route::get('/cities', [OwnerCartController::class, 'getCities']);
+    Route::post('/invoice', [InvoiceController::class, 'store'])->name('invoice');
 });
 
 Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(function () {
