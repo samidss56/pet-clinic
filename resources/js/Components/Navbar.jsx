@@ -107,12 +107,12 @@ const Navbar = ({ user }) => {
                             <div className="flex items-center gap-3 ">
                                 <div className="hidden xs:flex">
                                     <UserAvatar
-                                        // avatar={user.user.profile}
+                                        avatar={user.user.profile}
                                         className="w-10 rounded-full"
                                     />
                                 </div>
                                 <h1 className="text-gray-800">
-                                    {/* {user.user.name} */}
+                                    {user.user.name}
                                 </h1>
                             </div>
                         ) : (

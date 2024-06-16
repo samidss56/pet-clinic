@@ -4,9 +4,9 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Index({ auth, product }) {
-    const user = auth?.user?.name;
+
     return (
-        <Authenticated user={user}>
+        <Authenticated user={auth}>
 
                <div className="mx-5 mb-10">
                {product.data.length ?

@@ -8,14 +8,13 @@ import { Inertia } from '@inertiajs/inertia';
 import toast from "react-hot-toast";
 
 export default function Show({ auth, product }) {
-    const user = auth?.user?.name;
-// console.log(product);
+
     const onChart = () => {
         Inertia.post(route('cart.store', product.data), {},);
     };
 
     return (
-        <Authenticated user={user}>
+        <Authenticated user={auth}>
             <Head title={product.data.name_product} />
             <div className="max-w-screen-lg mx-auto py-5 px-5">
                 <div className="flex flex-col md:flex-row gap-10 bg-white p-6 rounded-lg shadow-lg">
@@ -28,7 +27,7 @@ export default function Show({ auth, product }) {
                             <p className="leading-relaxed text-gray-700 mb-4">{product.data.deskripsi_product}</p>
                             <div className="text-2xl font-bold text-red-500 mb-4">{formatCurr(product.data.price_product)}</div>
                         </div>
-                        {!user ? (
+                        {!auth ? (
                             // <div className="text-center">
                                 <DangerButton className="flex justify-center items-center">
                                     <Link href={route('login')} className="text-white">Login</Link>
