@@ -1,10 +1,12 @@
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 
 const UpdatePet = ({ auth, title, pet }) => {
     const { data, setData, errors } = useForm({
@@ -141,8 +143,18 @@ const UpdatePet = ({ auth, title, pet }) => {
                                 />
                             </div>
                         </div>
-                        <div>
-                            <PrimaryButton className="mt-4" type="submit">
+                        <div className="flex items-center justify-end gap-2">
+                            <Link href={route("owner.pets")}>
+                                <SecondaryButton>
+                                    <ArrowLeftIcon />
+                                    Back to Pets
+                                </SecondaryButton>
+                            </Link>
+                            <PrimaryButton
+                                className="h-[42px]"
+                                type="submit"
+                                onClick={handleSubmit}
+                            >
                                 Update Pet
                             </PrimaryButton>
                         </div>

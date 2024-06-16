@@ -1,12 +1,15 @@
 import { UpdateIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
+import useToastNotification from "@/Hooks/useToastNotification";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import React from "react";
 
 const Index = ({ auth, title, whyUs }) => {
     const appUrl = import.meta.env.VITE_APP_URL;
+    const notification = usePage().props.flash.message;
+    useToastNotification(notification);
     return (
         <Authenticated
             user={auth}

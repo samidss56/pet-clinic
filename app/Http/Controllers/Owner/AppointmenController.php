@@ -124,7 +124,7 @@ class AppointmenController extends Controller
             echo 'Doctor not found.';
         }
 
-        return Inertia::location(route('owner.appointmen'));
+        return redirect('/owner/appointmen')->with(['message' => 'Appointment Created Successfully!'], 201);
     }
 
     public function update(Request $request, Appointmen $appointmen)
@@ -132,7 +132,7 @@ class AppointmenController extends Controller
         $appointmen->update([
             'status' => 'rejected',
         ]);
-        return Inertia::location(route('owner.appointmen'));
+        return redirect('/owner/appointmen')->with(['message' => 'Appointment Updated Successfully!'], 200);
     }
 
     public function checkScheduleAvailability(Request $request)

@@ -2,15 +2,18 @@ import DangerButton from "@/Components/DangerButton";
 import { ShowIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
+import useToastNotification from "@/Hooks/useToastNotification";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-const isTestimonials = (testimonials) => {
+const isTestimonials = (testimonials, notification) => {
     const [openIndex, setOpenIndex] = useState(null);
 
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+
+    useToastNotification(notification);
 
     return (
         <div>
@@ -142,8 +145,10 @@ const noTestimonials = () => {
     </div>;
 };
 
-const TestimonialsList = ({ testimonials }) => {
-    return !testimonials ? noTestimonials() : isTestimonials(testimonials);
+const TestimonialsList = ({ testimonials, notification }) => {
+    return !testimonials
+        ? noTestimonials()
+        : isTestimonials(testimonials, notification);
 };
 
 export default TestimonialsList;

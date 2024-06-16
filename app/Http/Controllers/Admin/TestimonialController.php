@@ -42,7 +42,7 @@ class TestimonialController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('admin.testimonials');
+        return redirect('/admin/testimonials')->with(['message' => 'Testimonial Updated Successfully!', 'testimonial' => $testimonial], 200);
     }
 
     // Delete Testimonial
@@ -52,6 +52,6 @@ class TestimonialController extends Controller
             Storage::disk('public')->delete($testimonial->profile);
         }
         $testimonial->delete();
-        return redirect()->route('admin.testimonials');
+        return redirect('/admin/testimonials')->with(['message' => 'Testimonial Deleted Successfully!', 'testimonial' => $testimonial], 200);
     }
 }

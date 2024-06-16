@@ -78,7 +78,7 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('superadmin.users');
+        return redirect('/superadmin/users')->with(['message' => 'User Added Successfully!', 'user' => $user], 201);
     }
 
     // Halaman Update User
@@ -127,7 +127,7 @@ class UserController extends Controller
             $role_user->update();
         }
 
-        return redirect()->route('superadmin.users');
+        return redirect('/superadmin/users')->with(['message' => 'User Updated Successfully!', 'user' => $user], 200);
     }
 
     // Delete User
@@ -135,6 +135,6 @@ class UserController extends Controller
     {
         $user->delete();
         RoleUser::where('user_id', $user->user_id)->delete();
-        return redirect()->route('superadmin.users');
+        return redirect('/superadmin/users')->with(['message' => 'User Deleted Successfully!', 'user' => $user], 200);
     }
 }

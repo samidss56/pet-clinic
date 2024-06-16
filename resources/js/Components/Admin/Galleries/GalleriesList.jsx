@@ -5,8 +5,9 @@ import { useState } from "react";
 import ModalDeleteGallery from "./ModalDeleteGallery";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
+import useToastNotification from "@/Hooks/useToastNotification";
 
-const isGalleries = (galleries) => {
+const isGalleries = (galleries, notification) => {
     const [showModalDeleteGallery, setShowModalDeleteGallery] = useState(false);
     const [selectedGallery, setSelectedGallery] = useState(null);
     const appUrl = import.meta.env.VITE_APP_URL;
@@ -20,6 +21,8 @@ const isGalleries = (galleries) => {
         setShowModalDeleteGallery(false);
         setSelectedGallery(null);
     };
+
+    useToastNotification(notification);
 
     return (
         <div className="overflow-x-auto">
@@ -101,8 +104,8 @@ const noGalleries = () => {
     );
 };
 
-const GalleriesList = ({ galleries }) => {
-    return !galleries ? noGalleries() : isGalleries(galleries);
+const GalleriesList = ({ galleries, notification }) => {
+    return !galleries ? noGalleries() : isGalleries(galleries, notification);
 };
 
 export default GalleriesList;

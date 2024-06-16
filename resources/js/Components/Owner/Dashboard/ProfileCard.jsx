@@ -42,7 +42,7 @@ const ProfileCard = ({ user }) => {
                     className="text-center text-white text-sm flex gap-1 items-center"
                 >
                     Make Appointment
-                    <ArrowRightIcon />
+                    <ArrowRightIcon color={'fill-white'}/>
                 </Link>
             </div>
         </div>

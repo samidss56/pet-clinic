@@ -1,8 +1,10 @@
 import { CreateIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
+import useToastNotification from "@/Hooks/useToastNotification";
 import { Link } from "@inertiajs/react";
 
-const JadwalsList = ({ jadwals }) => {
+const JadwalsList = ({ jadwals, notification }) => {
+    useToastNotification(notification);
     return (
         <div className="overflow-x-auto">
             <table className="table bg-white dark:bg-dark-gray border-dark-gray rounded-md">

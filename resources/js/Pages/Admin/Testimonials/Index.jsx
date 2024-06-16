@@ -6,7 +6,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Testimonials = ({ auth, title, testimonials }) => {
+const Testimonials = ({ auth, title, testimonials, flash }) => {
     return (
         <Authenticated
             user={auth}
@@ -18,13 +18,10 @@ const Testimonials = ({ auth, title, testimonials }) => {
         >
             <Head title={title} />
             <AdminLayout>
-                {/* <Link href={route("admin.testimonials.create")}>
-                    <PrimaryButton className="mb-4 flex gap-2">
-                        <CreateIcon />
-                        Add Testimonial
-                    </PrimaryButton>
-                </Link> */}
-                <TestimonialsList testimonials={testimonials.data} />
+                <TestimonialsList
+                    testimonials={testimonials.data}
+                    notification={flash.message}
+                />
                 <Paginator meta={testimonials.meta} />
             </AdminLayout>
         </Authenticated>

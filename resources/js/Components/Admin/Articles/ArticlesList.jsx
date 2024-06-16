@@ -5,8 +5,9 @@ import { useState } from "react";
 import ModalDeleteArticle from "./ModalDeleteArticle";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
+import useToastNotification from "@/Hooks/useToastNotification";
 
-const isArticles = (articles) => {
+const isArticles = (articles, notification) => {
     const [showModalDeleteArticle, setShowModalDeleteArticle] = useState(false);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const appUrl = import.meta.env.VITE_APP_URL;
@@ -20,6 +21,8 @@ const isArticles = (articles) => {
         setShowModalDeleteArticle(false);
         setSelectedArticle(null);
     };
+
+    useToastNotification(notification);
 
     return (
         <div className="overflow-x-auto">
@@ -114,8 +117,8 @@ const noArticles = () => {
     );
 };
 
-const ArticlesList = ({ articles }) => {
-    return !articles ? noArticles() : isArticles(articles);
+const ArticlesList = ({ articles, notification }) => {
+    return !articles ? noArticles() : isArticles(articles, notification);
 };
 
 export default ArticlesList;

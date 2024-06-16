@@ -6,7 +6,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Galleries = ({ auth, title, galleries }) => {
+const Galleries = ({ auth, title, galleries, flash }) => {
     return (
         <Authenticated
             user={auth}
@@ -24,7 +24,10 @@ const Galleries = ({ auth, title, galleries }) => {
                         Add Gallery
                     </PrimaryButton>
                 </Link>
-                <GalleriesList galleries={galleries.data} />
+                <GalleriesList
+                    galleries={galleries.data}
+                    notification={flash.message}
+                />
                 <Paginator meta={galleries.meta} />
             </AdminLayout>
         </Authenticated>
