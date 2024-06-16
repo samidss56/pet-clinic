@@ -18,12 +18,14 @@ const Navbar = ({ user }) => {
             className={`navbar bg-white sticky top-0 py-3 z-50 shadow-lg flex justify-between px-2 sm:px-4`}
         >
             <div className="flex-none">
-                <div className="flex gap-3 px-2 items-center justify-between">
-                    <img src={appLogo} alt="App Logo" className="w-14" />
-                    <p className="text-xl font-bold text-primary-red">
-                        Pawana Jiwa
-                    </p>
-                </div>
+                <Link href={route("home")}>
+                    <div className="flex gap-3 px-2 items-center justify-between">
+                        <img src={appLogo} alt="App Logo" className="w-14" />
+                        <p className="text-xl font-bold text-primary-red">
+                            Pawana Jiwa
+                        </p>
+                    </div>
+                </Link>
             </div>
             <div className="flex-none gap-5 hidden md:flex lg:gap-10">
                 {!user ? (

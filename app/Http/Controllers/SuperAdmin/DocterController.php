@@ -58,7 +58,7 @@ class DocterController extends Controller
         $jadwal->docter_id = $docter_id;
         $jadwal->save();
 
-        return to_route('superadmin.docters');
+        return redirect('/superadmin/docters')->with(['message' => 'Doctor Added Successfully!', 'jadwal' => $jadwal], 201);
     }
 
     public function edit(Docter $docter)
@@ -92,7 +92,7 @@ class DocterController extends Controller
             'profile' => $request->hasFile('profile') ? $picture->storeAs('images/docters', $docter_id . '.' . $picture->extension(),'public') : $docter->profile,
         ]);
 
-        return Inertia::location(route('superadmin.docters'));
+        return redirect('/superadmin/docters')->with(['message' => 'Doctor Updated Successfully!', 'docter' => $docter], 200);
     }
 
     public function delete(Docter $docter)
@@ -102,6 +102,6 @@ class DocterController extends Controller
         }
         $docter->delete();
 
-        return Inertia::location(route('superadmin.docters'));
+        return redirect('/superadmin/docters')->with(['message' => 'Doctor Deleted Successfully!', 'docter' => $docter], 200);
     }
 }

@@ -6,7 +6,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Articles = ({ auth, title, articles }) => {
+const Articles = ({ auth, title, articles, flash }) => {
     return (
         <Authenticated
             user={auth}
@@ -24,7 +24,10 @@ const Articles = ({ auth, title, articles }) => {
                         Add Article
                     </PrimaryButton>
                 </Link>
-                <ArticlesList articles={articles.data} />
+                <ArticlesList
+                    articles={articles.data}
+                    notification={flash.message}
+                />
                 <Paginator meta={articles.meta} />
             </AdminLayout>
         </Authenticated>

@@ -2,15 +2,20 @@ import DangerButton from "@/Components/DangerButton";
 import { FeedbackIcon, ShowIcon } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
+import useToastNotification from "@/Hooks/useToastNotification";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-const isAppointment = (appointments) => {
+const isAppointment = (appointments, notification) => {
     const [openIndex, setOpenIndex] = useState(null);
 
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+
+    useToastNotification(notification);
+
+    console.log(appointments);
 
     return (
         <div>
@@ -156,8 +161,8 @@ const noAppointments = () => {
     </div>;
 };
 
-const AppointmentsList = ({ appointments }) => {
-    return !appointments ? noAppointments() : isAppointment(appointments);
+const AppointmentsList = ({ appointments, notification }) => {
+    return !appointments ? noAppointments() : isAppointment(appointments, notification);
 };
 
 export default AppointmentsList;

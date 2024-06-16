@@ -5,8 +5,9 @@ import { useState } from "react";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
 import ModalDeleteTestimonial from "./ModalDeleteTestimonial";
+import useToastNotification from "@/Hooks/useToastNotification";
 
-const isTestimonials = (testimonials) => {
+const isTestimonials = (testimonials, notification) => {
     const [showModalDeleteTestimonial, setShowModalDeleteTestimonial] =
         useState(false);
     const [selectedTestimonial, setSelectedTestimonial] = useState(null);
@@ -21,6 +22,8 @@ const isTestimonials = (testimonials) => {
         setShowModalDeleteTestimonial(false);
         setSelectedTestimonial(null);
     };
+    
+    useToastNotification(notification);
 
     return (
         <div className="overflow-x-auto">
@@ -136,8 +139,8 @@ const noTestimonials = () => {
     );
 };
 
-const TestimonialsList = ({ testimonials }) => {
-    return !testimonials ? noTestimonials() : isTestimonials(testimonials);
+const TestimonialsList = ({ testimonials, notification }) => {
+    return !testimonials ? noTestimonials() : isTestimonials(testimonials, notification);
 };
 
 export default TestimonialsList;

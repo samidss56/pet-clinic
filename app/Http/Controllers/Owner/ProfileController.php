@@ -58,7 +58,7 @@ class ProfileController extends Controller
         $request->user()->save();
 
 
-        return Redirect::route('owner.profile.edit');
+        return redirect('/owner/settings')->with(['message' => 'Profile Updated Successfully!'], 200);
     }
 
     /**

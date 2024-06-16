@@ -73,6 +73,6 @@ class TestimonialController extends Controller
 
         $testimonial->save();
 
-        return redirect()->route('owner.testimonials');
+        return redirect('/owner/testimonials')->with(['message' => 'Testimonial Created Successfully! Waiting for Acceptance', 'testimonial' => $testimonial], 201);
     }
 }

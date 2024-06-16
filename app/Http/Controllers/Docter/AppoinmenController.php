@@ -21,7 +21,7 @@ class AppoinmenController extends Controller
     public function index()
     {
         $kode_docter = Auth::guard('docter')->user()->docter_id;
-        $docter = Appointmen::query()->where('docter_id',$kode_docter)->latest()->paginate(5);
+        $docter = Appointmen::query()->where('docter_id', $kode_docter)->latest()->paginate(5);
         // return AppoitmenDocterResource::collection($docter);
         return Inertia::render('Docter/Appointments/Index', [
             'title' => 'Appointmens Management',
@@ -34,13 +34,13 @@ class AppoinmenController extends Controller
         $appointmen->update([
             'status' => 'accepted',
         ]);
-        return Inertia::location(route('docter.appointmen'));
+        return redirect('/docter/appointmen')->with(['message' => 'Appointment Updated Successfully!', 'appointmen' => $appointmen], 200);
     }
 
     public function edit(Appointmen $appointmen)
     {
         // return new AppoitmenDocterResource($appointmen);
-        return inertia('Docter/Appointments/Edit',[
+        return inertia('Docter/Appointments/Edit', [
             'title' => 'Edit Appointmens Management',
             'appointmen' => new AppoitmenDocterResource($appointmen),
             'services' => Service::all(),
@@ -64,7 +64,7 @@ class AppoinmenController extends Controller
         //         ->withErrors($validator)
         //         ->withInput();
         // }
-        
+
         // return $request;
 
         $invoice = date('ymdhis');
@@ -100,7 +100,7 @@ class AppoinmenController extends Controller
                 ]);
             }
         }
-        
+
         foreach ($request->products as $product) {
             if ($product['product_id'] !== null && $product['name_product'] !== null && $product['price_product'] !== null && $product['qty'] !== null) {
                 TransactionDetail::create([
@@ -110,19 +110,17 @@ class AppoinmenController extends Controller
                     'harga_product' => $product['price_product'],
                 ]);
 
-                $product_stock = Product::where('product_id',$product['product_id'])->first();
-                if($product_stock)
-                {
+                $product_stock = Product::where('product_id', $product['product_id'])->first();
+                if ($product_stock) {
                     $product_stock->stock_product -= $product['qty'];
                     $product_stock->save();
                 }
-                
             }
         }
 
-        
 
 
-        return Inertia::location(route('docter.appointmen'));
+
+        return redirect('/docter/appointmen')->with(['message' => 'Appointment Updated Successfully!', 'appointmen' => $appointmen], 200);
     }
 }

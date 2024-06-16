@@ -4,9 +4,10 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import ModalDeleteUser from "./ModalDeleteUser";
 import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
+import useToastNotification from "@/Hooks/useToastNotification";
 // import ModalDeleteUser from "./ModalDeleteUser";
 
-const isUsers = (users) => {
+const isUsers = (users, notification) => {
     const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
@@ -19,6 +20,8 @@ const isUsers = (users) => {
         setSelectedUser(null);
         setShowModalDeleteUser(false);
     };
+
+    useToastNotification(notification);
 
     return (
         <div className="overflow-x-auto">
@@ -98,8 +101,8 @@ const noUsers = () => {
     );
 };
 
-const UsersList = ({ users }) => {
-    return !users ? noUsers() : isUsers(users);
+const UsersList = ({ users, notification }) => {
+    return !users ? noUsers() : isUsers(users, notification);
 };
 
 export default UsersList;

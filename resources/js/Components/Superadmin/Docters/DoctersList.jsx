@@ -6,7 +6,8 @@ import { formatCurr } from "@/Utils/FormatPrice";
 import ModalDeleteDocter from "./ModalDeleteDocters";
 import useSwal from "@/Components/Hooks/useSwal";
 import { DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
-const isProducts = (docters) => {
+import useToastNotification from "@/Hooks/useToastNotification";
+const isProducts = (docters, notification) => {
     const [showModalDeleteProduct, setShowModalDeleteProduct] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const appUrl = import.meta.env.VITE_APP_URL;
@@ -22,6 +23,8 @@ const isProducts = (docters) => {
     };
 
     const { ask } = useSwal();
+
+    useToastNotification(notification);
 
     return (
         <div className="overflow-x-auto">
@@ -133,8 +136,8 @@ const noProducts = () => {
     );
 };
 
-const DoctersList = ({ docters }) => {
-    return !docters ? noProducts() : isProducts(docters);
+const DoctersList = ({ docters, notification }) => {
+    return !docters ? noProducts() : isProducts(docters, notification);
 };
 
 export default DoctersList;

@@ -69,7 +69,7 @@ class PetController extends Controller
 
         $pet->save();
 
-        return redirect()->route('owner.pets');
+        return redirect('/owner/pets')->with(['message' => 'Pet Added Successfully!', 'pet' => $pet], 201);
     }
 
     // Tampil Halaman Update Pet
@@ -107,7 +107,7 @@ class PetController extends Controller
             'age' => $request->age,
         ]);
 
-        return redirect()->route('owner.pets');
+        return redirect('/owner/pets')->with(['message' => 'Pet Updated Successfully!', 'pet' => $pet], 200);
     }
 
     // Delete Pet
@@ -115,6 +115,6 @@ class PetController extends Controller
     {
         Storage::disk('public')->delete($pet->image);
         $pet->delete();
-        return redirect()->route('owner.pets');
+        return redirect('/owner/pets')->with(['message' => 'Pet Deleted Successfully!', 'pet' => $pet], 200);
     }
 }

@@ -7,7 +7,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import OwnerLayout from "@/Layouts/OwnerLayout";
 import { Head, Link } from "@inertiajs/react";
 
-const Pets = ({ auth, title, myPets }) => {
+const Pets = ({ auth, title, myPets, flash }) => {
     return (
         <Authenticated user={auth}>
             <Head title={title} />
@@ -24,7 +24,10 @@ const Pets = ({ auth, title, myPets }) => {
                         </PrimaryButton>
                     </Link>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 my-4">
-                        <PetsList myPets={myPets.data} />
+                        <PetsList
+                            myPets={myPets.data}
+                            notification={flash.message}
+                        />
                     </div>
                     <Paginator meta={myPets.meta} />
                 </div>

@@ -60,7 +60,7 @@ class ServiceController extends Controller
 
         $service->save();
 
-        return redirect()->route('superadmin.services');
+        return redirect('/superadmin/services')->with(['message' => 'Service Added Successfully!', 'service' => $service], 201);
     }
 
     // Tampil Halaman Update Service
@@ -91,7 +91,7 @@ class ServiceController extends Controller
             'price_service' => $request->price_service,
         ]);
 
-        return redirect()->route('superadmin.services');
+        return redirect('/superadmin/services')->with(['message' => 'Service Updated Successfully!', 'service' => $service], 200);
     }
 
     // Delete Service
@@ -99,6 +99,6 @@ class ServiceController extends Controller
     {
         Storage::disk('public')->delete($service->image_service);
         $service->delete();
-        return redirect()->route('superadmin.services');
+        return redirect('/superadmin/services')->with(['message' => 'Service Deleted Successfully!', 'service' => $service], 200);
     }
 }

@@ -50,6 +50,6 @@ class WhyUsController extends Controller
             'list_items' => $request->list_items,
         ]);
 
-        return redirect()->route('admin.whyus.index');
+        return redirect('/admin/whyus')->with(['message' => 'Why Us Section Updated Successfully!', 'whyUs' => $whyUs], 200);
     }
 }

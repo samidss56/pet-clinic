@@ -5,8 +5,9 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import ModalDeletePet from "./ModalDeletePet";
 import { CreateIcon, DeleteIcon, UpdateIcon } from "@/Components/Icons/Index";
+import useToastNotification from "@/Hooks/useToastNotification";
 
-const isPets = (myPets) => {
+const isPets = (myPets, notification) => {
     const [showModalDeletePet, setShowModalDeletePet] = useState(false);
     const [selectedPet, setSelectedPet] = useState(null);
 
@@ -21,6 +22,8 @@ const isPets = (myPets) => {
         setShowModalDeletePet(false);
         setSelectedPet(null);
     };
+
+    useToastNotification(notification);
 
     return (
         <>
@@ -84,9 +87,9 @@ const isPets = (myPets) => {
                                         pet.pet_id
                                     )}
                                 >
-                                    <SecondaryButton className="w-full flex justify-center">
+                                    <PrimaryButton className="w-full flex justify-center">
                                         <CreateIcon />
-                                    </SecondaryButton>
+                                    </PrimaryButton>
                                 </Link>
                             </div>
                         </div>
@@ -104,8 +107,8 @@ const noPets = () => {
     </div>;
 };
 
-const PetsList = ({ myPets }) => {
-    return !myPets ? noPets() : isPets(myPets);
+const PetsList = ({ myPets, notification }) => {
+    return !myPets ? noPets() : isPets(myPets, notification);
 };
 
 export default PetsList;

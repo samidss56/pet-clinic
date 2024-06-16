@@ -48,7 +48,7 @@ class GalleryController extends Controller
 
         $gallery->save();
 
-        return redirect()->route('admin.galleries');
+        return redirect('/admin/galleries')->with(['message' => 'Gallery Added Successfully!', 'gallery' => $gallery], 201);
     }
 
     // Tampil Halaman Update Gallery
@@ -76,7 +76,7 @@ class GalleryController extends Controller
 
         $gallery->update();
 
-        return redirect()->route('admin.galleries');
+        return redirect('/admin/galleries')->with(['message' => 'Gallery Updated Successfully!', 'gallery' => $gallery], 200);
     }
 
     // Delete Gallery
@@ -84,6 +84,6 @@ class GalleryController extends Controller
     {
         Storage::disk('public')->delete($gallery->image);
         $gallery->delete();
-        return redirect()->route('admin.galleries');
+        return redirect('/admin/galleries')->with(['message' => 'Gallery Deleted Successfully!', 'gallery' => $gallery], 200);
     }
 }

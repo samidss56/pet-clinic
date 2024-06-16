@@ -69,7 +69,7 @@ class ArticleController extends Controller
 
         $article->save();
 
-        return redirect()->route('admin.articles');
+        return redirect('/admin/articles')->with(['message' => 'Article Added Successfully!', 'article' => $article], 201);
     }
 
     // Halaman Update Article
@@ -109,7 +109,7 @@ class ArticleController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('admin.articles');
+        return redirect('/admin/articles')->with(['message' => 'Article Updated Successfully!', 'article' => $article], 200);
     }
 
     // Delete Article
@@ -117,6 +117,6 @@ class ArticleController extends Controller
     {
         Storage::disk('public')->delete($article->image);
         $article->delete();
-        return redirect()->route('admin.articles');
+        return redirect('/admin/articles')->with(['message' => 'Article Deleted Successfully!', 'article' => $article], 200);
     }
 }
