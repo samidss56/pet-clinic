@@ -24,6 +24,8 @@ use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\PetController;
 use App\Http\Controllers\Owner\ProfileController;
 use App\Http\Controllers\Owner\TestimonialController as OwnerTestimonialController;
+use App\Http\Controllers\Owner\ProductsController as OwnerProductsController;
+use App\Http\Controllers\Owner\CartController as OwnerCartController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\ArticleController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
@@ -217,6 +219,18 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::get('/testimonials', [OwnerTestimonialController::class, 'index'])->name('owner.testimonials');
     Route::get('/testimonials/create-testimonial', [OwnerTestimonialController::class, 'create'])->name('owner.testimonials.create');
     Route::post('/testimonials/create', [OwnerTestimonialController::class, 'store'])->name('owner.testimonials.store');
+
+    Route::get('/products', [OwnerProductsController::class, 'index'])->name('owner.products');
+    Route::get('/products/show/{product:slug}', [OwnerProductsController::class, 'show'])->name('owner.products.show');
+
+    Route::get('/cart', [OwnerCartController::class, 'index'])->name('owner.cart');
+    Route::delete('/cart/delete/{cart}', [OwnerCartController::class, 'delete'])->name('owner.cart.delete');
+    Route::put('/carts/{cart}', [OwnerCartController::class, 'updateqty'])->name('owner.cart.updateqty');
+    Route::post('cart/add-to-cart/{product:slug}', [OwnerCartController::class, 'store'])->name('cart.store');
+
+    Route::post('onkir', [OwnerCartController::class, 'onkir'])->name('onkir');
+    Route::get('/provinces', [OwnerCartController::class, 'getProvinces']);
+    Route::get('/cities', [OwnerCartController::class, 'getCities']);
 });
 
 Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(function () {

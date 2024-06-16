@@ -284,7 +284,9 @@ class TransactionController extends Controller
                 ]];
             }
 
-            $response = Http::withBasicAuth('SB-Mid-server-UskSyItBUaes0ElP0-AttfIU' . ':', '')
+            $apiKey = env('MIDTRANS_SERVER_API_KEY');
+
+            $response = Http::withBasicAuth($apiKey . ':', '')
                 ->post('https://api.sandbox.midtrans.com/v2/charge', $data);
 
             $body = $response->json();
@@ -315,9 +317,10 @@ class TransactionController extends Controller
 
     public function notif(Request $request)
     {
+        $apiKey = env('MIDTRANS_SERVER_API_KEY');
         $trans = Transaction::where('invoice', $request->order_id)->first();
         $grossAmount = $trans->subtotal . '.00';
-        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount."SB-Mid-server-UskSyItBUaes0ElP0-AttfIU");
+        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount.$apiKey);
         if ($request->signature_key == $signature_key) {
             if ($request->transaction_status == 'settlement') {
                 $trans->update([

@@ -12,4 +12,9 @@ class Product extends Model
     protected $primaryKey = 'product_id';
     public $incrementing = false;
     protected $guarded = [];
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'product_id', 'product_id');
+    }
 }

@@ -1,11 +1,13 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import NavLink from "./NavLink";
 import {
     AppointmentsIcon,
     ArrowBottomIcons,
+    CartIcon,
     DashboardIcon,
     LogoutIcon,
     PetsIcon,
+    ProductsIcon,
     SettingsIcons,
     TransactionsIcon,
 } from "./Icons/Index";
@@ -13,6 +15,9 @@ import UserAvatar from "./UserAvatar";
 import appLogo from "../../../public/AppLogo.png";
 
 const Navbar = ({ user }) => {
+
+    const {carts_global} = usePage().props;
+
     return (
         <div
             className={`navbar bg-white sticky top-0 py-3 z-50 shadow-lg flex justify-between px-2 sm:px-4`}
@@ -70,6 +75,12 @@ const Navbar = ({ user }) => {
                             Appointments
                         </NavLink>
                         <NavLink
+                            href={route("owner.products")}
+                            active={route().current("owner.products")}
+                        >
+                            Products
+                        </NavLink>
+                        <NavLink
                             href={route("owner.testimonials")}
                             active={route().current("owner.testimonials")}
                         >
@@ -79,6 +90,13 @@ const Navbar = ({ user }) => {
                 )}
             </div>
             <div className="flex-none gap-2 justify-center">
+                {user ? (
+                    <>
+                    <NavLink className='flex items-center gap-x-2' href={route("owner.cart")}>
+                            <CartIcon />
+                            {carts_global > 0 ? carts_global : null}
+                    </NavLink></>
+                ) : null}
                 <div className="dropdown dropdown-end">
                     <button
                         tabIndex={0}
@@ -147,6 +165,15 @@ const Navbar = ({ user }) => {
                                         >
                                             <AppointmentsIcon />
                                             Appointments
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("owner.products")}
+                                            as="button"
+                                        >
+                                            <ProductsIcon />
+                                            Products
                                         </Link>
                                     </li>
                                 </div>

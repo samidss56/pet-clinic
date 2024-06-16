@@ -110,8 +110,10 @@ class AppointmenController extends Controller
             $message .= "Harap respon sesegera mungkin sebelum masa berlakunya habis. ✅\n\n";
             $message .= "Thank you! 🙏";
 
+            $apiKey = env('FONNTE_API_KEY');
+
             Http::withHeaders([
-                'Authorization' => 'ov56Lz6GfC@@pSKXbksk',
+                'Authorization' => $apiKey,
             ])->withOptions([
                 'verify' => false,
             ])->post('https://api.fonnte.com/send', [
