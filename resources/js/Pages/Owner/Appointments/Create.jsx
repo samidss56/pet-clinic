@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
-import axios from 'axios';
+import { Head, Link, useForm } from "@inertiajs/react";
+import axios from "axios";
+import SecondaryButton from "@/Components/SecondaryButton";
+import { ArrowLeftIcon } from "@/Components/Icons/Index";
 
 const Create = ({ auth, title, pets, docters, pet_id }) => {
     const { data, setData, errors, post } = useForm({
@@ -19,7 +21,7 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
     const [schedules, setSchedules] = useState([]);
     const [bookedSchedules, setBookedSchedules] = useState([]);
     const [selectedSchedule, setSelectedSchedule] = useState(null);
-    const [validationError, setValidationError] = useState('');
+    const [validationError, setValidationError] = useState("");
 
     const handleDoctorChange = async (e) => {
         const docterId = e.target.value;
@@ -27,12 +29,14 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
 
         if (docterId) {
             try {
-                const response = await axios.get(`/doctor-schedule/${docterId}`);
+                const response = await axios.get(
+                    `/doctor-schedule/${docterId}`
+                );
                 setSchedules(response.data);
                 setSelectedSchedule(null);
                 validateSchedule(docterId, data.date_appointmens);
             } catch (error) {
-                console.error('Error fetching doctor schedule', error);
+                console.error("Error fetching doctor schedule", error);
             }
         } else {
             setSchedules([]);
@@ -53,14 +57,17 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
     const validateSchedule = async (docterId, date) => {
         if (docterId && date) {
             try {
-                const response = await axios.post('/owner/check-schedule-availability', {
-                    docter_id: docterId,
-                    date_appointmens: date,
-                });
+                const response = await axios.post(
+                    "/owner/check-schedule-availability",
+                    {
+                        docter_id: docterId,
+                        date_appointmens: date,
+                    }
+                );
 
                 setBookedSchedules(response.data.booked_schedules);
             } catch (error) {
-                console.error('Error validating schedule', error);
+                console.error("Error validating schedule", error);
             }
         }
     };
@@ -72,8 +79,14 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
         }
     };
 
-    const petOptions = pets.map(pet => ({ value: pet.pet_id, label: pet.name }));
-    const doctorOptions = docters.map(doctor => ({ value: doctor.docter_id, label: doctor.name }));
+    const petOptions = pets.map((pet) => ({
+        value: pet.pet_id,
+        label: pet.name,
+    }));
+    const doctorOptions = docters.map((doctor) => ({
+        value: doctor.docter_id,
+        label: doctor.name,
+    }));
     const appUrl = import.meta.env.VITE_APP_URL;
 
     return (
@@ -81,16 +94,25 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
             <Head title={title} />
             <div className="py-12 px-4">
                 <div className="w-full mx-auto sm:px-2 lg:px-4">
-                    <form onSubmit={handleSubmit} className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
+                    >
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-5 py-1">
                             <div className="border rounded-lg p-4">
-                                <h2 className="text-xl font-bold">{pet_id.name}</h2>
+                                <h2 className="text-xl font-bold">
+                                    {pet_id.name}
+                                </h2>
                                 <p>Type: {pet_id.type}</p>
                                 <p>Umur: {pet_id.age}</p>
                                 <p>Jenis Kelamin: {pet_id.gender}</p>
                             </div>
                             <div className="border rounded-lg p-4">
-                                <img className='w-60' src={`${appUrl}/storage/${pet_id.image}`} alt="" />
+                                <img
+                                    className="w-60"
+                                    src={`${appUrl}/storage/${pet_id.image}`}
+                                    alt=""
+                                />
                             </div>
                         </div>
 
@@ -110,9 +132,15 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                                 </option>
                             ))}
                         </select>
-                        <InputError message={errors.docter_id} className="mt-2" />
+                        <InputError
+                            message={errors.docter_id}
+                            className="mt-2"
+                        />
 
-                        <InputLabel htmlFor="date_appointmens" value="Appointment Date" />
+                        <InputLabel
+                            htmlFor="date_appointmens"
+                            value="Appointment Date"
+                        />
                         <TextInput
                             id="date_appointmens"
                             type="date"
@@ -121,10 +149,15 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                             onChange={handleDateChange}
                             required
                         />
-                        <InputError message={errors.date_appointmens} className="mt-2" />
+                        <InputError
+                            message={errors.date_appointmens}
+                            className="mt-2"
+                        />
 
                         {validationError && (
-                            <div className="text-red-500 mb-4">{validationError}</div>
+                            <div className="text-red-500 mb-4">
+                                {validationError}
+                            </div>
                         )}
 
                         {schedules.map((schedule) => (
@@ -133,15 +166,19 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                                 key={schedule.id}
                                 className={`p-2 m-2 border rounded ${
                                     selectedSchedule === schedule.id
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-white border-gray-300'
+                                        ? "bg-blue-500 text-white"
+                                        : "bg-white border-gray-300"
                                 } ${
-                                    schedule.is_aktif === '0' || bookedSchedules.includes(schedule.schedule)
-                                        ? '!bg-gray-500 text-black cursor-not-allowed'
-                                        : ''
+                                    schedule.is_aktif === "0" ||
+                                    bookedSchedules.includes(schedule.schedule)
+                                        ? "!bg-gray-500 text-black cursor-not-allowed"
+                                        : ""
                                 }`}
                                 onClick={() => handleScheduleClick(schedule)}
-                                disabled={schedule.is_aktif === '0' || bookedSchedules.includes(schedule.schedule)}
+                                disabled={
+                                    schedule.is_aktif === "0" ||
+                                    bookedSchedules.includes(schedule.schedule)
+                                }
                             >
                                 {`${schedule.day} - ${schedule.schedule}`}
                             </button>
@@ -153,22 +190,39 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                             type="text"
                             className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                             value={data.description}
-                            onChange={(e) => setData("description", e.target.value)}
+                            onChange={(e) =>
+                                setData("description", e.target.value)
+                            }
                             required
                         />
-                        <InputError message={errors.description} className="mt-2" />
+                        <InputError
+                            message={errors.description}
+                            className="mt-2"
+                        />
 
                         <TextInput
                             id="jadwal"
                             type="hidden"
                             className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                            value={selectedSchedule ? schedules.find(s => s.id === selectedSchedule)?.schedule : ''}
+                            value={
+                                selectedSchedule
+                                    ? schedules.find(
+                                          (s) => s.id === selectedSchedule
+                                      )?.schedule
+                                    : ""
+                            }
                             readOnly
                         />
                         <InputError message={errors.jadwal} className="mt-2" />
 
-                        <div>
-                            <PrimaryButton className="mt-4" type="submit">
+                        <div className="flex items-center justify-end gap-2">
+                            <Link href={route("owner.pets")}>
+                                <SecondaryButton>
+                                    <ArrowLeftIcon />
+                                    Back to Pets
+                                </SecondaryButton>
+                            </Link>
+                            <PrimaryButton className="h-[42px]" type="submit">
                                 Create Appointment
                             </PrimaryButton>
                         </div>

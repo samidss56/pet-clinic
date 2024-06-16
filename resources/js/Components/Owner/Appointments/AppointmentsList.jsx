@@ -15,6 +15,8 @@ const isAppointment = (appointments, notification) => {
 
     useToastNotification(notification);
 
+    console.log(appointments);
+
     return (
         <div>
             {appointments.length > 0 &&
