@@ -27,7 +27,8 @@ class InvoiceController extends Controller
 
         // $cart_ids = $request->collect('cart')->pluck('id');
         $cart_ids = $request->has('cart_ids') ? $request->cart_ids : $request->collect('cart')->pluck('id')->toArray();
-        $order_id = now()->format('Y') . $request->user()->id . implode('', $cart_ids);;
+        // $order_id = now()->format('Y') . $request->user()->id . implode('', $cart_ids);
+        $order_id = now()->timestamp;
         // $existingTransaction = Transaction::where('status_payment', 'pending')
         // ->where('invoice', $order_id)
         // ->first();
@@ -81,15 +82,16 @@ class InvoiceController extends Controller
                 ],
                 'item_details' => $request->collect('cart')->map(fn ($item) => [
                     'id' => $item['id'],
-                    'price' => (int) $item['price'],
+                    'price' => (int) (round((11/100) * $item['price'], 0) + $item['price']),
                     'quantity' => $item['qty'],
                     'name' => $item['product']['name_product'],
                 ]),
             ];
+
             // dd($data);
     
             $headers = [
-                'Authorization' => 'Basic '.base64_encode('KEY'),
+                'Authorization' => 'Basic '.base64_encode('SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m'),
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ];
@@ -97,7 +99,9 @@ class InvoiceController extends Controller
             $url = "https://app.sandbox.midtrans.com/snap/v1/transactions";
             $response = Http::withHeaders($headers)->post($url, $data);
             $responseJson = $response->json();
+
             // dd($responseJson);
+
             $transaction->update([
                 'payment_info' => [
                     'token' => $responseJson['token'],
@@ -119,7 +123,7 @@ class InvoiceController extends Controller
 
     public function notifecom(Request $request)
     {
-         $transaction = Transaction::where('invoice', $request->order_id)->first();
+        $transaction = Transaction::where('invoice', $request->order_id)->first();
 
         if (!$transaction) {
             return response()->json(['error' => 'Transaction not found'], 404);
@@ -128,14 +132,26 @@ class InvoiceController extends Controller
         $grossAmount = $transaction->subtotal . '.00';
         $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount."SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m");
 
-        
         if($request->signature_key == $signature_key)
         {
-            $transaction->update([
-                'status_payment' => $request->transaction_status,
-                'succeeded_at' => $request->settlement_time,
-                'payment_type' => $request->payment_type,
-            ]);
+            if($transaction->appointmen_id != null)
+            {
+                $transaction->update([
+                    'status_payment' => $request->transaction_status,
+                    'succeeded_at' => $request->settlement_time,
+                ]);
+                Appointmen::where('appointmen_id', $transaction->appointmen_id)->update([
+                    'status' => 'finished',
+                ]);
+                broadcast(new TransactionPaid($transaction));
+            }else{
+                $transaction->update([
+                    'status_payment' => $request->transaction_status,
+                    'succeeded_at' => $request->settlement_time,
+                    'payment_type' => $request->payment_type,
+                ]);
+            }
+         
         }
         return response()->json(['message' => 'Transaction updated successfully']);
         
