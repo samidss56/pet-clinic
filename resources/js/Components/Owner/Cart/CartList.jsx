@@ -113,18 +113,17 @@ const CartList = ({ cart }) => {
         // alert('oke');
         e.preventDefault();
 
-        Inertia.post(route('invoice'), {
-            cart: cart,
-            subtotal: total,
-            ongkos: onkir,
-        });
+        // Inertia.post(route('invoice'), {
+        //     cart: cart,
+        //     subtotal: subtotal,
+        // });
         try {
             const response = await axios.post(route('invoice'), {
                 cart: cart,
-                subtotal: total,
-                ongkos: onkir,
+                subtotal: subtotal,
+                // ongkos: onkir,
             });
-            console.log(response.data);
+            // console.log(response.data);
             if (response && response.data && response.data.token) {
                 let snapToken = response.data.token;
                 // console.log(snapToken);
@@ -135,6 +134,28 @@ const CartList = ({ cart }) => {
         }
     }
 
+    useEffect(() => {
+        const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
+        const myMidtransClientKey = 'SB-Mid-client-YkS7IwWkB0WXsgrO';
+      
+        const script = document.createElement('script');
+        script.src = snapSrcUrl;
+        script.setAttribute('data-client-key', myMidtransClientKey);
+        script.async = true;
+      
+        document.body.appendChild(script);
+    
+      }, []);
+
+    // useEffect(() => {
+    //     const script = document.createElement('script');
+      
+    //     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+    //     script.setAttribute('data-client-key', 'SB-Mid-client-YkS7IwWkB0WXsgrO');
+    //     document.body.appendChild(script);
+    //   }, []);
+
+
     if (!cart || cart.length === 0) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -143,89 +164,89 @@ const CartList = ({ cart }) => {
         );
     }
 
-    useEffect(() => {
-        const getprovinsi = async () => {
-            try {
-                const provinsiresponse = await axios.get('provinces');
-                // console.log(response);
-                setProvinces(provinsiresponse.data.rajaongkir.results)
+    // useEffect(() => {
+    //     const getprovinsi = async () => {
+    //         try {
+    //             const provinsiresponse = await axios.get('provinces');
+    //             // console.log(response);
+    //             setProvinces(provinsiresponse.data.rajaongkir.results)
 
-                const kotaresponse = await axios.get('cities');
-                // console.log(kotaresponse);
-                setKota(kotaresponse.data.rajaongkir.results)
-            } catch (error) {
-                console.error('Error fetching provinces:', error);
-            }
-        };
-        getprovinsi();
-    }, []);
+    //             const kotaresponse = await axios.get('cities');
+    //             // console.log(kotaresponse);
+    //             setKota(kotaresponse.data.rajaongkir.results)
+    //         } catch (error) {
+    //             console.error('Error fetching provinces:', error);
+    //         }
+    //     };
+    //     getprovinsi();
+    // }, []);
 
-    const handleProvinceChange = (e) => {
-        const selectedProvince = e.target.value;
-        setSelectedProvince(selectedProvince);
-        const citiesInSelectedProvince = kota.filter(city => city.province_id === selectedProvince);
-        setCitiesInProvince(citiesInSelectedProvince);
-        setSelectedKota('');
-    }
+    // const handleProvinceChange = (e) => {
+    //     const selectedProvince = e.target.value;
+    //     setSelectedProvince(selectedProvince);
+    //     const citiesInSelectedProvince = kota.filter(city => city.province_id === selectedProvince);
+    //     setCitiesInProvince(citiesInSelectedProvince);
+    //     setSelectedKota('');
+    // }
 
-    const handleCityChange = (e) => {
-        const selectedKota = e.target.value;
-        setSelectedKota(selectedKota);
-        const city = kota.find(city => city.city_id === selectedKota);
-        if (city) {
-            setDestinationId(city.city_id);
-        }
-    }
+    // const handleCityChange = (e) => {
+    //     const selectedKota = e.target.value;
+    //     setSelectedKota(selectedKota);
+    //     const city = kota.find(city => city.city_id === selectedKota);
+    //     if (city) {
+    //         setDestinationId(city.city_id);
+    //     }
+    // }
 
-    const handleCourierChange = async (e) => {
-        const selectedCourier = e.target.value;
-        setSelectedCourier(selectedCourier);
+    // const handleCourierChange = async (e) => {
+    //     const selectedCourier = e.target.value;
+    //     setSelectedCourier(selectedCourier);
 
-        // if (selectedCourier && destinationId) {
-        //     Inertia.post(route('onkir'), {
-        //         origin: '501',
-        //         destination: destinationId,
-        //         weight: 1700,
-        //         courier: selectedCourier
-        //     }, {
-        //         onSuccess: ({ props }) => {
-        //             const ongkirData = props.response;
-        //             setOngkir(ongkirData.rajaongkir.results[0].costs[0].cost[0].value);
-        //             },
-        //             onError: (error) => {
-        //                 console.error("Error fetching ongkir:", error);
-        //             }
-        //         });
-        //     } else {
-        //         setOngkir(null);
-        //     }
-        // };
+    //     // if (selectedCourier && destinationId) {
+    //     //     Inertia.post(route('onkir'), {
+    //     //         origin: '501',
+    //     //         destination: destinationId,
+    //     //         weight: 1700,
+    //     //         courier: selectedCourier
+    //     //     }, {
+    //     //         onSuccess: ({ props }) => {
+    //     //             const ongkirData = props.response;
+    //     //             setOngkir(ongkirData.rajaongkir.results[0].costs[0].cost[0].value);
+    //     //             },
+    //     //             onError: (error) => {
+    //     //                 console.error("Error fetching ongkir:", error);
+    //     //             }
+    //     //         });
+    //     //     } else {
+    //     //         setOngkir(null);
+    //     //     }
+    //     // };
 
-        if (selectedCourier && destinationId) {
-            try {
-                const response = await axios.post(route('onkir'), {
-                    origin: '501',
-                    destination: destinationId,
-                    weight: 1700,
-                    courier: selectedCourier
-                });
-                const ongkirData = response.data.rajaongkir.results[0].costs;
-                // console.log(ongkirData);
-                setOngkir(ongkirData);
-            } catch (error) {
-                console.error("Error fetching ongkir:", error);
-            }
-            } else {
-                setOngkir(null);
-            }
-        };
+    //     if (selectedCourier && destinationId) {
+    //         try {
+    //             const response = await axios.post(route('onkir'), {
+    //                 origin: '501',
+    //                 destination: destinationId,
+    //                 weight: 1700,
+    //                 courier: selectedCourier
+    //             });
+    //             const ongkirData = response.data.rajaongkir.results[0].costs;
+    //             // console.log(ongkirData);
+    //             setOngkir(ongkirData);
+    //         } catch (error) {
+    //             console.error("Error fetching ongkir:", error);
+    //         }
+    //         } else {
+    //             setOngkir(null);
+    //         }
+    //     };
 
-    const handleShippingSelect = (shippingCost) => {
-        setSelectedShipping(shippingCost);
-    };
+    // const handleShippingSelect = (shippingCost) => {
+    //     setSelectedShipping(shippingCost);
+    // };
 
-    const total = subtotal + (selectedShipping ? selectedShipping.cost[0].value : 0);
-    const onkir = selectedShipping ? selectedShipping.cost[0].value : 0;
+    // const total = subtotal + (selectedShipping ? selectedShipping.cost[0].value : 0);
+    // const onkir = selectedShipping ? selectedShipping.cost[0].value : 0;
 
     return (
         <div>
@@ -244,10 +265,10 @@ const CartList = ({ cart }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Bagian Alamat */}
-                <div className="bg-white border border-secondary-color p-4 rounded-md">
+                {/* <div className="bg-white border border-secondary-color p-4 rounded-md">
                     <h2 className="text-lg font-semibold mb-4">Alamat Pengiriman</h2>
                     <p className="mb-4">{cart[0].user.alamat}</p>
-                    {/* Pilihan Provinsi */}
+                    {/* Pilihan Provinsi
                     <div className="mb-4">
                         <InputLabel htmlFor="province" value="Pilih Provinsi" />
                         <select
@@ -264,7 +285,7 @@ const CartList = ({ cart }) => {
                             ))}
                         </select>
                     </div>
-                    {/* Pilihan Kota */}
+                    Pilihan Kota
                     {selectedProvince && (
                         <div className="mb-4">
                             <InputLabel htmlFor="city" value="Pilih Kota" />
@@ -283,7 +304,7 @@ const CartList = ({ cart }) => {
                             </select>
                         </div>
                     )}
-                    {/* Pilihan Ekspedisi */}
+                    Pilihan Ekspedisi
                     {selectedKota && (
                         <div className="mb-4">
                             <InputLabel htmlFor="courier" value="Pilih Ekspedisi" />
@@ -298,7 +319,7 @@ const CartList = ({ cart }) => {
                                 <option value="pos">POS</option>
                                 <option value="tiki">TIKI</option>
                             </select>
-                            {/* Daftar Ongkir */}
+                            {/* Daftar Ongkir *
                             {ongkir && (
                                 <div className="mt-4 space-y-4">
                                     {ongkir.map(result => (
@@ -316,7 +337,7 @@ const CartList = ({ cart }) => {
                             )}
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 {/* Bagian Total Harga */}
                 <div className="bg-white border border-secondary-color p-4 rounded-md">
@@ -326,13 +347,13 @@ const CartList = ({ cart }) => {
                             <h3 className="text-lg font-semibold">Tax (11%) :</h3>
                             <p>{formatCurr(subPPN)}</p>
                         </div>
-                        <div>
+                        {/* <div>
                             <h3 className="text-lg font-semibold">Ongkir :</h3>
                             <p>{selectedShipping ? formatCurr(selectedShipping.cost[0].value) : '-'}</p>
-                        </div>
+                        </div> */}
                         <div>
                             <h3 className="text-lg font-semibold">Total :</h3>
-                            <p>{formatCurr(total)}</p>
+                            <p>{formatCurr(subtotal)}</p>
                         </div>
                         <DangerButton onClick={handleSubmit} className="flex justify-center items-center bg-gray-600 hover:bg-red-500 text-white">
                             Bayar Sekarang

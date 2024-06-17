@@ -14,6 +14,8 @@ class Transaction extends Model
     protected $casts = [
         'succeeded_at' => 'datetime',
         'payment_info' => 'array',
+        'payment_type' => 'array',
+        'cart_ids' => 'array',
     ];
 
     public function details()
