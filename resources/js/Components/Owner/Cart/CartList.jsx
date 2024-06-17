@@ -10,6 +10,7 @@ import TextInput from "@/Components/TextInput";
 
 const CartItem = ({ cart, handleQuantityChange, quantity, handleDelete, alamat }) => {
     // console.log(cart)
+    const clientKey = import.meta.env.MIDTRANS_CLIENT_API_KEY
     return (
        <>
          <div
@@ -136,7 +137,7 @@ const CartList = ({ cart }) => {
 
     useEffect(() => {
         const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
-        const myMidtransClientKey = 'SB-Mid-client-YkS7IwWkB0WXsgrO';
+        const myMidtransClientKey = import.meta.env.MIDTRANS_CLIENT_API_KEY;
       
         const script = document.createElement('script');
         script.src = snapSrcUrl;

@@ -15,8 +15,7 @@ import UserAvatar from "./UserAvatar";
 import appLogo from "../../../public/AppLogo.png";
 
 const Navbar = ({ user }) => {
-
-    const {carts_global} = usePage().props;
+    const { carts_global } = usePage().props;
 
     return (
         <div
@@ -86,16 +85,26 @@ const Navbar = ({ user }) => {
                         >
                             Testimonials
                         </NavLink>
+                        <NavLink
+                            href={route("owner.transaction")}
+                            active={route().current("owner.transaction")}
+                        >
+                            Transaction
+                        </NavLink>
                     </>
                 )}
             </div>
             <div className="flex-none gap-2 justify-center">
                 {user ? (
                     <>
-                    <NavLink className='flex items-center gap-x-2' href={route("owner.cart")}>
+                        <NavLink
+                            className="flex items-center gap-x-2"
+                            href={route("owner.cart")}
+                        >
                             <CartIcon />
                             {carts_global > 0 ? carts_global : null}
-                    </NavLink></>
+                        </NavLink>
+                    </>
                 ) : null}
                 <div className="dropdown dropdown-end">
                     <button

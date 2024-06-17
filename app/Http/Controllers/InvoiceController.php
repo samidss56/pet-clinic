@@ -89,9 +89,11 @@ class InvoiceController extends Controller
             ];
 
             // dd($data);
+
+            $serverKey = env('MIDTRANS_SERVER_API_KEY');
     
             $headers = [
-                'Authorization' => 'Basic '.base64_encode('SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m'),
+                'Authorization' => 'Basic '.base64_encode($serverKey),
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ];
@@ -128,9 +130,10 @@ class InvoiceController extends Controller
         if (!$transaction) {
             return response()->json(['error' => 'Transaction not found'], 404);
         }
+        $serverKey = env('MIDTRANS_SERVER_API_KEY');
 
         $grossAmount = $transaction->subtotal . '.00';
-        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount."SB-Mid-server-NkRlkjLekago7U4vbZCWEn-m");
+        $signature_key = hash("sha512",$request->order_id.$request->status_code.$grossAmount. $serverKey);
 
         if($request->signature_key == $signature_key)
         {

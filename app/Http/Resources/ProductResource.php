@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'slug' => $this->slug,
             'deskripsi_product' => $this->deskripsi_product,
             'price_product' => $this->price_product,
-            'image_product' => isset($this->product) && !is_null($this->product->image_product) ? Storage::url($this->product->image_product) : 'https://fakeimg.pl/200x300/?text-Book&font-noto',
+            'image_product' => $this->image_product ? Storage::url($this->image_product) : 'https://fakeimg.pl/200x300/?text-Book&font-noto',
             'stock_product' => $this->stock_product,
         ];
     }

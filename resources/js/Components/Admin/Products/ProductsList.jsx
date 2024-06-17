@@ -24,6 +24,8 @@ const isProducts = (products, notification) => {
 
     useToastNotification(notification);
 
+    console.log(products);
+
     return (
         <div className="overflow-x-auto">
             <table className="table bg-white dark:bg-dark-gray border-dark-gray rounded-md">
@@ -61,7 +63,7 @@ const isProducts = (products, notification) => {
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     <img
-                                        src={`${appUrl}/storage/${product.image_product}`}
+                                        src={product.image_product}
                                         alt="Pet Image"
                                         className="w-28 rounded-md"
                                     />
