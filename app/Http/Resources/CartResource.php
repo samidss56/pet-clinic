@@ -25,6 +25,8 @@ class CartResource extends JsonResource
                 'name_product' => $this->product->name_product,
                 'slug' => $this->product->slug,
                 'image_product' => $this->product->image_product ? Storage::url($this->product->image_product) : 'https://fakeimg.pl/200x300/?text-Book&font-noto',
+                'stock_product' => $this->product->stock_product,
+                'weight' => $this->product->weight,
             ],
             'user' => [
                 'user_id' => $this->user->user_id,

@@ -17,6 +17,8 @@ import appLogo from "../../../public/AppLogo.png";
 const Navbar = ({ user }) => {
     const { carts_global } = usePage().props;
 
+    // console.log(carts_global)
+
     return (
         <div
             className={`navbar bg-white sticky top-0 py-3 z-50 shadow-lg flex justify-between px-2 sm:px-4`}

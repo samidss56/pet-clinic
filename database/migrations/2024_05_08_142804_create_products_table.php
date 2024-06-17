@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('price_product');
             $table->text('image_product')->nullable();
             $table->integer('stock_product');
+            $table->decimal('weight', 6, 2);
             $table->timestamps();
         });
     }

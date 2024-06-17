@@ -16,28 +16,23 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Resources\InvoiceResource;
+use App\Models\Product;
 
 class InvoiceController extends Controller
 {
+    public $serveykey;
     public function store(Request $request)
     {
         // return $request;
         // dd($request->all());
         $total = (int) $request->subtotal;
-
-        // $cart_ids = $request->collect('cart')->pluck('id');
         $cart_ids = $request->has('cart_ids') ? $request->cart_ids : $request->collect('cart')->pluck('id')->toArray();
-        // $order_id = now()->format('Y') . $request->user()->id . implode('', $cart_ids);
-        $order_id = now()->timestamp;
-        // $existingTransaction = Transaction::where('status_payment', 'pending')
-        // ->where('invoice', $order_id)
-        // ->first();
-        // dd($order_id);
+        $order_id = now()->format('YH') . $request->user()->user_id . implode('', $cart_ids);
+        // $order_id = now()->timestamp;
         $invoiceExists = Transaction::where('invoice', $order_id)->firstOr(fn () => false);
 
         if ($invoiceExists) {
             $payment_info = $invoiceExists->payment_info;
-            // dd($payment_info);
             if ($payment_info && isset($payment_info['token'])) {
                 return response()->json(['token' => $payment_info['token']]);
             }
@@ -63,6 +58,24 @@ class InvoiceController extends Controller
                 }
             }
     
+            $item_details = $request->collect('cart')->map(function ($item) {
+                return [
+                    'id' => $item['id'],
+                    'price' => (int) (round((11/100) * $item['price'], 0) + $item['price']),
+                    'quantity' => $item['qty'],
+                    'name' => $item['product']['name_product'],
+                ];
+            });
+
+            $shipping_details = [
+                'id' => 'shipping_fee',
+                'price' => $request->ongkos,
+                'quantity' => 1,
+                'name' => 'Ongkos Kirim',
+            ];
+    
+            $item_details->push($shipping_details);
+    
             $data = [
                 "enabled_payments" => ["bri_epay", "echannel", "permata_va",
                 "bca_va", "bni_va", "bri_va","cimb_va", "other_va", "gopay", "indomaret",
@@ -80,12 +93,7 @@ class InvoiceController extends Controller
                     'unit' => 'days',
                     'duration' => 1,
                 ],
-                'item_details' => $request->collect('cart')->map(fn ($item) => [
-                    'id' => $item['id'],
-                    'price' => (int) (round((11/100) * $item['price'], 0) + $item['price']),
-                    'quantity' => $item['qty'],
-                    'name' => $item['product']['name_product'],
-                ]),
+                'item_details' => $item_details->toArray(),
             ];
 
             // dd($data);
@@ -153,10 +161,22 @@ class InvoiceController extends Controller
                     'succeeded_at' => $request->settlement_time,
                     'payment_type' => $request->payment_type,
                 ]);
+
+                if ($request->transaction_status == 'settlement') {
+                    $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+    
+                    foreach ($transactionDetails as $detail) {
+                        if ($detail->product_id) {
+                            $product = Product::where('product_id', $detail->product_id)->first();
+                            if ($product) {
+                                $product->decrement('stock_product', $detail->quantity);
+                            }
+                        }
+                    }
+                }
             }
          
         }
         return response()->json(['message' => 'Transaction updated successfully']);
-        
     }
 }

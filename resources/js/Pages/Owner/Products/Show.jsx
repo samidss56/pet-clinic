@@ -25,7 +25,9 @@ export default function Show({ auth, product }) {
                         <div className="mb-5">
                             <h1 className="text-3xl font-semibold text-gray-900 mb-4">{product.data.name_product}</h1>
                             <p className="leading-relaxed text-gray-700 mb-4">{product.data.deskripsi_product}</p>
+                            <div className="text-1xl font-bold text-gray-500 mb-4">Stok: {product.data.stock_product} || Berat: {product.data.weight / 100} gram</div>
                             <div className="text-2xl font-bold text-red-500 mb-4">{formatCurr(product.data.price_product)}</div>
+                           
                         </div>
                         {!auth ? (
                             // <div className="text-center">

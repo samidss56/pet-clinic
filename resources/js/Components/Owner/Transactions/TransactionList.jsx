@@ -46,16 +46,18 @@ const TransactionList = ({ transaction }) => {
     };
 
     useEffect(() => {
-        const snapSrcUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+        const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
         const myMidtransClientKey = import.meta.env.MIDTRANS_CLIENT_API_KEY;
-
-        const script = document.createElement("script");
+      
+        const script = document.createElement('script');
         script.src = snapSrcUrl;
-        script.setAttribute("data-client-key", myMidtransClientKey);
+        script.setAttribute('data-client-key', myMidtransClientKey);
         script.async = true;
-
         document.body.appendChild(script);
-    }, []);
+        return () => {
+            document.body.removeChild(script);
+        }
+      }, []);
 
     return (
         <div>

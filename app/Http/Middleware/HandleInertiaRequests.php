@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Cart;
 use App\Models\Docter;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $docter = Auth::guard('docter')->user();
-
+        $carts_new = $request->user() ? Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count() : null;
         return [
             ...parent::share($request),
             'auth' => $request->user() ? [
@@ -51,6 +52,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => $request->session()->get('message'),
             ],
+            'carts_global' => $carts_new,
         ];
     }
 }

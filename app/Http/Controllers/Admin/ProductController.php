@@ -98,6 +98,7 @@ class ProductController extends Controller
             'deskripsi_product' => $request->deskripsi_product,
             'price_product' => $request->price_product,
             'stock_product' => $request->stock_product,
+            'weight' => $request->weight,
         ]);
 
         return redirect('/admin/products')->with(['message' => 'Product Updated Successfully!', 'product' => $product], 200);
