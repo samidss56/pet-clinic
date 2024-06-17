@@ -26,6 +26,7 @@ use App\Http\Controllers\Owner\ProfileController;
 use App\Http\Controllers\Owner\TestimonialController as OwnerTestimonialController;
 use App\Http\Controllers\Owner\ProductsController as OwnerProductsController;
 use App\Http\Controllers\Owner\CartController as OwnerCartController;
+use App\Http\Controllers\Owner\TransactionController as OwnerTransactionController;
 use App\Http\Controllers\SuperAdmin\AppointmenController;
 use App\Http\Controllers\SuperAdmin\ArticleController;
 use App\Http\Controllers\SuperAdmin\DashboardController;
@@ -228,6 +229,8 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::delete('/cart/delete/{cart}', [OwnerCartController::class, 'delete'])->name('owner.cart.delete');
     Route::put('/carts/{cart}', [OwnerCartController::class, 'updateqty'])->name('owner.cart.updateqty');
     Route::post('cart/add-to-cart/{product:slug}', [OwnerCartController::class, 'store'])->name('cart.store');
+
+    Route::get('/transaction', [OwnerTransactionController::class, 'index'])->name('owner.transaction');
 
     Route::post('onkir', [OwnerCartController::class, 'onkir'])->name('onkir');
     Route::get('/provinces', [OwnerCartController::class, 'getProvinces']);
