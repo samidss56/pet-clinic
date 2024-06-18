@@ -50,6 +50,9 @@ const isProducts = (products, notification) => {
                             Stock
                         </th>
                         <th className="text-black dark:text-white text-sm">
+                            Weight
+                        </th>
+                        <th className="text-black dark:text-white text-sm">
                             Action
                         </th>
                     </tr>
@@ -79,6 +82,9 @@ const isProducts = (products, notification) => {
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     {product.stock_product}
+                                </th>
+                                <th className="text-black dark:text-white font-medium">
+                                    {product.weight}
                                 </th>
 
                                 <th>
