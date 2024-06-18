@@ -32,8 +32,9 @@ class DatabaseSeeder extends Seeder
             WhyUsSeeder::class,
             ServiceSeeder::class,
             ProductSeeder::class,
+            DoctorSeeder::class,
         ]);
 
-        Product::factory(30)->create();
+        // Product::factory(30)->create();
     }
 }
