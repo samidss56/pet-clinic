@@ -3,6 +3,10 @@ import axios from "axios";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { Inertia } from "@inertiajs/inertia";
 import DangerButton from "@/Components/DangerButton";
+import { Link } from "@inertiajs/react";
+import SecondaryButton from "@/Components/SecondaryButton";
+import PrimaryButton from "@/Components/PrimaryButton";
+import { ShowIcon } from "@/Components/Icons/Index";
 
 const TransactionList = ({ transaction }) => {
     // console.log(transaction);
@@ -46,18 +50,18 @@ const TransactionList = ({ transaction }) => {
     };
 
     useEffect(() => {
-        const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
+        const snapSrcUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
         const myMidtransClientKey = import.meta.env.MIDTRANS_CLIENT_API_KEY;
-      
-        const script = document.createElement('script');
+
+        const script = document.createElement("script");
         script.src = snapSrcUrl;
-        script.setAttribute('data-client-key', myMidtransClientKey);
+        script.setAttribute("data-client-key", myMidtransClientKey);
         script.async = true;
         document.body.appendChild(script);
         return () => {
             document.body.removeChild(script);
-        }
-      }, []);
+        };
+    }, []);
 
     return (
         <div>
@@ -146,18 +150,31 @@ const TransactionList = ({ transaction }) => {
                                         </div>
                                     </div>
                                 ))}
-                                {transaction.status_payment === "pending" && (
-                                    <>
-                                        <DangerButton
-                                            onClick={() =>
-                                                handlePayment(transaction)
-                                            }
-                                            className="flex justify-center items-center bg-gray-600 hover:bg-red-500 text-white"
-                                        >
-                                            Bayar Sekarang
-                                        </DangerButton>
-                                    </>
-                                )}
+                                <div className="flex items-center justify-end gap-3">
+                                    {transaction.status_payment ===
+                                        "pending" && (
+                                        <>
+                                            <DangerButton
+                                                onClick={() =>
+                                                    handlePayment(transaction)
+                                                }
+                                                className="flex justify-center items-center bg-gray-600 hover:bg-red-500 text-white"
+                                            >
+                                                Bayar Sekarang
+                                            </DangerButton>
+                                        </>
+                                    )}
+                                    <Link
+                                        href={route(
+                                            "owner.transaction.show",
+                                            transaction.invoice
+                                        )}
+                                    >
+                                        <PrimaryButton className="flex gap-2">
+                                            <ShowIcon />
+                                        </PrimaryButton>
+                                    </Link>
+                                </div>
                             </div>
                         )}
                     </div>

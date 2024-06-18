@@ -1,35 +1,63 @@
 import BarChartAdmin from "@/Components/Dashboard/BarChartAdmin";
 import CardDataStats from "@/Components/Dashboard/CardDataStats";
 import LineChartAdmin from "@/Components/Dashboard/LineChartAdmin";
-import { ArticlesIcon, PendapatanIcon, TransactionsIcon, UsersIcon } from "@/Components/Icons/Index";
+import {
+    ArticlesIcon,
+    CartIcon,
+    PendapatanIcon,
+    TransactionsIcon,
+    UsersIcon,
+} from "@/Components/Icons/Index";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { Head } from "@inertiajs/react";
 
-const Dashboard = ({ auth, title, article, transaction, pendapatan, transactionPerbulan, appointmentsPerDoctor }) => {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const Dashboard = ({
+    auth,
+    title,
+    article,
+    appointmentTransaction,
+    productTransaction,
+    pendapatan,
+    transactionPerbulan,
+    appointmentsPerDoctor,
+}) => {
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
     const chartData = {
         categories: months,
         series: [
             {
                 name: "Total",
-                data: Array(12).fill(0)
+                data: Array(12).fill(0),
             },
             {
                 name: "Total Transactions",
-                data: Array(12).fill(0)
-            }
-        ]
+                data: Array(12).fill(0),
+            },
+        ],
     };
 
-    transactionPerbulan.forEach(transaction => {
+    transactionPerbulan.forEach((transaction) => {
         chartData.series[0].data[transaction.month - 1] = transaction.total;
         chartData.series[1].data[transaction.month - 1] = transaction.count;
     });
 
-    chartData.series.forEach(series => {
-        series.data = series.data.map(value => value || 0);
+    chartData.series.forEach((series) => {
+        series.data = series.data.map((value) => value || 0);
     });
 
     return (
@@ -44,7 +72,7 @@ const Dashboard = ({ auth, title, article, transaction, pendapatan, transactionP
             <Head title={title} />
 
             <AdminLayout>
-                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 gap-4">
                     <CardDataStats
                         title="Total Pendapatan"
                         total={formatCurr(pendapatan ?? 0)}
@@ -53,11 +81,18 @@ const Dashboard = ({ auth, title, article, transaction, pendapatan, transactionP
                         <PendapatanIcon color={"stroke-primary-red"} />
                     </CardDataStats>
                     <CardDataStats
-                        title="Total Transaction"
-                        total={transaction ?? 0}
+                        title="Total Appointment Transaction"
+                        total={appointmentTransaction ?? 0}
                         rate="2.43%"
                     >
                         <TransactionsIcon color={"stroke-primary-red"} />
+                    </CardDataStats>
+                    <CardDataStats
+                        title="Total Product Transaction"
+                        total={productTransaction ?? 0}
+                        rate="2.43%"
+                    >
+                        <CartIcon color={"stroke-primary-red"} />
                     </CardDataStats>
                     <CardDataStats
                         title="Total Article"
@@ -68,8 +103,8 @@ const Dashboard = ({ auth, title, article, transaction, pendapatan, transactionP
                     </CardDataStats>
                 </div>
                 <div className="grid grid-cols-1 2xl:grid-cols-2 gap-3">
-                    <LineChartAdmin chartData={chartData}/>
-                    <BarChartAdmin  appointments={appointmentsPerDoctor}/>
+                    <LineChartAdmin chartData={chartData} />
+                    <BarChartAdmin appointments={appointmentsPerDoctor} />
                 </div>
             </AdminLayout>
         </Authenticated>

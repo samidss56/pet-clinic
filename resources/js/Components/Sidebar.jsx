@@ -18,6 +18,7 @@ import {
     FeedbackIcon,
     GalleryIcon,
     WhyUsIcon,
+    CartIcon,
 } from "./Icons/Index";
 import appLogo from "../../../public/AppLogo.png";
 
@@ -104,8 +105,24 @@ const Sidebar = ({ user }) => {
                                 >
                                     <TransactionsIcon />
                                     {isOpen && (
-                                        <span>Transaction Management</span>
+                                        <span>Appointment Transaction</span>
                                     )}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route(
+                                                  "superadmin.product-transaction"
+                                              )
+                                            : route("admin.product-transaction")
+                                    }
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <CartIcon color={"stroke-primary-red"} />
+                                    {isOpen && <span>Product Transaction</span>}
                                 </Link>
                             </li>
 
@@ -157,14 +174,18 @@ const Sidebar = ({ user }) => {
                                         <Link
                                             href={
                                                 user.isSuperAdmin
-                                                    ? route("superadmin.galleries")
+                                                    ? route(
+                                                          "superadmin.galleries"
+                                                      )
                                                     : route("admin.galleries")
                                             }
                                             as="button"
                                             className="bg-white hover:bg-light-red border-none text-md font-medium "
                                         >
                                             <GalleryIcon />
-                                            {isOpen && <span>Gallery Management</span>}
+                                            {isOpen && (
+                                                <span>Gallery Management</span>
+                                            )}
                                         </Link>
                                     </li>
                                     <li>
@@ -174,17 +195,27 @@ const Sidebar = ({ user }) => {
                                             className="bg-white hover:bg-light-red border-none text-md font-medium "
                                         >
                                             <FeedbackIcon />
-                                            {isOpen && <span>Testimonial Management</span>}
+                                            {isOpen && (
+                                                <span>
+                                                    Testimonial Management
+                                                </span>
+                                            )}
                                         </Link>
                                     </li>
                                     <li>
                                         <Link
-                                            href={route("admin.herosection.index")}
+                                            href={route(
+                                                "admin.herosection.index"
+                                            )}
                                             as="button"
                                             className="bg-white hover:bg-light-red border-none text-md font-medium "
                                         >
                                             <HerosectionIcon />
-                                            {isOpen && <span>Hero Section Management</span>}
+                                            {isOpen && (
+                                                <span>
+                                                    Hero Section Management
+                                                </span>
+                                            )}
                                         </Link>
                                     </li>
                                     <li>
@@ -194,7 +225,9 @@ const Sidebar = ({ user }) => {
                                             className="bg-white hover:bg-light-red border-none text-md font-medium "
                                         >
                                             <AboutusIcon />
-                                            {isOpen && <span>About Us Management</span>}
+                                            {isOpen && (
+                                                <span>About Us Management</span>
+                                            )}
                                         </Link>
                                     </li>
                                     <li>
@@ -203,8 +236,12 @@ const Sidebar = ({ user }) => {
                                             as="button"
                                             className="bg-white hover:bg-light-red border-none text-md font-medium "
                                         >
-                                            <WhyUsIcon color={"stroke-primary-red"} />
-                                            {isOpen && <span>Why Us Management</span>}
+                                            <WhyUsIcon
+                                                color={"stroke-primary-red"}
+                                            />
+                                            {isOpen && (
+                                                <span>Why Us Management</span>
+                                            )}
                                         </Link>
                                     </li>
                                 </>
