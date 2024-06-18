@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             HerosectionSeeder::class,
             TestimonialSeeder::class,
             WhyUsSeeder::class,
+            ServiceSeeder::class,
+            ProductSeeder::class,
         ]);
 
         Product::factory(30)->create();
