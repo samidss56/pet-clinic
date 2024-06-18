@@ -15,6 +15,7 @@ const CreateProduct = ({ auth, title }) => {
         price_product: 0,
         image_product: "",
         stock_product: 0,
+        weight: 0,
     });
 
     const handleSubmit = (e) => {
@@ -26,6 +27,7 @@ const CreateProduct = ({ auth, title }) => {
         formData.append("price_product", data.price_product);
         formData.append("image_product", data.image_product);
         formData.append("stock_product", data.stock_product);
+        formData.append("weight", data.weight);
 
         post("/superadmin/products/create", formData);
     };
@@ -151,6 +153,30 @@ const CreateProduct = ({ auth, title }) => {
                             />
                         </div>
                     </div>
+                    <InputLabel
+                        htmlFor="weight"
+                        value="Product Weight"
+                    />
+                    <span className="text-red-500 font-semibold text-sm">100 = 1 GRAM</span>
+                    <TextInput
+                        type="text"
+                        id="weight"
+                        name="weight"
+                        className="block w-full"
+                        placeholder="Product Weight"
+                        value={data.weight}
+                        onChange={(e) =>
+                            setData(
+                                "weight",
+                                e.target.value
+                            )
+                        }
+                        required
+                    />
+                    <InputError
+                        message={errors.weight}
+                        className="mb-2"
+                    />
                     <div className="flex gap-3 mt-4">
                         <Link href={route("superadmin.products")}>
                             <SecondaryButton className=" gap-2">

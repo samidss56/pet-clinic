@@ -40,6 +40,7 @@ class ProductController extends Controller
             'price_product' => 'required|integer',
             'image_product' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'stock_product' => 'required|integer',
+            'weight' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -55,6 +56,7 @@ class ProductController extends Controller
         $product->deskripsi_product = $request->deskripsi_product;
         $product->price_product = $request->price_product;
         $product->stock_product = $request->stock_product;
+        $product->weight = $request->weight;
 
         if ($request->hasFile('image_product')) {
             $imageName = uniqid('product_') . '.' . $request->image_product->getClientOriginalExtension();
@@ -98,6 +100,7 @@ class ProductController extends Controller
             'deskripsi_product' => $request->deskripsi_product,
             'price_product' => $request->price_product,
             'stock_product' => $request->stock_product,
+            'weight' => $request->weight,
         ]);
 
         return redirect('/superadmin/products')->with(['message' => 'Product Updated Successfully!', 'product' => $product], 200);
