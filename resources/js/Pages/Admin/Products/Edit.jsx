@@ -15,6 +15,7 @@ const UpdateProduct = ({ auth, title, product }) => {
         price_product: product.price_product,
         deskripsi_product: product.deskripsi_product,
         stock_product: product.stock_product,
+        weight: product.weight,
     });
 
     const handleSubmit = (e) => {
@@ -26,6 +27,7 @@ const UpdateProduct = ({ auth, title, product }) => {
         formData.append("price_product", data.price_product);
         formData.append("image_product", data.image_product);
         formData.append("stock_product", data.stock_product);
+        formData.append("weight", data.weight);
 
         router.post(`/admin/products/update/${product.product_id}`, formData, {
             _method: "put",
@@ -164,6 +166,28 @@ const UpdateProduct = ({ auth, title, product }) => {
                             />
                         </div>
                     </div>
+
+                    <InputLabel
+                        htmlFor="weight"
+                        value="Product Weight"
+                    />
+                    <span className="text-red-500 font-semibold text-sm">100 = 1 GRAM</span>
+                    <TextInput
+                        type="text"
+                        id="weight"
+                        name="weight"
+                        className="block w-full"
+                        placeholder="Product Weight"
+                        value={data.weight}
+                        onChange={(e) =>
+                            setData("weight", e.target.value)
+                        }
+                        required
+                    />
+                    <InputError
+                        message={errors.weight}
+                        className="mb-2"
+                    />
                     <div className="flex gap-3 mt-4">
                         <Link href={route("admin.products")}>
                             <SecondaryButton className=" gap-2">

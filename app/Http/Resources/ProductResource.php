@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
             'price_product' => $this->price_product,
             'image_product' => $this->image_product ? Storage::url($this->image_product) : 'https://fakeimg.pl/200x300/?text-Book&font-noto',
             'stock_product' => $this->stock_product,
+            'weight' => $this->weight,
         ];
     }
 }

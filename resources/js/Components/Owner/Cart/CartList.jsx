@@ -24,7 +24,9 @@ const CartItem = ({ cart, handleQuantityChange, quantity, handleDelete, alamat }
                         {cart.product.name_product}
                     </p>
                     <p className="text-gray-800 text-sm font-semibold">
-                        {formatCurr(cart.price)}
+                        {formatCurr(cart.price)} || <span className={cart.product.stock_product <= 10 ? "text-red-500" : "text-gray-500"}>
+                        Stok: {cart.product.stock_product}
+                        </span>
                     </p>
                 </div>
             </div>
@@ -70,6 +72,7 @@ const CartList = ({ cart }) => {
     const [destinationId, setDestinationId] = useState(null);
     const [ongkir, setOngkir] = useState(null);
     const [selectedShipping, setSelectedShipping] = useState(null);
+    const [weight, setWeight] = useState(null);
 
     useEffect(() => {
         const newSubtotal = quantities.reduce((acc, curr) => {
@@ -83,7 +86,17 @@ const CartList = ({ cart }) => {
         const newPPN = 0.11 * newSubtotalPPN;
         setPPN(newPPN);
         setSubtotal(newSubtotal);
+
+        const newWeight = quantities.reduce((acc, curr) => {
+            const item = cart.find(c => c.id === curr.id);
+            return acc + (item.product.weight * curr.quantity);
+        }, 0);
+
+        setWeight(newWeight);
+
     }, [quantities, cart]);
+
+    // console.log(weight);
 
     const handleQuantityChange = (id, jumlah) => {
         const updatedQuantities = quantities.map(q =>
@@ -99,6 +112,10 @@ const CartList = ({ cart }) => {
             qty: updatedItem.quantity
         });
     };
+
+    // const weight = () => {
+
+    // }
 
     const handleDelete = (id) => {
         Inertia.delete(route('owner.cart.delete', { cart: id }), {
@@ -116,13 +133,14 @@ const CartList = ({ cart }) => {
 
         // Inertia.post(route('invoice'), {
         //     cart: cart,
-        //     subtotal: subtotal,
+        //     subtotal: total,
+        //     ongkos: onkir,
         // });
         try {
             const response = await axios.post(route('invoice'), {
                 cart: cart,
-                subtotal: subtotal,
-                // ongkos: onkir,
+                subtotal: total,
+                ongkos: onkir,
             });
             // console.log(response.data);
             if (response && response.data && response.data.token) {
@@ -143,18 +161,11 @@ const CartList = ({ cart }) => {
         script.src = snapSrcUrl;
         script.setAttribute('data-client-key', myMidtransClientKey);
         script.async = true;
-      
         document.body.appendChild(script);
-    
+        return () => {
+            document.body.removeChild(script);
+        }
       }, []);
-
-    // useEffect(() => {
-    //     const script = document.createElement('script');
-      
-    //     script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    //     script.setAttribute('data-client-key', 'SB-Mid-client-YkS7IwWkB0WXsgrO');
-    //     document.body.appendChild(script);
-    //   }, []);
 
 
     if (!cart || cart.length === 0) {
@@ -165,89 +176,89 @@ const CartList = ({ cart }) => {
         );
     }
 
-    // useEffect(() => {
-    //     const getprovinsi = async () => {
-    //         try {
-    //             const provinsiresponse = await axios.get('provinces');
-    //             // console.log(response);
-    //             setProvinces(provinsiresponse.data.rajaongkir.results)
+    useEffect(() => {
+        const getprovinsi = async () => {
+            try {
+                const provinsiresponse = await axios.get('provinces');
+                // console.log(response);
+                setProvinces(provinsiresponse.data.rajaongkir.results)
 
-    //             const kotaresponse = await axios.get('cities');
-    //             // console.log(kotaresponse);
-    //             setKota(kotaresponse.data.rajaongkir.results)
-    //         } catch (error) {
-    //             console.error('Error fetching provinces:', error);
-    //         }
-    //     };
-    //     getprovinsi();
-    // }, []);
+                const kotaresponse = await axios.get('cities');
+                // console.log(kotaresponse);
+                setKota(kotaresponse.data.rajaongkir.results)
+            } catch (error) {
+                console.error('Error fetching provinces:', error);
+            }
+        };
+        getprovinsi();
+    }, []);
 
-    // const handleProvinceChange = (e) => {
-    //     const selectedProvince = e.target.value;
-    //     setSelectedProvince(selectedProvince);
-    //     const citiesInSelectedProvince = kota.filter(city => city.province_id === selectedProvince);
-    //     setCitiesInProvince(citiesInSelectedProvince);
-    //     setSelectedKota('');
-    // }
+    const handleProvinceChange = (e) => {
+        const selectedProvince = e.target.value;
+        setSelectedProvince(selectedProvince);
+        const citiesInSelectedProvince = kota.filter(city => city.province_id === selectedProvince);
+        setCitiesInProvince(citiesInSelectedProvince);
+        setSelectedKota('');
+    }
 
-    // const handleCityChange = (e) => {
-    //     const selectedKota = e.target.value;
-    //     setSelectedKota(selectedKota);
-    //     const city = kota.find(city => city.city_id === selectedKota);
-    //     if (city) {
-    //         setDestinationId(city.city_id);
-    //     }
-    // }
+    const handleCityChange = (e) => {
+        const selectedKota = e.target.value;
+        setSelectedKota(selectedKota);
+        const city = kota.find(city => city.city_id === selectedKota);
+        if (city) {
+            setDestinationId(city.city_id);
+        }
+    }
 
-    // const handleCourierChange = async (e) => {
-    //     const selectedCourier = e.target.value;
-    //     setSelectedCourier(selectedCourier);
+    const handleCourierChange = async (e) => {
+        const selectedCourier = e.target.value;
+        setSelectedCourier(selectedCourier);
 
-    //     // if (selectedCourier && destinationId) {
-    //     //     Inertia.post(route('onkir'), {
-    //     //         origin: '501',
-    //     //         destination: destinationId,
-    //     //         weight: 1700,
-    //     //         courier: selectedCourier
-    //     //     }, {
-    //     //         onSuccess: ({ props }) => {
-    //     //             const ongkirData = props.response;
-    //     //             setOngkir(ongkirData.rajaongkir.results[0].costs[0].cost[0].value);
-    //     //             },
-    //     //             onError: (error) => {
-    //     //                 console.error("Error fetching ongkir:", error);
-    //     //             }
-    //     //         });
-    //     //     } else {
-    //     //         setOngkir(null);
-    //     //     }
-    //     // };
+        // if (selectedCourier && destinationId) {
+        //     Inertia.post(route('onkir'), {
+        //         origin: '501',
+        //         destination: destinationId,
+        //         weight: 1700,
+        //         courier: selectedCourier
+        //     }, {
+        //         onSuccess: ({ props }) => {
+        //             const ongkirData = props.response;
+        //             setOngkir(ongkirData.rajaongkir.results[0].costs[0].cost[0].value);
+        //             },
+        //             onError: (error) => {
+        //                 console.error("Error fetching ongkir:", error);
+        //             }
+        //         });
+        //     } else {
+        //         setOngkir(null);
+        //     }
+        // };
 
-    //     if (selectedCourier && destinationId) {
-    //         try {
-    //             const response = await axios.post(route('onkir'), {
-    //                 origin: '501',
-    //                 destination: destinationId,
-    //                 weight: 1700,
-    //                 courier: selectedCourier
-    //             });
-    //             const ongkirData = response.data.rajaongkir.results[0].costs;
-    //             // console.log(ongkirData);
-    //             setOngkir(ongkirData);
-    //         } catch (error) {
-    //             console.error("Error fetching ongkir:", error);
-    //         }
-    //         } else {
-    //             setOngkir(null);
-    //         }
-    //     };
+        if (selectedCourier && destinationId) {
+            try {
+                const response = await axios.post(route('onkir'), {
+                    origin: '501',
+                    destination: destinationId,
+                    weight: weight,
+                    courier: selectedCourier
+                });
+                const ongkirData = response.data.rajaongkir.results[0].costs;
+                // console.log(ongkirData);
+                setOngkir(ongkirData);
+            } catch (error) {
+                console.error("Error fetching ongkir:", error);
+            }
+            } else {
+                setOngkir(null);
+            }
+        };
 
-    // const handleShippingSelect = (shippingCost) => {
-    //     setSelectedShipping(shippingCost);
-    // };
+    const handleShippingSelect = (shippingCost) => {
+        setSelectedShipping(shippingCost);
+    };
 
-    // const total = subtotal + (selectedShipping ? selectedShipping.cost[0].value : 0);
-    // const onkir = selectedShipping ? selectedShipping.cost[0].value : 0;
+    const total = subtotal + (selectedShipping ? selectedShipping.cost[0].value : 0);
+    const onkir = selectedShipping ? selectedShipping.cost[0].value : 0;
 
     return (
         <div>
@@ -266,80 +277,91 @@ const CartList = ({ cart }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Bagian Alamat */}
-                {/* <div className="bg-white border border-secondary-color p-4 rounded-md">
+                <div className="bg-white border border-secondary-color p-4 rounded-md">
                     <h2 className="text-lg font-semibold mb-4">Alamat Pengiriman</h2>
                     <p className="mb-4">{cart[0].user.alamat}</p>
-                    {/* Pilihan Provinsi
-                    <div className="mb-4">
-                        <InputLabel htmlFor="province" value="Pilih Provinsi" />
-                        <select
-                            id="province"
-                            className="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary-color focus:ring focus:ring-primary-color focus:ring-opacity-50"
-                            onChange={handleProvinceChange}
-                            value={selectedProvince}
-                        >
-                            <option value="">Pilih Provinsi</option>
-                            {provinces.map(province => (
-                                <option key={province.province_id} value={province.province_id}>
-                                    {province.province}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    Pilihan Kota
-                    {selectedProvince && (
+                    {cart[0].user.alamat == null ? ( 
+                        <>
+                            Alamat Anda Kosong Silahkan Isi terlebih dahulu 
+                            <br /><a className="font-bold text-black hover:text-red-500" href="/owner/settings">Masukan Alamat</a>
+                        </>
+
+                    ) : (
+                     <>
+                        {/* Pilihan Provinsi */}
                         <div className="mb-4">
-                            <InputLabel htmlFor="city" value="Pilih Kota" />
+                            <InputLabel htmlFor="province" value="Pilih Provinsi" />
                             <select
-                                id="city"
+                                id="province"
                                 className="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary-color focus:ring focus:ring-primary-color focus:ring-opacity-50"
-                                onChange={handleCityChange}
-                                value={selectedKota}
+                                onChange={handleProvinceChange}
+                                value={selectedProvince}
                             >
-                                <option value="">Pilih Kota</option>
-                                {citiesInProvince.map(city => (
-                                    <option key={city.city_id} value={city.city_id}>
-                                        {city.city_name}
+                                <option value="">Pilih Provinsi</option>
+                                {provinces.map(province => (
+                                    <option key={province.province_id} value={province.province_id}>
+                                        {province.province}
                                     </option>
                                 ))}
                             </select>
                         </div>
-                    )}
-                    Pilihan Ekspedisi
-                    {selectedKota && (
-                        <div className="mb-4">
-                            <InputLabel htmlFor="courier" value="Pilih Ekspedisi" />
-                            <select
-                                id="courier"
-                                className="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary-color focus:ring focus:ring-primary-color focus:ring-opacity-50"
-                                onChange={handleCourierChange}
-                                value={selectedCourier}
-                            >
-                                <option value="">Pilih Ekspedisi</option>
-                                <option value="jne">JNE</option>
-                                <option value="pos">POS</option>
-                                <option value="tiki">TIKI</option>
-                            </select>
-                            {/* Daftar Ongkir *
-                            {ongkir && (
-                                <div className="mt-4 space-y-4">
-                                    {ongkir.map(result => (
-                                        <div
-                                            key={result.service}
-                                            className={`border border-gray-200 p-4 rounded-md cursor-pointer ${selectedShipping === result ? 'bg-gray-400' : ''}`}
-                                            onClick={() => handleShippingSelect(result)}
-                                        >
-                                            <h3 className="text-lg font-semibold">{result.description}</h3>
-                                            <p>Biaya: {formatCurr(result.cost[0].value)}</p>
-                                            <p>Estimasi Pengiriman: {result.cost[0].etd}</p>
-                                        </div>
+                        {/* Pilihan Kota */}
+                        {selectedProvince && (
+                            <div className="mb-4">
+                                <InputLabel htmlFor="city" value="Pilih Kota" />
+                                <select
+                                    id="city"
+                                    className="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary-color focus:ring focus:ring-primary-color focus:ring-opacity-50"
+                                    onChange={handleCityChange}
+                                    value={selectedKota}
+                                >
+                                    <option value="">Pilih Kota</option>
+                                    {citiesInProvince.map(city => (
+                                        <option key={city.city_id} value={city.city_id}>
+                                            {city.city_name}
+                                        </option>
                                     ))}
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div> */}
+                                </select>
+                            </div>
+                        )}
+                        {/* Pilihan Ekspedisi */}
+                        {selectedKota && (
+                            <div className="mb-4">
+                                <InputLabel htmlFor="courier" value="Pilih Ekspedisi" />
+                                <select
+                                    id="courier"
+                                    className="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary-color focus:ring focus:ring-primary-color focus:ring-opacity-50"
+                                    onChange={handleCourierChange}
+                                    value={selectedCourier}
+                                >
+                                    <option value="">Pilih Ekspedisi</option>
+                                    <option value="jne">JNE</option>
+                                    <option value="pos">POS</option>
+                                    <option value="tiki">TIKI</option>
+                                </select>
+                                {/* Daftar Ongkir * */}
+                                {ongkir && (
+                                    <div className="mt-4 space-y-4">
+                                        {ongkir.map(result => (
+                                            <div
+                                                key={result.service}
+                                                className={`border border-gray-200 p-4 rounded-md cursor-pointer ${selectedShipping === result ? 'bg-gray-400' : ''}`}
+                                                onClick={() => handleShippingSelect(result)}
+                                            >
+                                                <h3 className="text-lg font-semibold">{result.description}</h3>
+                                                <p>Biaya: {formatCurr(result.cost[0].value)}</p>
+                                                <p>Estimasi Pengiriman: {result.cost[0].etd}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                     </>
 
+                    )}
+                </div>
+           
                 {/* Bagian Total Harga */}
                 <div className="bg-white border border-secondary-color p-4 rounded-md">
                     <h2 className="text-lg font-semibold mb-4">Detail Belanja</h2>
@@ -348,13 +370,13 @@ const CartList = ({ cart }) => {
                             <h3 className="text-lg font-semibold">Tax (11%) :</h3>
                             <p>{formatCurr(subPPN)}</p>
                         </div>
-                        {/* <div>
+                        <div>
                             <h3 className="text-lg font-semibold">Ongkir :</h3>
                             <p>{selectedShipping ? formatCurr(selectedShipping.cost[0].value) : '-'}</p>
-                        </div> */}
+                        </div>
                         <div>
                             <h3 className="text-lg font-semibold">Total :</h3>
-                            <p>{formatCurr(subtotal)}</p>
+                            <p>{formatCurr(total)}</p>
                         </div>
                         <DangerButton onClick={handleSubmit} className="flex justify-center items-center bg-gray-600 hover:bg-red-500 text-white">
                             Bayar Sekarang
