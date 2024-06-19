@@ -86,7 +86,7 @@ const Edit = ({ auth, title, jadwals, doctorSchedule }) => {
                     encType="multipart/form-data"
                     className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
                 >
-                    <InputLabel htmlFor="docter_id" value="Name Doctor" />
+                    <InputLabel htmlFor="docter_id" value="Doctor Name" />
                     <TextInput
                         type="text"
                         id="docter_id"

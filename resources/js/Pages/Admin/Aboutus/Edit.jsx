@@ -89,7 +89,7 @@ const UpdateAboutus = ({ auth, title, aboutus }) => {
                         type="text"
                         id="content"
                         name="content"
-                        className="block w-full"
+                        className="block w-full text-gray-800"
                         placeholder="Content"
                         value={data.content}
                         onChange={(e) => setData("content", e.target.value)}

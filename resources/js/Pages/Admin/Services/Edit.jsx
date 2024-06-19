@@ -63,6 +63,7 @@ const UpdateService = ({ auth, title, service }) => {
                         message={errors.name_service}
                         className="mb-2"
                     />
+                    <InputLabel htmlFor="image_service" value="Service Image" />
                     <div className="flex items center gap-4">
                         <img
                             className="w-20 rounded-lg"

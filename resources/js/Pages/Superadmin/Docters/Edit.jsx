@@ -76,8 +76,7 @@ const Edit = ({ auth, title, docters }) => {
                         onChange={(e) => setData("password", e.target.value)}
                     />
 
-                    <InputLabel htmlFor="name" />
-
+                    <InputLabel htmlFor="name" value="Doctor Name" />
                     <TextInput
                         type="text"
                         id="name"
@@ -92,7 +91,7 @@ const Edit = ({ auth, title, docters }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
                         <div>
-                            <InputLabel htmlFor="email" value="email" />
+                            <InputLabel htmlFor="email" value="Email" />
                             <TextInput
                                 type="email"
                                 id="email"
@@ -111,7 +110,7 @@ const Edit = ({ auth, title, docters }) => {
                             />
                         </div>
                         <div>
-                            <InputLabel htmlFor="no_telp" value="no_telp" />
+                            <InputLabel htmlFor="no_telp" value="No Telp" />
                             <TextInput
                                 type="number"
                                 id="no_telp"
@@ -131,6 +130,7 @@ const Edit = ({ auth, title, docters }) => {
                         </div>
                     </div>
 
+                    <InputLabel htmlFor="name" value="Profile Image" />
                     <div className="flex items center gap-4">
                         <img
                             className="w-20 rounded-lg"
