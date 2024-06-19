@@ -27,7 +27,14 @@ class DashboardController extends Controller
             ->get();
 
         $appointmentsAdmin = Transaction::join('users', 'transactions.user_id', '=', 'users.user_id')
-            ->select('transactions.user_id', 'users.name', DB::raw('count(*) as total_transaction'),   DB::raw('SUM(subtotal) as total'))
+            ->where('users.user_id', function ($query) {
+                $query->select('user_id')
+                    ->from('role_user')
+                    ->whereColumn('role_user.user_id', 'users.user_id')
+                    ->where('role_id', 2)
+                    ->limit(1);
+            })
+            ->select('transactions.user_id', 'users.name', DB::raw('count(*) as total_transaction'), DB::raw('SUM(subtotal) as total'))
             ->where('status_payment', 'settlement')
             ->groupBy('transactions.user_id', 'users.name')
             ->get();

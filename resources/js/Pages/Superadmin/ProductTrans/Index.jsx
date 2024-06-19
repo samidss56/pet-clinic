@@ -16,6 +16,7 @@ const Index = ({ auth, title, transactions }) => {
         startDate,
         endDate
     );
+    
     return (
         <Authenticated
             user={auth}

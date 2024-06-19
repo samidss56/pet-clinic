@@ -72,7 +72,7 @@ const Dashboard = ({
             <Head title={title} />
 
             <AdminLayout>
-                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 gap-4">
+                <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
                     <CardDataStats
                         title="Total Pendapatan"
                         total={formatCurr(pendapatan ?? 0)}
@@ -87,13 +87,13 @@ const Dashboard = ({
                     >
                         <TransactionsIcon color={"stroke-primary-red"} />
                     </CardDataStats>
-                    <CardDataStats
+                    {/* <CardDataStats
                         title="Total Product Transaction"
                         total={productTransaction ?? 0}
                         rate="2.43%"
                     >
                         <CartIcon color={"stroke-primary-red"} />
-                    </CardDataStats>
+                    </CardDataStats> */}
                     <CardDataStats
                         title="Total Article"
                         total={article ?? 0}

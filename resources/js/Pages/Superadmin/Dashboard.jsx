@@ -84,7 +84,7 @@ const Dashboard = ({
                         <PendapatanIcon color={"stroke-primary-red"} />
                     </CardDataStats>
                     <CardDataStats
-                        title="Total Appointment Transaction"
+                        title="Total Appointment"
                         total={appointmentTransaction ?? 0}
                         rate="2.43%"
                     >
