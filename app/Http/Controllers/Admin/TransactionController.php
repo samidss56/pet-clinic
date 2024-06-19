@@ -21,7 +21,7 @@ class TransactionController extends Controller
     // Tampil Halaman Manage Transaction
     public function index()
     {
-        $trans = Transaction::latest()->paginate(5);
+        $trans = Transaction::where('appointmen_id', '!=', null)->latest()->paginate(5);
         return Inertia::render('Admin/Transaction/Index', [
             'title' => 'Transaction Management',
             'transaction' => TransactionAdminResource::collection($trans),

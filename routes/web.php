@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\HerosectionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
+use App\Http\Controllers\Admin\ProductTransController;
 use App\Http\Controllers\Admin\WhyUsController;
 use App\Http\Controllers\Auth\DocterPasswordController;
 use App\Http\Controllers\Docter\AppoinmenController;
@@ -36,6 +37,7 @@ use App\Http\Controllers\Superadmin\UserController as SuperadminUserController;
 use App\Http\Controllers\Superadmin\ProductController as SuperadminProductController;
 use App\Http\Controllers\Superadmin\ServiceController as SuperadminServiceController;
 use App\Http\Controllers\Superadmin\TransactionController as SuperadminTransactionController;
+use App\Http\Controllers\Superadmin\ProductTransController as SuperadminProductTransController;
 use App\Http\Controllers\Home\ArticleController as HomeArticleController;
 use App\Http\Controllers\Home\DoctorController as HomeDoctorController;
 use App\Http\Controllers\InvoiceController;
@@ -117,6 +119,10 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::get('transaction/{transaction:invoice}', [SuperadminTransactionController::class, 'show'])->name('superadmin.transaction.show');
     Route::get('/download-laporan', [SuperadminTransactionController::class, 'downloadlaporan'])->name('downloadlaporansuperadmin');
     Route::get('transaction/{transaction:invoice}/pdf', [SuperadminTransactionController::class, 'downloaddetailPDF'])->name('superadmin.transaction.downloadPDF');
+
+    // Product Transaction
+    Route::get('/product-transaction', [SuperadminProductTransController::class, 'index'])->name('superadmin.product-transaction');
+    Route::get('/product-transaction/{transaction:invoice}', [SuperadminProductTransController::class, 'show'])->name('superadmin.product-transaction.show');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -156,12 +162,17 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     Route::post('/articles/update/{article}', [AdminArticleController::class, 'update'])->name('admin.articles.update');
     Route::delete('/articles/delete/{article}', [AdminArticleController::class, 'destroy'])->name('admin.articles.destroy');
 
-    //Transaction
+    // Appointment Transaction
     Route::get('/transaction', [TransactionController::class, 'index'])->name('admin.transaction');
     Route::get('/transaction/edit/{transaction:invoice}', [TransactionController::class, 'edit'])->name('admin.transaction.edit');
     Route::post('/transaction/updatetrans/{transaction:invoice}', [TransactionController::class, 'update'])->name('admin.transaction.update');
     Route::get('/transaction', [TransactionController::class, 'index'])->name('admin.transaction');
     Route::get('transaction/{transaction:invoice}', [TransactionController::class, 'show'])->name('transaction.show');
+
+    // Product Transaction
+    Route::get('/product-transaction', [ProductTransController::class, 'index'])->name('admin.product-transaction');
+    Route::get('/product-transaction/{transaction:invoice}', [ProductTransController::class, 'show'])->name('admin.product-transaction.show');
+
 
     //Appoitment
     Route::get('/appoitments', [AdminAppointmenController::class, 'index'])->name('admin.appoitments');
@@ -231,6 +242,7 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
     Route::post('cart/add-to-cart/{product:slug}', [OwnerCartController::class, 'store'])->name('cart.store');
 
     Route::get('/transaction', [OwnerTransactionController::class, 'index'])->name('owner.transaction');
+    Route::get('/transaction/{transaction:invoice}', [OwnerTransactionController::class, 'show'])->name('owner.transaction.show');
 
     Route::post('onkir', [OwnerCartController::class, 'onkir'])->name('onkir');
     Route::get('/provinces', [OwnerCartController::class, 'getProvinces']);

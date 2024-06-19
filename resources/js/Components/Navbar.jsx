@@ -100,10 +100,10 @@ const Navbar = ({ user }) => {
                 {user ? (
                     <>
                         <NavLink
-                            className="flex items-center gap-x-2"
+                            className="hidden sm:flex items-center gap-x-2"
                             href={route("owner.cart")}
                         >
-                            <CartIcon />
+                            <CartIcon color={"stroke-current"} />
                             {carts_global > 0 ? carts_global : null}
                         </NavLink>
                     </>
@@ -185,6 +185,20 @@ const Navbar = ({ user }) => {
                                         >
                                             <ProductsIcon />
                                             Products
+                                        </Link>
+                                    </li>
+                                </div>
+
+                                <div className="sm:hidden">
+                                    <li>
+                                        <Link href={route("owner.cart")}>
+                                            <CartIcon
+                                                color={"stroke-primary-red"}
+                                            />
+                                            {carts_global > 0
+                                                ? carts_global
+                                                : null}
+                                            Carts
                                         </Link>
                                     </li>
                                 </div>
