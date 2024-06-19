@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { formatCurr } from "@/Utils/FormatPrice";
-import { Inertia } from "@inertiajs/inertia";
 import DangerButton from "@/Components/DangerButton";
 import { Link } from "@inertiajs/react";
-import SecondaryButton from "@/Components/SecondaryButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { ShowIcon } from "@/Components/Icons/Index";
 
 const TransactionList = ({ transaction }) => {
-    // console.log(transaction);
     const [showMidtransModal, setShowMidtransModal] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [openIndex, setOpenIndex] = useState(null);
@@ -24,22 +21,12 @@ const TransactionList = ({ transaction }) => {
     };
 
     const handleMidtransPayment = async () => {
-        // console.log(selectedTransaction.cart_ids);
-        //   Inertia.post(route('invoice'), {
-        //     cart: selectedTransaction.details,
-        //     subtotal: selectedTransaction.subtotal,
-        //     cart_ids: selectedTransaction.cart_ids,
-        // });
-
         try {
             const response = await axios.post(route("invoice"), {
                 cart: selectedTransaction.details,
                 subtotal: selectedTransaction.subtotal,
                 cart_ids: selectedTransaction.cart_ids,
             });
-            // console.log(response);
-            // console.log(response.data.token);
-            // console.log(response.data);
             if (response && response.data && response.data.token) {
                 const snapToken = response.data.token;
                 window.snap.pay(snapToken);
@@ -195,12 +182,6 @@ const TransactionList = ({ transaction }) => {
                             {formatCurr(selectedTransaction.subtotal)}?
                         </h2>
                         <div className="flex justify-end gap-4">
-                            {/* <button
-                                onClick={() => setShowMidtransModal(false)}
-                                className="btn btn-secondary"
-                            >
-                                Batal
-                            </button> */}
                             <DangerButton
                                 onClick={() => setShowMidtransModal(false)}
                                 className="flex justify-center items-center !bg-gray-600 hover:bg-red-500 text-white"
@@ -213,12 +194,6 @@ const TransactionList = ({ transaction }) => {
                             >
                                 Lanjutkan Pembayaran
                             </DangerButton>
-                            {/* <button
-                                onClick={handleMidtransPayment}
-                                className="btn btn-primary"
-                            >
-                                Lanjutkan Pembayaran
-                            </button> */}
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,6 @@ import useToastNotification from "@/Hooks/useToastNotification";
 const isProducts = (products, notification) => {
     const [showModalDeleteProduct, setShowModalDeleteProduct] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const appUrl = import.meta.env.VITE_APP_URL;
 
     const handleShowModalDeleteProduct = (product) => {
         setShowModalDeleteProduct(true);
@@ -23,8 +22,6 @@ const isProducts = (products, notification) => {
     };
 
     useToastNotification(notification);
-
-    console.log(products);
 
     return (
         <div className="overflow-x-auto">

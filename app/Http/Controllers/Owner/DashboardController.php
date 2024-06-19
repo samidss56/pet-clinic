@@ -22,12 +22,14 @@ class DashboardController extends Controller
             })->count();
 
         $transactions = Transaction::whereBelongsTo($request->user())->where('status_payment', 'settlement')->sum('subtotal');
+        $productTrans = Transaction::whereBelongsTo($request->user())->where('status_payment', 'settlement')->whereNull('appointmen_id')->count();
         // dd($transactions);
         return Inertia::render('Owner/Dashboard', [
             'title' => 'Dashboard',
             'pets' => $pets,
             'appointments' => $appointments,
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'productTrans' => $productTrans
         ]);
     }
 }

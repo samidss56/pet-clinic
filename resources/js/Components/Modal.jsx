@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useDarkMode } from "@/Contexts/DarkMode";
 
 export default function Modal({
     children,
@@ -9,7 +8,6 @@ export default function Modal({
     closeable = true,
     onClose = () => {},
 }) {
-    const { darkMode } = useDarkMode();
     const close = () => {
         if (closeable) {
             onClose();
@@ -29,9 +27,7 @@ export default function Modal({
             <Dialog
                 as="div"
                 id="modal"
-                className={`fixed inset-0 flex overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all ${
-                    darkMode ? "dark" : ""
-                }`}
+                className={`fixed inset-0 flex overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all `}
                 onClose={close}
             >
                 <Transition.Child

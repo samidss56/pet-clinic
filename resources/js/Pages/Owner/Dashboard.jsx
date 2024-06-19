@@ -1,7 +1,7 @@
 import CardDataStats from "@/Components/Dashboard/CardDataStats";
 import {
     AppointmentsIcon,
-    ArticlesIcon,
+    CartIcon,
     PetsIcon,
     TransactionsIcon,
 } from "@/Components/Icons/Index";
@@ -17,6 +17,7 @@ export default function Dashboard({
     pets,
     appointments,
     transactions,
+    productTrans,
 }) {
     return (
         <AuthenticatedLayout user={auth}>
@@ -32,35 +33,34 @@ export default function Dashboard({
                                 <CTA user={auth.user.name} />
                             </div>
                         </div>
-                        <div className="flex flex-col md:flex-row md:justify-between gap-6">
-                            <div className="w-full md:w-1/3 flex-col sm:rounded-lg">
-                                <CardDataStats
-                                    title="Total Pet"
-                                    total={pets ?? 0}
-                                >
-                                    <PetsIcon color={"stroke-primary-red"} />
-                                </CardDataStats>
-                            </div>
-                            <div className="w-full md:w-1/3 flex-col sm:rounded-lg">
-                                <CardDataStats
-                                    title="Total Appointment"
-                                    total={appointments ?? 0}
-                                >
-                                    <AppointmentsIcon
-                                        color={"stroke-primary-red"}
-                                    />
-                                </CardDataStats>
-                            </div>
-                            <div className="w-full md:w-1/3 flex-col sm:rounded-lg">
-                                <CardDataStats
-                                    title="Total Transaction"
-                                    total={formatCurr(transactions) ?? 0}
-                                >
-                                    <TransactionsIcon
-                                        color={"stroke-primary-red"}
-                                    />
-                                </CardDataStats>
-                            </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <CardDataStats title="Total Pet" total={pets ?? 0}>
+                                <PetsIcon color={"stroke-primary-red"} />
+                            </CardDataStats>
+                            <CardDataStats
+                                title="Total Appointment Transaction"
+                                total={appointments ?? 0}
+                            >
+                                <AppointmentsIcon
+                                    color={"stroke-primary-red"}
+                                />
+                            </CardDataStats>
+                            <CardDataStats
+                                title="Total Product Transaction"
+                                total={productTrans ?? 0}
+                            >
+                                <CartIcon
+                                    color={"stroke-primary-red"}
+                                />
+                            </CardDataStats>
+                            <CardDataStats
+                                title="Total Transaction"
+                                total={formatCurr(transactions) ?? 0}
+                            >
+                                <TransactionsIcon
+                                    color={"stroke-primary-red"}
+                                />
+                            </CardDataStats>
                         </div>
                     </div>
                 </div>
