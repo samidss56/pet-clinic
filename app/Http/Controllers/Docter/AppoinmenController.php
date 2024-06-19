@@ -34,7 +34,9 @@ class AppoinmenController extends Controller
         $appointmen->update([
             'status' => 'accepted',
         ]);
-        return redirect('/docter/appointmen')->with(['message' => 'Appointment Updated Successfully!', 'appointmen' => $appointmen], 200);
+    
+        session()->flash('message', 'Appointment Updated Successfully!');
+        return Inertia::location(route('docter.appointmen'));
     }
 
     public function edit(Appointmen $appointmen)
@@ -50,22 +52,14 @@ class AppoinmenController extends Controller
 
     public function updatetrans(Request $request, appointmen $appointmen)
     {
-        // return $request;
-        // $validator = Validator::make($request->all(), [
-        //     'status' => 'required',
-        //     'date_appointmens' => 'required',
-        //     'weight' => 'required',
-        //     'temperature' => 'required',
-        //     'advice' => 'required',
-        // ]);
 
-        // if ($validator->fails()) {
-        //     return redirect()->back()
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
-
-        // return $request;
+        $request->validate([
+            'status' => 'required',
+            'date_appointmens' => 'required',
+            'weight' => 'required',
+            'temperature' => 'required',
+            'advice' => 'required',
+        ]);
 
         $invoice = date('ymdhis');
 
@@ -117,10 +111,6 @@ class AppoinmenController extends Controller
                 }
             }
         }
-
-
-
-
         return redirect('/docter/appointmen')->with(['message' => 'Appointment Updated Successfully!', 'appointmen' => $appointmen], 200);
     }
 }

@@ -79,6 +79,10 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
         }
     };
 
+    const formatTime = (time) => {
+        return time.replace(/:00$/, '');
+    };
+
     const petOptions = pets.map((pet) => ({
         value: pet.pet_id,
         label: pet.name,
@@ -180,7 +184,7 @@ const Create = ({ auth, title, pets, docters, pet_id }) => {
                                     bookedSchedules.includes(schedule.schedule)
                                 }
                             >
-                                {`${schedule.day} - ${schedule.schedule}`}
+                                {`${schedule.day} - ${formatTime(schedule.schedule)}`}
                             </button>
                         ))}
 

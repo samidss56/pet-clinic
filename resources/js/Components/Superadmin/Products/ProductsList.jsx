@@ -64,7 +64,7 @@ const isProducts = (products, notification) => {
                                 </th>
                                 <th className="text-black dark:text-white font-medium">
                                     <img
-                                        src={`${appUrl}/storage/${product.image_product}`}
+                                        src={product.image_product}
                                         alt="Pet Image"
                                         className="w-28 rounded-md"
                                     />

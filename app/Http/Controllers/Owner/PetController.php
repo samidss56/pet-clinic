@@ -40,7 +40,7 @@ class PetController extends Controller
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'gender' => 'required|string',
-            'age' => 'required|integer',
+            'age' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

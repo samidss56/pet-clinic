@@ -38,11 +38,14 @@ class ProductTransController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $transactions = Transaction::with(['details.product', 'user'])
-            ->where('appointmen_id', '=', null)
-            ->whereBetween('created_at', [$startDate, $endDate])
+        $transactions = Transaction::with(['details.product', 'user'])->where('appointmen_id', null)
+            ->where('status_payment', 'settlement')
+            ->whereBetween('date_transaction', [$startDate, $endDate])
             ->get();
         // dd($transactions);
+        
+        // return $transactions;
+
         $pdf = PDF::loadView('pdf.productTransactionReport', compact('transactions', 'startDate', 'endDate'));
         return $pdf->download('product-transaction-report.pdf');
     }

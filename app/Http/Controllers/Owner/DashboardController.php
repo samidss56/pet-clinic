@@ -13,16 +13,16 @@ use Inertia\Inertia;
 class DashboardController extends Controller
 {
     // Tampil Halaman Dashboard Owner
-    public function index()
+    public function index(Request $request)
     {
         $pets = Pet::where('user_id', Auth::user()->user_id)->count();
         $appointments = Appointmen::query()
             ->whereHas('pet', function ($query) {
                 $query->where('user_id', Auth::id());
             })->count();
-        $transactions = Transaction::whereHas('appoitment.pet', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->where('status_payment', 'settlement')->sum('subtotal');
+
+        $transactions = Transaction::whereBelongsTo($request->user())->where('status_payment', 'settlement')->sum('subtotal');
+        // dd($transactions);
         return Inertia::render('Owner/Dashboard', [
             'title' => 'Dashboard',
             'pets' => $pets,

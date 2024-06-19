@@ -64,7 +64,7 @@
                     <td>{{ date('d-m-Y', strtotime($transaction->date_transaction)) }}</td>
                     <td>{{ number_format($transaction->subtotal, 0, ',', '.') }}</td>
                 </tr>
-                {{-- <tr>
+                <tr>
                     <td colspan="6">
                         <div class="section-heading" style="margin-bottom: 3px">Detail User</div>
                         <table>
@@ -78,19 +78,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($transactions->user as $user)
-                                    <tr class="product-row">
-                                        <td>{{ $user->user_id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->no_telp }}</td>
-                                        <td>{{ $user->alamat }}</td>
-                                    </tr>
-                                @endforeach
+                                <tr class="product-row">
+                                    <td>{{ $transaction->user->user_id }}</td>
+                                    <td>{{ $transaction->user->name }}</td>
+                                    <td>{{ $transaction->user->email }}</td>
+                                    <td>{{ $transaction->user->no_telp }}</td>
+                                    <td>{{ $transaction->user->alamat }}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </td>
-                </tr> --}}
+                </tr>
                 <tr>
                     <td colspan="6">
                         <div class="section-heading" style="margin-bottom: 3px">Detail Produk</div>
@@ -103,9 +101,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($transactions->details as $detail)
+                                @foreach($transaction->details as $detail)
                                     <tr class="product-row">
-                                        <td>{{ $detail->product->name_product}}</td>
+                                        <td>{{ $detail->product->name_product ?? null}}</td>
                                         <td>{{ $detail->quantity }}</td>
                                         <td>{{ number_format($detail->harga_product, 0, ',', '.') }}</td>
                                     </tr>
