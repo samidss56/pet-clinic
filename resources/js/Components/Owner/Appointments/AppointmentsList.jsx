@@ -123,22 +123,24 @@ const isAppointment = (appointments, notification) => {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div className="flex justify-end gap-2 mt-4">
+                                <div className="flex items-center justify-end gap-2 mt-4">
                                     <Link
                                         href={route(
                                             "owner.appointmen.detail",
                                             appointment.appointmen_id
                                         )}
                                     >
-                                        <PrimaryButton>
+                                        <PrimaryButton className="h-full">
                                             <ShowIcon />
                                         </PrimaryButton>
                                     </Link>
                                     {appointment.status === "finished" && (
                                         <Link
-                                            href={route("owner.testimonials.create")}
+                                            href={route(
+                                                "owner.testimonials.create"
+                                            )}
                                         >
-                                            <PrimaryButton>
+                                            <PrimaryButton className="flex gap-2">
                                                 <FeedbackIcon />
                                                 Write a Testimonial
                                             </PrimaryButton>
@@ -162,7 +164,9 @@ const noAppointments = () => {
 };
 
 const AppointmentsList = ({ appointments, notification }) => {
-    return !appointments ? noAppointments() : isAppointment(appointments, notification);
+    return !appointments
+        ? noAppointments()
+        : isAppointment(appointments, notification);
 };
 
 export default AppointmentsList;

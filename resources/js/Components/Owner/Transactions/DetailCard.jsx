@@ -1,8 +1,10 @@
 import DangerButton from "@/Components/DangerButton";
-import { ArrowLeftIcon } from "@/Components/Icons/Index";
+import { ArrowLeftIcon, FileIcon } from "@/Components/Icons/Index";
 import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import useExportPDF from "@/Hooks/useExportPDF";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { Link } from "@inertiajs/react";
 import { useEffect } from "react";
@@ -11,6 +13,11 @@ import { useState } from "react";
 const DetailCard = ({ transaction }) => {
     const [showMidtransModal, setShowMidtransModal] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(transaction);
+
+    const handleDownloadPDF = useExportPDF(
+        "owner.transaction.downloadPDF",
+        transaction.invoice
+    );
 
     const handlePayment = () => {
         setSelectedTransaction(transaction);
@@ -73,7 +80,11 @@ const DetailCard = ({ transaction }) => {
                 <div>
                     <InputLabel value="Payment Method" />
                     <TextInput
-                    value={transaction.payment_type !== null ? transaction.payment_type : "-"}
+                        value={
+                            transaction.payment_type !== null
+                                ? transaction.payment_type
+                                : "-"
+                        }
                         disabled
                         className="block w-full"
                     />
@@ -177,12 +188,23 @@ const DetailCard = ({ transaction }) => {
                 </div>
             </div>
             <div className="flex items-center justify-between my-4">
-                <Link href={route("owner.transaction")}>
-                    <SecondaryButton>
-                        <ArrowLeftIcon />
-                        Back to Product Transaction List
-                    </SecondaryButton>
-                </Link>
+                <div className="flex gap-2">
+                    <Link href={route("owner.transaction")}>
+                        <SecondaryButton>
+                            <ArrowLeftIcon />
+                            Back to Product Transaction List
+                        </SecondaryButton>
+                    </Link>
+                    {transaction.status_payment === "settlement" ? (
+                        <PrimaryButton
+                            className="flex items-center gap-2"
+                            onClick={handleDownloadPDF}
+                        >
+                            <FileIcon />
+                            PDF
+                        </PrimaryButton>
+                    ) : null}
+                </div>
                 {transaction.status_payment === "pending" && (
                     <DangerButton
                         onClick={handlePayment}
