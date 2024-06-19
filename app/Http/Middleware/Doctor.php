@@ -14,15 +14,12 @@ class Doctor
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role != 'doctor') {
-            if (Auth::user()->role == 'admin') {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('owner.dashboard');
-            }
+        if (!Auth::guard('docter')->check()) {
+            abort(404);
         }
+
         return $next($request);
     }
 }

@@ -46,17 +46,17 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'owner' => [
-            \App\Http\Middleware\Owner::class
-        ],
+        // 'owner' => [
+        //     \App\Http\Middleware\Owner::class
+        // ],
 
-        'doctor' => [
-            \App\Http\Middleware\Doctor::class
-        ],
+        // 'doctor' => [
+        //     \App\Http\Middleware\Doctor::class
+        // ],
 
-        'admin' => [
-            \App\Http\Middleware\Admin::class
-        ],
+        // 'admin' => [
+        //     \App\Http\Middleware\Admin::class
+        // ],
     ];
 
     /**
@@ -68,6 +68,10 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'hasOwner' => \App\Http\Middleware\HasRolesMiddleware::class,
+        'hasAdmin' => \App\Http\Middleware\HasRolesAdminMiddleware::class,
+        'hasSuperAdmin' => \App\Http\Middleware\HasRolesSuperadminMiddleware::class,
+        'docter' => \App\Http\Middleware\Doctor::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

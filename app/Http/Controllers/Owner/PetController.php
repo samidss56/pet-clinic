@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MyPetCollection;
 use App\Models\Pet;
-use App\Models\PetType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,19 +16,18 @@ class PetController extends Controller
     // Tampil Halaman Manage Pet
     public function index()
     {
-        $myPets = Pet::with(['petType', 'owner'])->where('owner_id', Auth::user()->owner->owner_id)->paginate(10);
-
+        $myPets = Pet::where('user_id', Auth::user()->user_id)->paginate(10);
         $myPetCollection = new MyPetCollection($myPets);
-        return Inertia::render('Owner/Pets/Pets', [
-            'title' => 'Your Pets',
+        return Inertia::render('Owner/Pets/Index', [
+            'title' => 'My Pets',
             'myPets' => $myPetCollection
         ]);
     }
 
     // Tampil Halaman Create Pet
-    public function createPetPage()
+    public function create()
     {
-        return Inertia::render('Owner/Pets/CreatePet', [
+        return Inertia::render('Owner/Pets/Create', [
             'title' => 'Create Pet',
         ]);
     }
@@ -38,26 +36,27 @@ class PetController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,user_id',
             'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'age' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'age' => 'required|integer',
-            'gender' => 'required|string|in:male,female',
-            'color' => 'required|string',
-            'pet_type_id' => 'required|exists:pet_types,id',
-            'owner_id' => 'required|exists:owners,owner_id'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
 
+        $pet_id = 'PET-' . date('ymdhis');
+
         $pet = new Pet;
+        $pet->pet_id = $pet_id;
+        $pet->user_id = $request->user_id;
         $pet->name = $request->name;
-        $pet->age = $request->age;
+        $pet->type = $request->type;
         $pet->gender = $request->gender;
-        $pet->color = $request->color;
-        $pet->jenis = $request->jenis_pet;
-        $pet->owner_id = $request->owner_id;
+        $pet->age = $request->age;
 
         if ($request->hasFile('image')) {
             $imageName = uniqid('pet_') . '.' . $request->image->getClientOriginalExtension();
@@ -70,14 +69,19 @@ class PetController extends Controller
 
         $pet->save();
 
-        return redirect()->route('owner.pets');
+        return redirect('/owner/pets')->with(['message' => 'Pet Added Successfully!', 'pet' => $pet], 201);
     }
 
     // Tampil Halaman Update Pet
-    public function updatePetPage(Pet $pet)
+    public function edit(Pet $pet)
     {
-        $petData = Pet::with(['petType'])->find($pet->id);
-        return Inertia::render('Owner/Pets/UpdatePet', [
+        $petData = Pet::find($pet->pet_id);
+
+        if (!$petData || $petData->user_id !== Auth::user()->user_id) {
+            return redirect()->route('owner.pets');
+        }
+
+        return Inertia::render('Owner/Pets/Update', [
             'title' => 'Update Pet',
             'pet' => $petData,
         ]);
@@ -98,13 +102,12 @@ class PetController extends Controller
 
         $pet->update([
             'name' => $request->name,
-            'age' => $request->age,
+            'type' => $request->type,
             'gender' => $request->gender,
-            'color' => $request->color,
-            'pet_type_id' => $request->pet_type_id,
+            'age' => $request->age,
         ]);
 
-        return redirect()->route('owner.pets');
+        return redirect('/owner/pets')->with(['message' => 'Pet Updated Successfully!', 'pet' => $pet], 200);
     }
 
     // Delete Pet
@@ -112,6 +115,6 @@ class PetController extends Controller
     {
         Storage::disk('public')->delete($pet->image);
         $pet->delete();
-        return redirect()->route('owner.pets');
+        return redirect('/owner/pets')->with(['message' => 'Pet Deleted Successfully!', 'pet' => $pet], 200);
     }
 }

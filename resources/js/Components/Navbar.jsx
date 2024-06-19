@@ -1,24 +1,55 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import NavLink from "./NavLink";
+import {
+    AppointmentsIcon,
+    ArrowBottomIcons,
+    CartIcon,
+    DashboardIcon,
+    LogoutIcon,
+    PetsIcon,
+    ProductsIcon,
+    SettingsIcons,
+} from "./Icons/Index";
+import UserAvatar from "./UserAvatar";
+import appLogo from "../../../public/AppLogo.png";
 
-const Navbar = ({ user, darkMode, toggleDarkMode }) => {
+const Navbar = ({ user }) => {
+    const { carts_global } = usePage().props;
     return (
         <div
-            className={`navbar bg-white dark:bg-dark-gray sticky top-0 py-3 z-50 shadow-lg flex justify-between px-4`}
+            className={`navbar bg-white sticky top-0 py-3 z-50 shadow-lg flex justify-between px-2 sm:px-4`}
         >
             <div className="flex-none">
-                <a
-                    href={route("home")}
-                    className="btn btn-ghost text-xl text-gray-800 dark:text-white"
-                >
-                    Pet Clinic
-                </a>
+                <Link href={route("home")}>
+                    <div className="flex gap-3 px-2 items-center justify-between">
+                        <img src={appLogo} alt="App Logo" className="w-14" />
+                        <p className="text-xl font-bold text-primary-red">
+                            Pawana Jiwa
+                        </p>
+                    </div>
+                </Link>
             </div>
-            <div className="flex-none gap-5 xs:hidden md:flex lg:gap-10">
+            <div className="flex-none gap-5 hidden md:flex lg:gap-10">
                 {!user ? (
                     <>
-                        <NavLink href={route("login")}>Login</NavLink>
-                        <NavLink href={route("register")}>Register</NavLink>
+                        <NavLink
+                            href={route("home")}
+                            active={route().current("home")}
+                        >
+                            Home
+                        </NavLink>
+                        <NavLink
+                            href={route("articles.index")}
+                            active={route().current("articles.index")}
+                        >
+                            Articles
+                        </NavLink>
+                        <NavLink
+                            href={route("doctors.index")}
+                            active={route().current("doctors.index")}
+                        >
+                            Doctors
+                        </NavLink>
                     </>
                 ) : (
                     <>
@@ -35,80 +66,44 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                             Pets
                         </NavLink>
                         <NavLink
-                        // href={route("user.orders")}
-                        // active={route().current("user.orders")}
+                            href={route("owner.appointmen")}
+                            active={route().current("owner.appointmen")}
                         >
                             Appointments
                         </NavLink>
                         <NavLink
-                        // href={route("user.orders")}
-                        // active={route().current("user.orders")}
+                            href={route("owner.products")}
+                            active={route().current("owner.products")}
                         >
-                            Medical Records
+                            Products
                         </NavLink>
                         <NavLink
-                            href={route("profile.edit")}
-                            active={route().current("profile.edit")}
+                            href={route("owner.testimonials")}
+                            active={route().current("owner.testimonials")}
                         >
-                            Profile
+                            Testimonials
                         </NavLink>
                         <NavLink
-                            href={route("logout")}
-                            method="post"
-                            as="button"
+                            href={route("owner.transaction")}
+                            active={route().current("owner.transaction")}
                         >
-                            Logout
+                            Transaction
                         </NavLink>
                     </>
                 )}
             </div>
             <div className="flex-none gap-2 justify-center">
-                <label className="swap swap-rotate ms-2">
-                    <button
-                        className="theme-controller"
-                        onClick={toggleDarkMode}
-                    />
-                    {darkMode ? (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="main-grid-item-icon"
-                            fill="white"
-                            stroke="white"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
+                {user ? (
+                    <>
+                        <NavLink
+                            className="hidden sm:flex items-center gap-x-2"
+                            href={route("owner.cart")}
                         >
-                            <circle cx="12" cy="12" r="5" />
-                            <line x1="12" x2="12" y1="1" y2="3" />
-                            <line x1="12" x2="12" y1="21" y2="23" />
-                            <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />
-                            <line x1="18.36" x2="19.78" y1="18.36" y2="19.78" />
-                            <line x1="1" x2="3" y1="12" y2="12" />
-                            <line x1="21" x2="23" y1="12" y2="12" />
-                            <line x1="4.22" x2="5.64" y1="19.78" y2="18.36" />
-                            <line x1="18.36" x2="19.78" y1="5.64" y2="4.22" />
-                        </svg>
-                    ) : (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            className="main-grid-item-icon"
-                            fill="black"
-                            stroke="black"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                        >
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                        </svg>
-                    )}
-                </label>
-
+                            <CartIcon color={"stroke-current"} />
+                            {carts_global > 0 ? carts_global : null}
+                        </NavLink>
+                    </>
+                ) : null}
                 <div className="dropdown dropdown-end">
                     <button
                         tabIndex={0}
@@ -116,38 +111,26 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                         className="btn btn-ghost"
                     >
                         {user ? (
-                            <h1 className="text-gray-800 dark:text-white">
-                                {user?.name}
-                            </h1>
+                            <div className="flex items-center gap-3 ">
+                                <div className="hidden xs:flex">
+                                    <UserAvatar
+                                        avatar={user.user.profile}
+                                        className="w-10 rounded-full"
+                                    />
+                                </div>
+                                <h1 className="text-gray-800">
+                                    {user.user.name}
+                                </h1>
+                            </div>
                         ) : (
-                            <h1 className="text-gray-800 dark:text-white">
-                                Guest
-                            </h1>
+                            <h1 className="text-gray-800">Guest</h1>
                         )}
-                        <svg
-                            className="ms-2 -me-0.5 h-4 w-4 md:hidden"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
+                        <ArrowBottomIcons />
                     </button>
                     <ul
                         tabIndex={0}
-                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content rounded-box w-52 bg-white text-gray-800 dark:bg-base-100 dark:text-white md:hidden"
+                        className="mt-4 z-[1] p-2 shadow menu menu-sm dropdown-content rounded-box w-44 bg-white text-gray-800"
                     >
-                        <Link
-                            as="button"
-                            href="/"
-                            className="btn btn-ghost text-xl text-gray-800 dark:text-white xs:flex md:hidden justify-start px-2"
-                        >
-                            Pet Clinic
-                        </Link>
                         {!user ? (
                             <>
                                 <li>
@@ -163,48 +146,66 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                             </>
                         ) : (
                             <>
+                                <div className="md:hidden">
+                                    <li>
+                                        <Link
+                                            href={route("owner.dashboard")}
+                                            as="button"
+                                        >
+                                            <DashboardIcon />
+                                            Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("owner.pets")}
+                                            as="button"
+                                        >
+                                            <PetsIcon />
+                                            Pets
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("owner.appointmen")}
+                                            as="button"
+                                        >
+                                            <AppointmentsIcon />
+                                            Appointments
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("owner.products")}
+                                            as="button"
+                                        >
+                                            <ProductsIcon />
+                                            Products
+                                        </Link>
+                                    </li>
+                                </div>
+
+                                <div className="sm:hidden">
+                                    <li>
+                                        <Link href={route("owner.cart")}>
+                                            <CartIcon
+                                                color={"stroke-primary-red"}
+                                            />
+                                            {carts_global > 0
+                                                ? carts_global
+                                                : null}
+                                            Carts
+                                        </Link>
+                                    </li>
+                                </div>
+
                                 <li>
                                     <Link
-                                        href={route("owner.dashboard")}
-                                        as="button"
-                                        className="justify-between"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        // href={route("user.cars")}
-                                        as="button"
-                                        className="justify-between"
-                                    >
-                                        Pets
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        // href={route("user.cars")}
-                                        as="button"
-                                        className="justify-between"
-                                    >
-                                        Appointment
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        // href={route("user.orders")}
-                                        as="button"
-                                        className="justify-between"
-                                    >
-                                        Medical Record
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href={route("profile.edit")}
+                                        href={route("owner.profile.edit")}
                                         as="button"
                                     >
-                                        Profile
+                                        <SettingsIcons />
+                                        Settings
                                     </Link>
                                 </li>
                                 <li>
@@ -213,6 +214,7 @@ const Navbar = ({ user, darkMode, toggleDarkMode }) => {
                                         method="post"
                                         as="button"
                                     >
+                                        <LogoutIcon />
                                         Logout
                                     </Link>
                                 </li>

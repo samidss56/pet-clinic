@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
 
     protected $primaryKey = 'user_id';
+    public $incrementing = false;
     // protected $fillable = [
     //     'user_id',
     //     'name',
@@ -48,17 +49,39 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function roles() {
-        return $this->belongsToMany(Role::class);
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
 
-    // public function owner()
-    // {
-    //     return $this->hasOne(Owner::class, 'owner_id', 'id');
-    // }
+    public function hasRole(...$roles)
+    {
+        return $this->roles()->whereIn('name', $roles)->exists();
+    }
 
-    // public function doctor()
-    // {
-    //     return $this->hasOne(Doctor::class, 'doctor_id', 'id');
-    // }
+    public function hasRoles()
+    {
+        return $this->roles()->count() >= 1 ? true : false;
+    }
+
+    public function hasAnyRoles(...$roles)
+    {
+        foreach ($roles as $role) {
+            if (str($this->roles->pluck('name'))->containsAll($role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id', 'user_id');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Transaction::class, 'user_id', 'user_id');
+    }
 }

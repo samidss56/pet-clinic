@@ -20,9 +20,13 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
+        dd($validated);
+
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
+
+        // dd($validated);
 
         return back();
     }

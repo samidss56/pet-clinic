@@ -1,185 +1,300 @@
 import { Link } from "@inertiajs/react";
+import { useState } from "react";
+import {
+    AppointmentsIcon,
+    ArticlesIcon,
+    CloseSidebarIcon,
+    DashboardIcon,
+    DoctorsIcon,
+    LogoutIcon,
+    OpenSidebarIcon,
+    ProductsIcon,
+    SchedulesIcon,
+    ServicesIcon,
+    TransactionsIcon,
+    UsersIcon,
+    AboutusIcon,
+    HerosectionIcon,
+    FeedbackIcon,
+    GalleryIcon,
+    WhyUsIcon,
+    CartIcon,
+} from "./Icons/Index";
+import appLogo from "../../../public/AppLogo.png";
 
-const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
+const Sidebar = ({ user }) => {
+    const [isOpen, setIsOpen] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
-        <div className="drawer lg:drawer-open w-72">
+        <div
+            className={`drawer drawer-open w-${
+                isOpen ? "72" : "20"
+            } transition duration-500`}
+        >
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-side bg-white dark:bg-dark-gray">
-                <label
-                    htmlFor="my-drawer-2"
-                    aria-label="close sidebar"
-                    className="drawer-overlay"
-                ></label>
-                <ul className="flex flex-col shadow justify-between menu p-4 w-72 min-h-full bg-white text-gray-800 dark:bg-dark-gray dark:text-white">
-                    <div className="flex flex-col gap-6">
-                        <div className="flex items-center justify-between mb-2">
-                            <a
-                                href={
-                                    user.role === "doctor"
-                                        ? route("doctor.dashboard")
-                                        : route("admin.dashboard")
-                                }
-                                className="btn btn-ghost text-xl text-gray-800 dark:text-white"
-                            >
-                                Pet Clinic
-                            </a>
-                            <a
-                                href={route("doctor.dashboard")}
-                                className="btn bg-gray-100 dark:bg-gray-300 hover:bg-gray-200 border-none text-md font-medium text-gray-800 dark:black"
-                            >
-                                {user.name}
-                            </a>
-                        </div>
+            <div className="drawer-side bg-white relative no-scrollbar">
+                <label></label>
+                <ul
+                    className={`flex flex-col shadow justify-between menu p-4 min-h-full bg-white text-gray-800 transition-all duration-300 space-y-6 ${
+                        isOpen ? "w-72" : "w-22"
+                    }`}
+                >
+                    <div className="flex flex-col gap-3">
+                        {isOpen ? (
+                            <div className="flex items-center justify-between mb-2">
+                                <Link href={route("home")}>
+                                    <img
+                                        src={appLogo}
+                                        alt="App Logo"
+                                        className="w-14"
+                                    />
+                                </Link>
+                                <a className="btn bg-gray-100 hover:bg-gray-200 border-none text-md font-medium text-gray-800">
+                                    {user.user.name}
+                                </a>
+                            </div>
+                        ) : (
+                            <Link href={route("home")}>
+                                <img
+                                    src={appLogo}
+                                    alt="App Logo"
+                                    className="w-14"
+                                />
+                            </Link>
+                        )}
                         <div className="flex flex-col gap-3">
                             <li>
                                 <Link
                                     href={
-                                        user.role === "doctor"
-                                            ? route("doctor.dashboard")
+                                        user.isSuperAdmin
+                                            ? route("superadmin.dashboard")
                                             : route("admin.dashboard")
                                     }
                                     as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon fill-dark-gray dark:fill-white"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path>
-                                    </svg>
-                                    Dashboard
+                                    <DashboardIcon />
+                                    {isOpen && <span>Dashboard</span>}
                                 </Link>
                             </li>
-
-                            {user.role === "admin" ? (
-                                <>
-                                    <li>
-                                        <Link
-                                            href={route("admin.users")}
-                                            as="button"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                width="24"
-                                                height="24"
-                                                className="main-grid-item-icon stroke-dark-gray dark:stroke-white"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                            >
-                                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                                <circle cx="9" cy="7" r="4" />
-                                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                            </svg>
-                                            Users Management
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href={route("admin.pet-types")}
-                                            as="button"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                className="main-grid-item-icon fill-dark-gray dark:fill-white"
-                                            >
-                                                <path d="M21 6h-2l-1.27-1.27A2.49 2.49 0 0 0 16 4h-2.5A2.64 2.64 0 0 0 11 2v6.36a4.38 4.38 0 0 0 1.13 2.72 6.57 6.57 0 0 0 4.13 1.82l3.45-1.38a3 3 0 0 0 1.73-1.84L22 8.15a1.06 1.06 0 0 0 0-.31V7a1 1 0 0 0-1-1zm-5 2a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"></path>
-                                                <path d="M11.38 11.74A5.24 5.24 0 0 1 10.07 9H6a1.88 1.88 0 0 1-2-2 1 1 0 0 0-2 0 4.69 4.69 0 0 0 .48 2A3.58 3.58 0 0 0 4 10.53V22h3v-5h6v5h3v-8.13a7.35 7.35 0 0 1-4.62-2.13z"></path>
-                                            </svg>
-                                            Pet Types Management
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href={route("admin.pets")}
-                                            as="button"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                className="main-grid-item-icon fill-dark-gray dark:fill-white"
-                                            >
-                                                <path d="M17 14a5 5 0 0 0 2.71-.81L20 13a3.16 3.16 0 0 0 .45-.37l.21-.2a4.48 4.48 0 0 0 .48-.58l.06-.08a4.28 4.28 0 0 0 .41-.76 1.57 1.57 0 0 0 .09-.23 4.21 4.21 0 0 0 .2-.63l.06-.25A5.5 5.5 0 0 0 22 9V2l-3 3h-4l-3-3v7a5 5 0 0 0 5 5zm2-7a1 1 0 1 1-1 1 1 1 0 0 1 1-1zm-4 0a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"></path>
-                                                <path d="M11 22v-5H8v5H5V11.9a3.49 3.49 0 0 1-2.48-1.64A3.59 3.59 0 0 1 2 8.5 3.65 3.65 0 0 1 6 5a1.89 1.89 0 0 0 2-2 1 1 0 0 1 1-1 1 1 0 0 1 1 1 3.89 3.89 0 0 1-4 4C4.19 7 4 8.16 4 8.51S4.18 10 6 10h5.09A6 6 0 0 0 19 14.65V22h-3v-5h-2v5z"></path>
-                                            </svg>
-                                            Pets Management
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            // href={route("admin.cars")}
-                                            as="button"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                className="main-grid-item-icon fill-dark-gray dark:fill-white"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path d="M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z"></path>
-                                            </svg>
-                                            Medical Records Management
-                                        </Link>
-                                    </li>
-                                </>
-                            ) : (
+                            <li>
+                                <Link
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.appointments")
+                                            : route("admin.appoitments")
+                                    }
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <AppointmentsIcon />
+                                    {isOpen && (
+                                        <span>Appointment Management</span>
+                                    )}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.transaction")
+                                            : route("admin.transaction")
+                                    }
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <TransactionsIcon />
+                                    {isOpen && (
+                                        <span>Appointment Transaction</span>
+                                    )}
+                                </Link>
+                            </li>
+                            {user.isSuperAdmin && (
                                 <li>
                                     <Link
-                                        href={route("profile.edit")}
+                                        href={
+                                            user.isSuperAdmin &&
+                                            route(
+                                                "superadmin.product-transaction"
+                                            )
+                                        }
                                         as="button"
+                                        className="bg-white hover:bg-light-red border-none text-md font-medium "
                                     >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            width="24"
-                                            height="24"
-                                            className="main-grid-item-icon stroke-dark-gray dark:stroke-white"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                        >
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                            <circle cx="12" cy="7" r="4" />
-                                        </svg>
-                                        Profile
+                                        <CartIcon
+                                            color={"stroke-primary-red"}
+                                        />
+                                        {isOpen && (
+                                            <span>Product Transaction</span>
+                                        )}
                                     </Link>
                                 </li>
                             )}
+
                             <li>
                                 <Link
-                                    // href={
-                                    //     user.role === "doctor"
-                                    //         ? route("doctor.dashboard")
-                                    //         : route("admin.dashboard")
-                                    // }
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.products")
+                                            : route("admin.products")
+                                    }
                                     as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        className="main-grid-item-icon fill-dark-gray dark:fill-white"
-                                    >
-                                        <path d="m12 22 1-2v-3h5a1 1 0 0 0 1-1v-1.586c0-.526-.214-1.042-.586-1.414L17 11.586V8a1 1 0 0 0 1-1V4c0-1.103-.897-2-2-2H8c-1.103 0-2 .897-2 2v3a1 1 0 0 0 1 1v3.586L5.586 13A2.01 2.01 0 0 0 5 14.414V16a1 1 0 0 0 1 1h5v3l1 2zM8 4h8v2H8V4zM7 14.414l1.707-1.707A.996.996 0 0 0 9 12V8h6v4c0 .266.105.52.293.707L17 14.414V15H7v-.586z"></path>
-                                    </svg>
-                                    Appointments Management
+                                    <ProductsIcon />
+                                    {isOpen && <span>Product Management</span>}
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.services")
+                                            : route("admin.services")
+                                    }
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <ServicesIcon />
+                                    {isOpen && <span>Service Management</span>}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href={
+                                        user.isSuperAdmin
+                                            ? route("superadmin.articles")
+                                            : route("admin.articles")
+                                    }
+                                    as="button"
+                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                >
+                                    <ArticlesIcon />
+                                    {isOpen && <span>Article Management</span>}
+                                </Link>
+                            </li>
+                            {!user.isSuperAdmin && (
+                                <>
+                                    <li>
+                                        <Link
+                                            href={
+                                                user.isSuperAdmin
+                                                    ? route(
+                                                          "superadmin.galleries"
+                                                      )
+                                                    : route("admin.galleries")
+                                            }
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <GalleryIcon />
+                                            {isOpen && (
+                                                <span>Gallery Management</span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("admin.testimonials")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <FeedbackIcon />
+                                            {isOpen && (
+                                                <span>
+                                                    Testimonial Management
+                                                </span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route(
+                                                "admin.herosection.index"
+                                            )}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <HerosectionIcon />
+                                            {isOpen && (
+                                                <span>
+                                                    Hero Section Management
+                                                </span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("admin.aboutus.index")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <AboutusIcon />
+                                            {isOpen && (
+                                                <span>About Us Management</span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={route("admin.whyus.index")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <WhyUsIcon
+                                                color={"stroke-primary-red"}
+                                            />
+                                            {isOpen && (
+                                                <span>Why Us Management</span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+                            {user.isSuperAdmin && (
+                                <>
+                                    <li>
+                                        <Link
+                                            href={route("superadmin.users")}
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <UsersIcon />
+                                            {isOpen && (
+                                                <span>Users Management</span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/superadmin/docters"
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <DoctorsIcon />
+                                            {isOpen && (
+                                                <span>Doctor Management</span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/superadmin/jadwal"
+                                            as="button"
+                                            className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                        >
+                                            <SchedulesIcon />
+                                            {isOpen && (
+                                                <span>Jadwal Management</span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
                         </div>
                     </div>
                     <div className="flex flex-col gap-3">
@@ -187,97 +302,25 @@ const Sidebar = ({ user, darkMode, toggleDarkMode }) => {
                             <Link
                                 href={route("logout")}
                                 as="button"
+                                className="bg-white hover:bg-light-red border-none text-md font-medium "
                                 method="post"
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="24"
-                                    height="24"
-                                    className="main-grid-item-icon stroke-dark-gray dark:stroke-white"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                                    <polyline points="16 17 21 12 16 7" />
-                                    <line x1="21" x2="9" y1="12" y2="12" />
-                                </svg>
-                                Logout
+                                <LogoutIcon />
+                                {isOpen && <span>Logout</span>}
                             </Link>
-                        </li>
-                        <li>
-                            <label className="swap swap-rotate ">
-                                <button
-                                    className="theme-controller"
-                                    onClick={toggleDarkMode}
-                                />
-                                {darkMode ? (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="white"
-                                        stroke="white"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <circle cx="12" cy="12" r="5" />
-                                        <line x1="12" x2="12" y1="1" y2="3" />
-                                        <line x1="12" x2="12" y1="21" y2="23" />
-                                        <line
-                                            x1="4.22"
-                                            x2="5.64"
-                                            y1="4.22"
-                                            y2="5.64"
-                                        />
-                                        <line
-                                            x1="18.36"
-                                            x2="19.78"
-                                            y1="18.36"
-                                            y2="19.78"
-                                        />
-                                        <line x1="1" x2="3" y1="12" y2="12" />
-                                        <line x1="21" x2="23" y1="12" y2="12" />
-                                        <line
-                                            x1="4.22"
-                                            x2="5.64"
-                                            y1="19.78"
-                                            y2="18.36"
-                                        />
-                                        <line
-                                            x1="18.36"
-                                            x2="19.78"
-                                            y1="5.64"
-                                            y2="4.22"
-                                        />
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        width="24"
-                                        height="24"
-                                        className="main-grid-item-icon"
-                                        fill="black"
-                                        stroke="black"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    >
-                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                                    </svg>
-                                )}
-                            </label>
                         </li>
                     </div>
                 </ul>
             </div>
+            <button
+                onClick={toggleSidebar}
+                htmlFor="my-drawer-2"
+                aria-label="close sidebar"
+                className="drawer-overlay absolute right-[-20px] flex items-center justify-center h-8 w-8 z-10 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md transition-all duration-300"
+                style={{ top: "50%" }}
+            >
+                {isOpen ? <CloseSidebarIcon /> : <OpenSidebarIcon />}
+            </button>
         </div>
     );
 };
