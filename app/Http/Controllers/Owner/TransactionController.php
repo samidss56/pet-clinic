@@ -8,6 +8,7 @@ use App\Http\Resources\ProductTransResource;
 use App\Http\Resources\TransactionOwnerResource;
 use App\Models\Cart;
 use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -30,5 +31,12 @@ class TransactionController extends Controller
             'title' => 'Transaction Detail',
             'transaction' => new ProductTransResource($transaction),
         ]);
+    }
+
+    public function downloadDetailPDF(Transaction $transaction)
+    {
+        $transaction->load('details.product', 'user');
+        $pdf = PDF::loadView('pdf.productTransactionDetail', compact('transaction'));
+        return $pdf->download('transaction-inovoice-' . $transaction->invoice . '.pdf');
     }
 }

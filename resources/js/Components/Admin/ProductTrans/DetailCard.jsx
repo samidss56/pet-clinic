@@ -1,11 +1,17 @@
-import { ArrowLeftIcon } from "@/Components/Icons/Index";
+import { ArrowLeftIcon, FileIcon } from "@/Components/Icons/Index";
 import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import useExportPDF from "@/Hooks/useExportPDF";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { Link } from "@inertiajs/react";
 
 const DetailCard = ({ transaction }) => {
+    const handleDownloadPDF = useExportPDF(
+        "admin.product-transaction.downloadPDF",
+        transaction.invoice
+    );
     return (
         <div className="rounded-md border shadow-md border-stroke bg-white p-4 shadow-default">
             <h2 className="text-xl font-bold text-gray-800 mb-4">
@@ -134,13 +140,22 @@ const DetailCard = ({ transaction }) => {
                     {formatCurr(transaction.subtotal)}
                 </div>
             </div>
-            <div>
+            <div className="flex items-center gap-2 my-4">
                 <Link href={route("admin.product-transaction")}>
                     <SecondaryButton>
                         <ArrowLeftIcon />
                         Back to Product Transaction List
                     </SecondaryButton>
                 </Link>
+                {transaction.status_payment === "settlement" ? (
+                    <PrimaryButton
+                        className="flex items-center gap-2"
+                        onClick={handleDownloadPDF}
+                    >
+                        <FileIcon />
+                        PDF
+                    </PrimaryButton>
+                ) : null}
             </div>
         </div>
     );

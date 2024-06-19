@@ -118,11 +118,13 @@ Route::prefix('superadmin')->namespace('Superadmin')->middleware('hasSuperAdmin'
     Route::get('/transaction', [SuperadminTransactionController::class, 'index'])->name('superadmin.transaction');
     Route::get('transaction/{transaction:invoice}', [SuperadminTransactionController::class, 'show'])->name('superadmin.transaction.show');
     Route::get('/download-laporan', [SuperadminTransactionController::class, 'downloadlaporan'])->name('downloadlaporansuperadmin');
-    Route::get('transaction/{transaction:invoice}/pdf', [SuperadminTransactionController::class, 'downloaddetailPDF'])->name('superadmin.transaction.downloadPDF');
+    Route::get('/transaction/{transaction:invoice}/pdf', [SuperadminTransactionController::class, 'downloaddetailPDF'])->name('superadmin.transaction.downloadPDF');
 
     // Product Transaction
     Route::get('/product-transaction', [SuperadminProductTransController::class, 'index'])->name('superadmin.product-transaction');
     Route::get('/product-transaction/{transaction:invoice}', [SuperadminProductTransController::class, 'show'])->name('superadmin.product-transaction.show');
+    Route::get('/product-transaction/report/pdf', [SuperadminProductTransController::class, 'downloadReport'])->name('superadmin.product-transaction.report');
+    Route::get('/product-transaction/{transaction:invoice}/pdf', [SuperadminProductTransController::class, 'downloadDetailPDF'])->name('superadmin.product-transaction.downloadPDF');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(function () {
@@ -172,6 +174,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('hasAdmin')->group(functi
     // Product Transaction
     Route::get('/product-transaction', [ProductTransController::class, 'index'])->name('admin.product-transaction');
     Route::get('/product-transaction/{transaction:invoice}', [ProductTransController::class, 'show'])->name('admin.product-transaction.show');
+    Route::get('/product-transaction/{transaction:invoice}/pdf', [ProductTransController::class, 'downloadDetailPDF'])->name('admin.product-transaction.downloadPDF');
 
 
     //Appoitment
@@ -243,6 +246,7 @@ Route::prefix('owner')->namespace('Owner')->middleware('hasOwner')->group(functi
 
     Route::get('/transaction', [OwnerTransactionController::class, 'index'])->name('owner.transaction');
     Route::get('/transaction/{transaction:invoice}', [OwnerTransactionController::class, 'show'])->name('owner.transaction.show');
+    Route::get('transaction/{transaction:invoice}/pdf', [OwnerTransactionController::class, 'downloaDdetailPDF'])->name('owner.transaction.downloadPDF');
 
     Route::post('onkir', [OwnerCartController::class, 'onkir'])->name('onkir');
     Route::get('/provinces', [OwnerCartController::class, 'getProvinces']);
@@ -266,7 +270,7 @@ Route::prefix('docter')->namespace('Docter')->middleware('docter')->group(functi
 
     Route::get('/settings', [DocterProfileController::class, 'edit'])->name('docter.profile.edit');
     Route::patch('/settings/{docter}', [DocterProfileController::class, 'update'])->name('docter.profile.update');
-    Route::put('/settings', [DocterPasswordController::class, 'update'])->name('docter.password.update');
+    // Route::put('/settings', [DocterPasswordController::class, 'update'])->name('docter.password.update');
 });
 
 // Route::middleware('auth')->group(function () {

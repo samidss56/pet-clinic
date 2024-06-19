@@ -5,12 +5,10 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { formatCurr } from "@/Utils/FormatPrice";
 import { Link } from "@inertiajs/react";
-import React, { useState, useEffect } from 'react';
-import { Inertia } from "@inertiajs/inertia";
+import React from "react";
+import useExportPDF from "@/Hooks/useExportPDF";
 
 const DetailCard = ({ transaction }) => {
-    const [exportReset, setExportReset] = useState(false);
-
     const products = transaction.details.filter(
         (detail) => detail.product_id !== null
     );
@@ -18,18 +16,10 @@ const DetailCard = ({ transaction }) => {
         (detail) => detail.service_id !== null
     );
 
-    useEffect(() => {
-        if (exportReset) {
-            const url = route('superadmin.transaction.downloadPDF', transaction.invoice);
-            window.location.href = url;
-            setExportReset(false);
-        }
-    }, [exportReset]);
-
-    const handleDownloadPDF = () => {
-        // Inertia.get(route('superadmin.transaction.downloadPDF', transaction.invoice), {});
-        setExportReset(true);
-    };
+    const handleDownloadPDF = useExportPDF(
+        "superadmin.transaction.downloadPDF",
+        transaction.invoice
+    );
 
     return (
         <div className="bg-white rounded-md">
@@ -38,13 +28,16 @@ const DetailCard = ({ transaction }) => {
                     Invoice #{transaction.invoice}
                 </h2>
                 <div className="flex gap-2 items-center">
-                    {transaction.status_payment  === "settlement" ?
-                      <PrimaryButton className="flex items-center gap-2" onClick={handleDownloadPDF}>
-                        <FileIcon />
-                        PDF
-                    </PrimaryButton>
-                    : null}
-                  
+                    {transaction.status_payment === "settlement" ? (
+                        <PrimaryButton
+                            className="flex items-center gap-2"
+                            onClick={handleDownloadPDF}
+                        >
+                            <FileIcon />
+                            PDF
+                        </PrimaryButton>
+                    ) : null}
+
                     {transaction.status_payment === "settlement" && (
                         <span className="inline-block px-2 py-2 bg-green-500 text-white rounded-lg">
                             finished
@@ -234,9 +227,7 @@ const DetailCard = ({ transaction }) => {
                             {services.map((service) => (
                                 <tr key={service.transaction_id}>
                                     <th>{service.service_name}</th>
-                                    <th>
-                                        1
-                                    </th>
+                                    <th>1</th>
                                     <th>{formatCurr(service.harga_service)}</th>
                                 </tr>
                             ))}

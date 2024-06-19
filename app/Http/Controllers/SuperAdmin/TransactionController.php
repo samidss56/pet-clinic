@@ -29,12 +29,12 @@ class TransactionController extends Controller
     }
 
     public function show(Transaction $transaction)
-    {  
+    {
         $transaction->load(['user', 'appoitment.docter', 'appoitment.pet', 'details']);
 
         // return new TransactionSuperAdminResource($transaction);
 
-        return inertia('Superadmin/Transaction/Show',[
+        return inertia('Superadmin/Transaction/Show', [
             'transaction' => new TransactionSuperAdminResource($transaction),
             'title' => 'Inovoice',
         ]);
@@ -50,9 +50,9 @@ class TransactionController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $transactions = Transaction::with(['details.product', 'details.service'])
-        ->whereBetween('date_transaction', [$startDate, $endDate])
-        ->get();
+        $transactions = Transaction::with(['details.product', 'details.service'])->where('appointmen_id', '!=', null)
+            ->whereBetween('date_transaction', [$startDate, $endDate])
+            ->get();
 
         $pdf = Pdf::loadView('pdf.transactions', compact('transactions', 'startDate', 'endDate'));
 
@@ -64,7 +64,6 @@ class TransactionController extends Controller
         $transaction->load(['user', 'appoitment.docter', 'appoitment.pet', 'details']);
         // return $transaction;
         $pdf = PDF::loadView('pdf.transactiondetail', compact('transaction'));
-        return $pdf->download('transaction-detail.pdf');
+        return $pdf->download('transaction-inovoice-' . $transaction->invoice . '.pdf');
     }
-
 }

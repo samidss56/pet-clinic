@@ -109,22 +109,27 @@ const Sidebar = ({ user }) => {
                                     )}
                                 </Link>
                             </li>
-                            <li>
-                                <Link
-                                    href={
-                                        user.isSuperAdmin
-                                            ? route(
-                                                  "superadmin.product-transaction"
-                                              )
-                                            : route("admin.product-transaction")
-                                    }
-                                    as="button"
-                                    className="bg-white hover:bg-light-red border-none text-md font-medium "
-                                >
-                                    <CartIcon color={"stroke-primary-red"} />
-                                    {isOpen && <span>Product Transaction</span>}
-                                </Link>
-                            </li>
+                            {user.isSuperAdmin && (
+                                <li>
+                                    <Link
+                                        href={
+                                            user.isSuperAdmin &&
+                                            route(
+                                                "superadmin.product-transaction"
+                                            )
+                                        }
+                                        as="button"
+                                        className="bg-white hover:bg-light-red border-none text-md font-medium "
+                                    >
+                                        <CartIcon
+                                            color={"stroke-primary-red"}
+                                        />
+                                        {isOpen && (
+                                            <span>Product Transaction</span>
+                                        )}
+                                    </Link>
+                                </li>
+                            )}
 
                             <li>
                                 <Link
