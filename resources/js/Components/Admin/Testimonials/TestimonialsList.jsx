@@ -22,7 +22,7 @@ const isTestimonials = (testimonials, notification) => {
         setShowModalDeleteTestimonial(false);
         setSelectedTestimonial(null);
     };
-    
+
     useToastNotification(notification);
 
     return (
@@ -71,19 +71,22 @@ const isTestimonials = (testimonials, notification) => {
                                 <th className="text-black dark:text-white font-medium">
                                     {testimonial.content}
                                 </th>
-                                <th
-                                    className={`badge p-3 mt-4 ${
-                                        testimonial.status === "pending" &&
-                                        "bg-orange-400 border-orange-400 text-white"
-                                    } ${
-                                        testimonial.status === "accepted" &&
-                                        "bg-green-600 border-green-600 text-white"
-                                    } ${
-                                        testimonial.status === "rejected" &&
-                                        "bg-primary-red border-primary-red text-white"
-                                    }`}
-                                >
-                                    {testimonial.status}
+                                <th className="text-black dark:text-white font-medium">
+                                    {testimonial.status === "pending" && (
+                                        <span className="inline-block px-2 py-1 bg-yellow-500 text-white rounded">
+                                            pending
+                                        </span>
+                                    )}
+                                    {testimonial.status === "accepted" && (
+                                        <span className="inline-block px-2 py-1 bg-green-500 text-white rounded">
+                                            accepted
+                                        </span>
+                                    )}
+                                    {testimonial.status === "rejected" && (
+                                        <span className="inline-block px-2 py-1 bg-primary-red text-white rounded">
+                                            rejected
+                                        </span>
+                                    )}
                                 </th>
 
                                 <th>

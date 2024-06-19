@@ -22,7 +22,7 @@ const Herosection = ({ auth, title, herosection }) => {
             <AdminLayout>
                 <div className="overflow-x-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-5 py-1">
-                        <div className="border rounded-lg p-4 space-y-4">
+                        <div className="border rounded-lg p-4 space-y-4 bg-white">
                             <h2 className="text-xl font-bold text-gray-800">
                                 Title: {herosection.title}
                             </h2>
@@ -30,7 +30,7 @@ const Herosection = ({ auth, title, herosection }) => {
                                 Content: {herosection.content}
                             </p>
                         </div>
-                        <div className="border rounded-lg p-4 space-y-4">
+                        <div className="border rounded-lg p-4 space-y-4 bg-white">
                             <h2 className="text-xl font-bold text-gray-800">
                                 Image
                             </h2>

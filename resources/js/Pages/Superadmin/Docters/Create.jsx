@@ -47,7 +47,7 @@ const Create = ({ auth, title }) => {
                     encType="multipart/form-data"
                     className="p-6 shadow-lg rounded-lg bg-white dark:bg-dark-gray"
                 >
-                    <InputLabel htmlFor="name" value="Docters Name" />
+                    <InputLabel htmlFor="name" value="Doctor Name" />
                     <TextInput
                         type="text"
                         id="name"
@@ -62,7 +62,7 @@ const Create = ({ auth, title }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-1">
                         <div>
-                            <InputLabel htmlFor="email" value="email" />
+                            <InputLabel htmlFor="email" value="Email" />
                             <TextInput
                                 type="email"
                                 id="email"

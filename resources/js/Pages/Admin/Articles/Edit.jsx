@@ -68,7 +68,7 @@ const UpdateArticle = ({ auth, title, article }) => {
                         required
                     />
                     <InputError message={errors.title} className="mb-2" />
-                    <InputLabel htmlFor="title" value="Article Title" />
+                    <InputLabel htmlFor="title" value="Article Image" />
                     <div className="flex items center gap-4">
                         <img
                             className="w-20 rounded-lg"

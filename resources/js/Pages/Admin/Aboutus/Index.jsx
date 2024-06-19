@@ -24,11 +24,11 @@ const Aboutus = ({ auth, title, aboutus }) => {
             <AdminLayout>
                 <div className="overflow-x-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-5 py-1">
-                        <div className="border rounded-lg p-4 space-y-4">
+                        <div className="border rounded-lg p-4 space-y-4 bg-white">
                             <h2 className="text-xl font-bold text-gray-800">Title: {aboutus.title}</h2>
                             <p className="text-gray-800">Content: {aboutus.content}</p>
                         </div>
-                        <div className="border rounded-lg p-4 space-y-4">
+                        <div className="border rounded-lg p-4 space-y-4 bg-white">
                             <h2 className="text-xl font-bold text-gray-800">Image</h2>
                             <img className='w-60' src={`${appUrl}/storage/${aboutus.image}`} alt="" />
                         </div>
