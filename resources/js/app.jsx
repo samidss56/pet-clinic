@@ -4,7 +4,6 @@ import "../css/app.css";
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
-import { DarkModeProvider } from "./Contexts/DarkMode";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,14 +20,14 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <DarkModeProvider>
+            <>
                 <App {...props} />
                 <ToastContainer
                     theme="light"
                     position="bottom-right"
                     style={{ width: "fit-content" }}
                 />
-            </DarkModeProvider>
+            </>
         );
     },
     progress: {

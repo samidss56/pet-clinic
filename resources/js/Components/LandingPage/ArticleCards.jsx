@@ -15,7 +15,7 @@ const ArticleCards = ({ key, image, title, content, slug, author, date }) => {
                 className="card card-compact w-full bg-white shadow-md"
             >
                 <figure>
-                    <img src={image} alt={title} />
+                    <img className="w-full object-cover h-60" src={image} alt={title} />
                 </figure>
                 <div className="card-body">
                     <div className="flex justify-between items-center">

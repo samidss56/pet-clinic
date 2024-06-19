@@ -3,8 +3,6 @@ import SidebarDocter from "@/Components/SidebarDocter";
 // import { usePage } from '@inertiajs/react';
 
 export default function AppDocter({ user, header, children }) {
-    const { darkMode, toggleDarkMode } = useDarkMode();
-    
     return (
         <div className={`${darkMode && "dark"}`}>
             <div className="min-h-screen bg-gray-100 dark:bg-light-gray">

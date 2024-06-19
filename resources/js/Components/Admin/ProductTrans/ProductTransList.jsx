@@ -99,7 +99,6 @@ const noTrancsaction = () => {
 };
 
 const ProductTransList = ({ transactions }) => {
-    console.log(transactions);
     return transactions.length < 0
         ? noTrancsaction()
         : isTransactions(transactions);

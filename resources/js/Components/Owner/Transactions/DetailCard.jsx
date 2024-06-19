@@ -178,8 +178,16 @@ const DetailCard = ({ transaction }) => {
                 </table>
             </div>
             <div className="flex justify-between my-4">
-                <div className="text-md font-bold text-gray-700">Tax</div>
-                <div className="text-md font-bold text-gray-700">11 %</div>
+                <div className="text-md font-bold text-gray-700">Tax 11 %</div>
+                <div className="text-md font-bold text-gray-700">
+                    {formatCurr(transaction.ppn_tax)}
+                </div>
+            </div>
+            <div className="flex justify-between my-4">
+                <div className="text-md font-bold text-gray-700">Onkir</div>
+                <div className="text-md font-bold text-gray-700">
+                    {formatCurr(transaction.onkir)}
+                </div>
             </div>
             <div className="flex justify-between my-4">
                 <div className="text-md font-bold text-gray-700">Subtotal</div>

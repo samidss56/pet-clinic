@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import { formatCurr } from "@/Utils/FormatPrice";
-import ButtonLink from "@/Components/ButtonLink";
-import { Link } from "@inertiajs/react";
 import DangerButton from "@/Components/DangerButton";
 import axios from "axios";
 import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 
 const CartItem = ({ cart, handleQuantityChange, quantity, handleDelete, alamat }) => {
-    // console.log(cart)
-    const clientKey = import.meta.env.MIDTRANS_CLIENT_API_KEY
     return (
        <>
          <div
@@ -96,7 +91,6 @@ const CartList = ({ cart }) => {
 
     }, [quantities, cart]);
 
-    // console.log(weight);
 
     const handleQuantityChange = (id, jumlah) => {
         const updatedQuantities = quantities.map(q =>
@@ -128,24 +122,16 @@ const CartList = ({ cart }) => {
     };
 
     const handleSubmit = async (e) => {
-        // alert('oke');
         e.preventDefault();
 
-        // Inertia.post(route('invoice'), {
-        //     cart: cart,
-        //     subtotal: total,
-        //     ongkos: onkir,
-        // });
         try {
             const response = await axios.post(route('invoice'), {
                 cart: cart,
                 subtotal: total,
                 ongkos: onkir,
             });
-            // console.log(response.data);
             if (response && response.data && response.data.token) {
                 let snapToken = response.data.token;
-                // console.log(snapToken);
                 window.snap.pay(snapToken);
             }
         } catch (error) {
@@ -180,11 +166,9 @@ const CartList = ({ cart }) => {
         const getprovinsi = async () => {
             try {
                 const provinsiresponse = await axios.get('provinces');
-                // console.log(response);
                 setProvinces(provinsiresponse.data.rajaongkir.results)
 
                 const kotaresponse = await axios.get('cities');
-                // console.log(kotaresponse);
                 setKota(kotaresponse.data.rajaongkir.results)
             } catch (error) {
                 console.error('Error fetching provinces:', error);
@@ -214,26 +198,6 @@ const CartList = ({ cart }) => {
         const selectedCourier = e.target.value;
         setSelectedCourier(selectedCourier);
 
-        // if (selectedCourier && destinationId) {
-        //     Inertia.post(route('onkir'), {
-        //         origin: '501',
-        //         destination: destinationId,
-        //         weight: 1700,
-        //         courier: selectedCourier
-        //     }, {
-        //         onSuccess: ({ props }) => {
-        //             const ongkirData = props.response;
-        //             setOngkir(ongkirData.rajaongkir.results[0].costs[0].cost[0].value);
-        //             },
-        //             onError: (error) => {
-        //                 console.error("Error fetching ongkir:", error);
-        //             }
-        //         });
-        //     } else {
-        //         setOngkir(null);
-        //     }
-        // };
-
         if (selectedCourier && destinationId) {
             try {
                 const response = await axios.post(route('onkir'), {
@@ -243,7 +207,6 @@ const CartList = ({ cart }) => {
                     courier: selectedCourier
                 });
                 const ongkirData = response.data.rajaongkir.results[0].costs;
-                // console.log(ongkirData);
                 setOngkir(ongkirData);
             } catch (error) {
                 console.error("Error fetching ongkir:", error);

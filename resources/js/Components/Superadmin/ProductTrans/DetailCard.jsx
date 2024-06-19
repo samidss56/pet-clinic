@@ -8,7 +8,6 @@ import { formatCurr } from "@/Utils/FormatPrice";
 import { Link } from "@inertiajs/react";
 
 const DetailCard = ({ transaction }) => {
-    console.log(transaction);
     const handleDownloadPDF = useExportPDF(
         "superadmin.product-transaction.downloadPDF",
         transaction.invoice

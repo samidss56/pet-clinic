@@ -46,21 +46,25 @@ const Sidebar = ({ user }) => {
                     <div className="flex flex-col gap-3">
                         {isOpen ? (
                             <div className="flex items-center justify-between mb-2">
-                                <img
-                                    src={appLogo}
-                                    alt="App Logo"
-                                    className="w-14"
-                                />
+                                <Link href={route("home")}>
+                                    <img
+                                        src={appLogo}
+                                        alt="App Logo"
+                                        className="w-14"
+                                    />
+                                </Link>
                                 <a className="btn bg-gray-100 hover:bg-gray-200 border-none text-md font-medium text-gray-800">
                                     {user.user.name}
                                 </a>
                             </div>
                         ) : (
-                            <img
-                                src={appLogo}
-                                alt="App Logo"
-                                className="w-14"
-                            />
+                            <Link href={route("home")}>
+                                <img
+                                    src={appLogo}
+                                    alt="App Logo"
+                                    className="w-14"
+                                />
+                            </Link>
                         )}
                         <div className="flex flex-col gap-3">
                             <li>
