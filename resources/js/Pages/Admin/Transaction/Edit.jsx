@@ -508,7 +508,7 @@ const Edit = ({
                                 Tunai
                             </Dropdown.Link>
                             <Dropdown.Divider />
-                            <Dropdown.Link
+                            {/* <Dropdown.Link
                                 onClick={(e) => handleSubmit(e, "gopay")}
                             >
                                 Gopay
@@ -526,7 +526,7 @@ const Edit = ({
                                 }
                             >
                                 BNI VA
-                            </Dropdown.Link>
+                            </Dropdown.Link> */}
                         </ButtonLink>
                         {/* <PrimaryButton type="submit" onClick={handleSubmit}>
                 Update Transaction

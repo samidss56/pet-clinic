@@ -55,9 +55,12 @@ const CreateProduct = ({ auth, title }) => {
                         className="block w-full"
                         placeholder="Product Name"
                         value={data.name_product}
-                        onChange={(e) =>
-                            setData("name_product", e.target.value)
-                        }
+                        onChange={(e) => {
+                            const trimmedValue =
+                                e.target.value.slice(0, 50);
+                            setData("name_product", trimmedValue);
+                        }}
+                        maxLength={50}
                         required
                     />
                     <InputError
@@ -153,11 +156,10 @@ const CreateProduct = ({ auth, title }) => {
                             />
                         </div>
                     </div>
-                    <InputLabel
-                        htmlFor="weight"
-                        value="Product Weight"
-                    />
-                    <span className="text-red-500 font-semibold text-sm">100 = 1 GRAM</span>
+                    <InputLabel htmlFor="weight" value="Product Weight" />
+                    <span className="text-red-500 font-semibold text-sm">
+                        100 = 1 GRAM
+                    </span>
                     <TextInput
                         type="text"
                         id="weight"
@@ -165,18 +167,10 @@ const CreateProduct = ({ auth, title }) => {
                         className="block w-full"
                         placeholder="Product Weight"
                         value={data.weight}
-                        onChange={(e) =>
-                            setData(
-                                "weight",
-                                e.target.value
-                            )
-                        }
+                        onChange={(e) => setData("weight", e.target.value)}
                         required
                     />
-                    <InputError
-                        message={errors.weight}
-                        className="mb-2"
-                    />
+                    <InputError message={errors.weight} className="mb-2" />
                     <div className="flex gap-3 mt-4">
                         <Link href={route("superadmin.products")}>
                             <SecondaryButton className=" gap-2">
