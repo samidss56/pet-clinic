@@ -360,18 +360,23 @@ const Edit = ({ docter, auth, title, appointmen, services, products }) => {
                         </div>
                         <div>
                             <InputLabel htmlFor="weight" value="Weight" />
-                            <TextInput
-                                type="text"
-                                id="weight"
-                                name="weight"
-                                className="block w-full"
-                                placeholder="weight"
-                                value={data.weight}
-                                onChange={(e) =>
-                                    setData("weight", e.target.value)
-                                }
-                                required
-                            />
+                            <div className="flex items-center gap-2">
+                                <TextInput
+                                    type="text"
+                                    id="weight"
+                                    name="weight"
+                                    className="block w-full"
+                                    placeholder="weight"
+                                    value={data.weight}
+                                    onChange={(e) =>
+                                        setData("weight", e.target.value)
+                                    }
+                                    required
+                                />
+                                <p className="text-gray-800 font-semibold text-lg mb-2">
+                                    kg
+                                </p>
+                            </div>
                             <InputError
                                 message={errors.weight}
                                 className="mb-2"
@@ -385,18 +390,23 @@ const Edit = ({ docter, auth, title, appointmen, services, products }) => {
                                 htmlFor="temperature"
                                 value="Temperature"
                             />
-                            <TextInput
-                                type="text"
-                                id="temperature"
-                                name="temperature"
-                                className="block w-full"
-                                placeholder="temperature"
-                                value={data.temperature}
-                                onChange={(e) =>
-                                    setData("temperature", e.target.value)
-                                }
-                                required
-                            />
+                            <div className="flex items-center gap-2">
+                                <TextInput
+                                    type="text"
+                                    id="temperature"
+                                    name="temperature"
+                                    className="block w-full"
+                                    placeholder="temperature"
+                                    value={data.temperature}
+                                    onChange={(e) =>
+                                        setData("temperature", e.target.value)
+                                    }
+                                    required
+                                />
+                                <p className="text-gray-800 font-semibold text-lg mb-2">
+                                    °C
+                                </p>
+                            </div>
                             <InputError
                                 message={errors.temperature}
                                 className="mb-2"
