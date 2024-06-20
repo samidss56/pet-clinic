@@ -21,6 +21,7 @@ class ProductSeeder extends Seeder
                 'price_product' => 50000,
                 'stock_product' => 30,
                 'weight' => 500,
+                'image_product' => 'product_' . Str::random(15),
             ],
             [
                 'name_product' => 'Puppy Starter Milk',
@@ -28,34 +29,39 @@ class ProductSeeder extends Seeder
                 'price_product' => 100000,
                 'stock_product' => 40,
                 'weight' => 200,
+                'image_product' => 'product_' . Str::random(15),
             ],
             [
-                'name_product' => 'Whiskas Complete Wet Cat Food Pouch Salmon',
+                'name_product' => 'Whiskas Complete Wet Cat',
                 'deskripsi_product' => 'Makanan basah untuk kucing dengan rasa salmon. Kaya akan protein dan vitamin untuk kesehatan kucing secara keseluruhan.',
                 'price_product' => 10000,
                 'stock_product' => 50,
                 'weight' => 85,
+                'image_product' => 'product_' . Str::random(15),
             ],
             [
-                'name_product' => 'Hills Science Diet Adult Sensitive Stomach and Skin Dry Dog Food',
+                'name_product' => 'Hills Science Diet Adult',
                 'deskripsi_product' => 'Makanan kering untuk anjing dewasa dengan pencernaan sensitif dan alergi kulit. Membantu meredakan gejala pencernaan dan alergi.',
                 'price_product' => 400000,
                 'stock_product' => 60,
                 'weight' => 3000,
+                'image_product' => 'product_' . Str::random(15),
             ],
             [
-                'name_product' => 'Royal Canin Feline Hairball Care Dry Cat Food',
+                'name_product' => 'Royal Canin Feline',
                 'deskripsi_product' => 'Makanan kering untuk kucing yang rentan terhadap hairball. Membantu mencegah pembentukan hairball dan melancarkan pencernaan.',
                 'price_product' => 350000,
                 'stock_product' => 70,
                 'weight' => 1000,
+                'image_product' => 'product_' . Str::random(15),
             ],
             [
-                'name_product' => 'Pro Plan Veterinary Diets OM Intestinal Formula Dry Cat Food',
+                'name_product' => 'Pro Plan Veterinary Diets',
                 'deskripsi_product' => 'Makanan kering khusus untuk kucing dengan masalah pencernaan. Membantu melancarkan pencernaan dan penyerapan nutrisi.',
                 'price_product' => 300000,
                 'stock_product' => 80,
                 'weight' => 2000,
+                'image_product' => 'product_' . Str::random(15),
             ]
         ];
 
@@ -69,6 +75,7 @@ class ProductSeeder extends Seeder
                 'slug' => Str::slug($productData['name_product']),
                 'deskripsi_product' => $productData['deskripsi_product'],
                 'price_product' => $productData['price_product'],
+                'image_product' => $productData['image_product'],
                 'stock_product' => $productData['stock_product'],
                 'weight' => $productData['weight'],
             ]);

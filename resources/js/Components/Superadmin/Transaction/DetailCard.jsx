@@ -53,28 +53,28 @@ const DetailCard = ({ transaction }) => {
             <div className="p-4 grid grid-cols-3 gap-4">
                 <div className="bg-gray-50 rounded-lg shadow-md p-4 border border-gray-200">
                     <h2 className="text-gray-700 font-semibold">
-                        Doctor Details
+                        Pet Details
                     </h2>
                     <div className="mt-3">
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Pet ID" />
                         <TextInput
                             value={transaction.appointment.pet_id}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Pet Name" />
                         <TextInput
                             value={transaction.appointment.pet_name}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Pet Age" />
                         <TextInput
                             value={transaction.appointment.pet_age}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Pet Gender" />
                         <TextInput
                             value={transaction.appointment.pet_gender}
                             disabled
@@ -87,25 +87,25 @@ const DetailCard = ({ transaction }) => {
                         Owner Details
                     </h2>
                     <div className="mt-3">
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Owner ID" />
                         <TextInput
                             value={transaction.appointment.owner_id}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Owner Name" />
                         <TextInput
                             value={transaction.appointment.owner_name}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Owner Email" />
                         <TextInput
                             value={transaction.appointment.owner_email}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Owner Phone" />
                         <TextInput
                             value={transaction.appointment.owner_phone}
                             disabled
@@ -122,19 +122,19 @@ const DetailCard = ({ transaction }) => {
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Doctor Name" />
                         <TextInput
                             value={transaction.appointment.doctor_name}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Doctor Email" />
                         <TextInput
                             value={transaction.appointment.doctor_email}
                             disabled
                             className="block w-full"
                         />
-                        <InputLabel value="Doctor ID" />
+                        <InputLabel value="Doctor Phone" />
                         <TextInput
                             value={transaction.appointment.doctor_phone}
                             disabled
