@@ -5,6 +5,7 @@ import {
     KeyIcon,
     MailIcon,
     TextIcon,
+    TransactionsIcon,
 } from "@/Components/Icons/Index";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
@@ -166,6 +167,15 @@ const DetailCard = ({ appointment }) => {
                             </p>
                             <p className="font-bold text-gray-800">
                                 {appointment.description}
+                            </p>
+                        </div>
+                        <div className="p-2">
+                            <p className="text-gray-500 flex gap-2 items-center">
+                                <TransactionsIcon />
+                                Payment Type
+                            </p>
+                            <p className="font-bold text-gray-800">
+                                Tunai
                             </p>
                         </div>
                     </div>
